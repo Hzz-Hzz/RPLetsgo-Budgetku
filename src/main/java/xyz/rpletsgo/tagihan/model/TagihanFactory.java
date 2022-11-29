@@ -2,13 +2,13 @@ package xyz.rpletsgo.tagihan.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import xyz.rpletsgo.common.model.FinancialEventBlueprint;
-import xyz.rpletsgo.tagihan.core.ITagihanBlueprint;
+import xyz.rpletsgo.common.model.FinancialEventFactory;
+import xyz.rpletsgo.tagihan.core.ITagihanFactory;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 @Entity
 @Table
-public class TagihanBlueprint extends FinancialEventBlueprint implements ITagihanBlueprint {
+public class TagihanFactory extends FinancialEventFactory implements ITagihanFactory {
     @Override
     public Tagihan create(IWorkspace workspace) {
         Tagihan tagihan = new Tagihan();

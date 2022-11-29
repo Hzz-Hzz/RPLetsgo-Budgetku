@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
-import xyz.rpletsgo.pengeluaran.core.IPengeluaranBlueprint;
+import xyz.rpletsgo.pengeluaran.core.IPengeluaranFactory;
 import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class PengeluaranBlueprintTest {
+class PengeluaranFactoryTest {
     @Test
     void constructorRunsCorrectly(){
-        assertDoesNotThrow(PengeluaranBlueprint::new);
+        assertDoesNotThrow(PengeluaranFactory::new);
     }
     
     static String nama = "a";
@@ -34,8 +34,8 @@ class PengeluaranBlueprintTest {
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
     
-    static IPengeluaranBlueprint initializeBlueprint(Tagihan tagihan){
-        IPengeluaranBlueprint blueprint = new PengeluaranBlueprint();
+    static IPengeluaranFactory initializeBlueprint(Tagihan tagihan){
+        IPengeluaranFactory blueprint = new PengeluaranFactory();
         blueprint.setNama(nama);
         blueprint.setKeterangan(keterangan);
         blueprint.setNominal(nominal);
@@ -58,7 +58,7 @@ class PengeluaranBlueprintTest {
     static void verifyCreateWorkingCorrectly(Tagihan tagihan){
         IWorkspace workspace = mock(IWorkspace.class);
         
-        IPengeluaranBlueprint factory = initializeBlueprint(tagihan);
+        IPengeluaranFactory factory = initializeBlueprint(tagihan);
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pengeluaran pengeluaran = factory.create(workspace);
         

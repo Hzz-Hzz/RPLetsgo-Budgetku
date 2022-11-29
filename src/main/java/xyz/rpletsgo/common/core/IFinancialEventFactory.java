@@ -2,7 +2,7 @@ package xyz.rpletsgo.common.core;
 
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
-public interface IFinancialEventBlueprint {
+public interface IFinancialEventFactory {
     String getId();
     String getNama();
     String getKeterangan();

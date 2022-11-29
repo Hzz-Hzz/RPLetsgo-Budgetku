@@ -3,7 +3,7 @@ package xyz.rpletsgo.pemasukan.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
-import xyz.rpletsgo.pemasukan.core.IPemasukanBlueprint;
+import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.time.LocalDateTime;
@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class PemasukanBlueprintTest {
+class PemasukanFactoryTest {
     
     @Test
     void constructorRunsCorrectly(){
-        assertDoesNotThrow(PemasukanBlueprint::new);
+        assertDoesNotThrow(PemasukanFactory::new);
     }
     
     static String nama = "a";
@@ -34,8 +34,8 @@ class PemasukanBlueprintTest {
     }
     
     
-    static IPemasukanBlueprint initializeBlueprint(){
-        IPemasukanBlueprint blueprint = new PemasukanBlueprint();
+    static IPemasukanFactory initializeBlueprint(){
+        IPemasukanFactory blueprint = new PemasukanFactory();
         blueprint.setNama(nama);
         blueprint.setKeterangan(keterangan);
         blueprint.setNominal(nominal);
@@ -48,7 +48,7 @@ class PemasukanBlueprintTest {
     void create() {
         IWorkspace workspace = mock(IWorkspace.class);
         
-        IPemasukanBlueprint factory = initializeBlueprint();
+        IPemasukanFactory factory = initializeBlueprint();
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pemasukan pemasukan = factory.create(workspace);
         

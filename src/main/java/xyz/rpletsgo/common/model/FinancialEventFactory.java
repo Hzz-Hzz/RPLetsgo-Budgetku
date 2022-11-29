@@ -3,7 +3,7 @@ package xyz.rpletsgo.common.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.rpletsgo.common.core.IFinancialEventBlueprint;
+import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.common.core.LocalDateTimeFactory;
 import xyz.rpletsgo.workspace.core.IWorkspace;
@@ -11,7 +11,7 @@ import xyz.rpletsgo.workspace.core.IWorkspace;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class FinancialEventBlueprint implements IFinancialEventBlueprint {
+public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Getter
     @Id
     @Column(updatable = false)

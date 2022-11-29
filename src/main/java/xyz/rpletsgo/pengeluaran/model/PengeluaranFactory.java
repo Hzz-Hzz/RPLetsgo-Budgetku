@@ -6,14 +6,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
-import xyz.rpletsgo.common.model.FinancialEventBlueprint;
-import xyz.rpletsgo.pengeluaran.core.IPengeluaranBlueprint;
+import xyz.rpletsgo.common.model.FinancialEventFactory;
+import xyz.rpletsgo.pengeluaran.core.IPengeluaranFactory;
 import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 @Entity
 @Table
-public class PengeluaranBlueprint extends FinancialEventBlueprint implements IPengeluaranBlueprint {
+public class PengeluaranFactory extends FinancialEventFactory implements IPengeluaranFactory {
     @Setter
     @Getter
     @ManyToOne

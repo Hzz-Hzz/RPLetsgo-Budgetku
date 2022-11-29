@@ -1,10 +1,10 @@
 package xyz.rpletsgo.tagihan.core;
 
-import xyz.rpletsgo.common.core.IFinancialEventBlueprint;
+import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
-public interface ITagihanBlueprint extends IFinancialEventBlueprint {
+public interface ITagihanFactory extends IFinancialEventFactory {
     @Override
     Tagihan create(IWorkspace workspace);
 }

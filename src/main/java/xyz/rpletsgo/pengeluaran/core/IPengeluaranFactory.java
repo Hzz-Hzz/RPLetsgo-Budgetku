@@ -2,12 +2,12 @@ package xyz.rpletsgo.pengeluaran.core;
 
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
-import xyz.rpletsgo.common.core.IFinancialEventBlueprint;
+import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
 import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
-public interface IPengeluaranBlueprint extends IFinancialEventBlueprint {
+public interface IPengeluaranFactory extends IFinancialEventFactory {
     SpendingAllowance getSumberDana();
     void setSumberDana(SpendingAllowance value);
     

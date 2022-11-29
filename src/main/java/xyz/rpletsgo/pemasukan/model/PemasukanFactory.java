@@ -5,13 +5,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.rpletsgo.common.model.FinancialEventBlueprint;
-import xyz.rpletsgo.pemasukan.core.IPemasukanBlueprint;
+import xyz.rpletsgo.common.model.FinancialEventFactory;
+import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 @Entity
 @Table
-public class PemasukanBlueprint extends FinancialEventBlueprint implements IPemasukanBlueprint {
+public class PemasukanFactory extends FinancialEventFactory implements IPemasukanFactory {
     @Getter
     @Setter
     @ManyToOne
