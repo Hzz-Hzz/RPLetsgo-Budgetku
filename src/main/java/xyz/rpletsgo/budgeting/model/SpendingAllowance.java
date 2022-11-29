@@ -18,11 +18,10 @@ public class SpendingAllowance {
     
     @Getter
     @Column(name = "nominal")
-    long nominal;
+    long nominal = 0;
     
     
-    public long increaseNominal(long increment) {
+    public void increaseNominal(long increment) {
         nominal += increment;
-        return nominal;
     }
 }

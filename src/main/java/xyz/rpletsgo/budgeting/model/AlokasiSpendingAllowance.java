@@ -25,7 +25,7 @@ public class AlokasiSpendingAllowance {
     double besarAlokasi;
     
     
-    public long increaseNominalSpendingAllowance(long nominalKeseluruhan) {
+    public long increaseNominal(long nominalKeseluruhan) {
         Double incrementAsDouble = nominalKeseluruhan * besarAlokasi;
         long increment = incrementAsDouble.longValue();
         

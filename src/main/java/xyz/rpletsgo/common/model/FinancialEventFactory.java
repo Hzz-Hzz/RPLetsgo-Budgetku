@@ -11,11 +11,13 @@ public abstract class FinancialEventFactory<B extends IFinancialEventBlueprint>
     protected void sideEffect_initialize(
             IFinancialEventBlueprint blueprint,
             IWorkspace workspace,
-            FinancialEvent sideEffect_financialEvent) {
+            FinancialEvent sideEffect_financialEvent)
+    {
         sideEffect_financialEvent.setKeterangan(blueprint.getKeterangan());
         sideEffect_financialEvent.setNama(blueprint.getNama());
-        sideEffect_financialEvent.setNominal(sideEffect_financialEvent.getNominal());
+        sideEffect_financialEvent.setNominal(blueprint.getNominal());
         sideEffect_financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
+        
         workspace.addFinancialEvent(sideEffect_financialEvent);
     }
 }

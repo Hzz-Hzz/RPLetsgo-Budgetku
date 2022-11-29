@@ -7,6 +7,7 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,15 +24,15 @@ public class Workspace implements IWorkspace {
     
     @Getter
     @OneToMany
-    List<KategoriPemasukan> kategoriPemasukan;
+    List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
     @OneToMany
-    List<FinancialEvent> financialEvents;
+    List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
     @OneToMany
-    List<SpendingAllowance> spendingAllowances;
+    List<SpendingAllowance> spendingAllowances = new ArrayList<>();
     
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {

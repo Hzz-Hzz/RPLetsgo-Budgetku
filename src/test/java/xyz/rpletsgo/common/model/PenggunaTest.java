@@ -3,7 +3,8 @@ package xyz.rpletsgo.common.model;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.common.core.IPengguna;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PenggunaTest {
     static String username = "a";
@@ -32,5 +33,10 @@ class PenggunaTest {
         assertEquals(password, pengguna.getPassword());
         assertEquals(name, pengguna.getName());
         assertEquals(email, pengguna.getEmail());
+    }
+    
+    @Test
+    void constructorRunsCorrectly(){
+        assertDoesNotThrow(() -> new Pengguna());
     }
 }

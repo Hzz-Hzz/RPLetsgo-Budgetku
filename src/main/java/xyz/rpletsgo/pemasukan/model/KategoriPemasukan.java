@@ -27,9 +27,10 @@ public class KategoriPemasukan {
     @Getter
     @Setter
     @OneToMany
-    List<AlokasiSpendingAllowance> alokasiSpendingAllowances;
+    List<AlokasiSpendingAllowance> alokasiSpendingAllowances = new ArrayList<>();
     
-    List<SpendingAllowance> getSpendingAllowanceYangTerkait(){
+    
+    public List<SpendingAllowance> getSpendingAllowanceYangTerkait(){
         List<SpendingAllowance> ret = new ArrayList<>();
     
         for (AlokasiSpendingAllowance alokasiSpendingAllowance: alokasiSpendingAllowances) {
@@ -37,5 +38,11 @@ public class KategoriPemasukan {
         }
         
         return ret;
+    }
+    
+    public void addPemasukan(long nominal){
+        for (AlokasiSpendingAllowance alokasiSpendingAllowance: alokasiSpendingAllowances) {
+            alokasiSpendingAllowance.increaseNominal(nominal);
+        }
     }
 }
