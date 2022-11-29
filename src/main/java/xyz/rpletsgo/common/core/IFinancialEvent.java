@@ -2,7 +2,7 @@ package xyz.rpletsgo.common.core;
 
 import java.time.LocalDateTime;
 
-public interface IFinancialEvents {
+public interface IFinancialEvent {
     String getId();
     String getNama();
     String getKeterangan();

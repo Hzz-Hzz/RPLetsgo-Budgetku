@@ -1,16 +1,15 @@
 package xyz.rpletsgo.pemasukan.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.rpletsgo.common.core.IFinancialEvents;
-import xyz.rpletsgo.common.model.FinancialEvents;
-
-import java.time.LocalDateTime;
+import xyz.rpletsgo.common.model.FinancialEvent;
 
 @Entity
 @Table
-public class Pemasukan extends FinancialEvents {
+public class Pemasukan extends FinancialEvent {
     @Getter
     @Setter
     @ManyToOne
