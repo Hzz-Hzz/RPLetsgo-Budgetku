@@ -6,12 +6,12 @@ import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.pengeluaran.core.IPengeluaranFactory;
 import xyz.rpletsgo.tagihan.model.Tagihan;
-import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PengeluaranFactoryTest {
     @Test
@@ -56,11 +56,9 @@ class PengeluaranFactoryTest {
     }
     
     static void verifyCreateWorkingCorrectly(Tagihan tagihan){
-        IWorkspace workspace = mock(IWorkspace.class);
-        
         IPengeluaranFactory factory = initializeBlueprint(tagihan);
         factory.setLocalDateTimeFactory(dateTimeFactory);
-        Pengeluaran pengeluaran = factory.create(workspace);
+        Pengeluaran pengeluaran = factory.create();
         
         assertEquals(nama, pengeluaran.getNama());
         assertEquals(keterangan, pengeluaran.getKeterangan());
@@ -68,7 +66,5 @@ class PengeluaranFactoryTest {
         assertSame(sumberDana, pengeluaran.getSumberDana());
         assertSame(tagihan, pengeluaran.getTagihanYangDibayar());
         assertSame(currentTime, pengeluaran.getWaktu());
-        
-        verify(workspace, times(1)).addFinancialEvent(pengeluaran);
     }
 }

@@ -1,7 +1,5 @@
 package xyz.rpletsgo.common.core;
 
-import xyz.rpletsgo.workspace.core.IWorkspace;
-
 public interface IFinancialEventFactory {
     String getId();
     String getNama();
@@ -14,5 +12,5 @@ public interface IFinancialEventFactory {
     
     ILocalDateTimeFactory getLocalDateTimeFactory();
     void setLocalDateTimeFactory(ILocalDateTimeFactory localDateTimeFactory);
-    IFinancialEvent create(IWorkspace workspace);
+    IFinancialEvent create();
 }

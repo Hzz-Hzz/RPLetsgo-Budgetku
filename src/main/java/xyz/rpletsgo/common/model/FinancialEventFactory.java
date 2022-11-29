@@ -6,7 +6,6 @@ import lombok.Setter;
 import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.common.core.LocalDateTimeFactory;
-import xyz.rpletsgo.workspace.core.IWorkspace;
 
 @Entity
 @Table
@@ -39,14 +38,11 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     ILocalDateTimeFactory localDateTimeFactory = new LocalDateTimeFactory();
     
     protected void sideEffect_initialize(
-            IWorkspace workspace,
-            FinancialEvent sideEffect_financialEvent)
-    {
+            FinancialEvent sideEffect_financialEvent
+    ){
         sideEffect_financialEvent.setKeterangan(getKeterangan());
         sideEffect_financialEvent.setNama(getNama());
         sideEffect_financialEvent.setNominal(getNominal());
         sideEffect_financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
-        
-        workspace.addFinancialEvent(sideEffect_financialEvent);
     }
 }

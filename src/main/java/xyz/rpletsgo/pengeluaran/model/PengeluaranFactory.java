@@ -9,7 +9,6 @@ import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEventFactory;
 import xyz.rpletsgo.pengeluaran.core.IPengeluaranFactory;
 import xyz.rpletsgo.tagihan.model.Tagihan;
-import xyz.rpletsgo.workspace.core.IWorkspace;
 
 @Entity
 @Table
@@ -25,9 +24,9 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
     Tagihan tagihanYangDibayar;
     
     @Override
-    public Pengeluaran create(IWorkspace workspace) {
+    public Pengeluaran create() {
         Pengeluaran pengeluaran = new Pengeluaran();
-        sideEffect_initialize(workspace, pengeluaran);
+        sideEffect_initialize(pengeluaran);
         
         pengeluaran.setSumberDana(getSumberDana());
         pengeluaran.setTagihanYangDibayar(getTagihanYangDibayar());

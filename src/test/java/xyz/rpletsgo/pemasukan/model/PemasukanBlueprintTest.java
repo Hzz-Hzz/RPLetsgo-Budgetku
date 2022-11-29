@@ -4,12 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
-import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PemasukanFactoryTest {
     
@@ -46,18 +46,14 @@ class PemasukanFactoryTest {
     
     @Test
     void create() {
-        IWorkspace workspace = mock(IWorkspace.class);
-        
         IPemasukanFactory factory = initializeBlueprint();
         factory.setLocalDateTimeFactory(dateTimeFactory);
-        Pemasukan pemasukan = factory.create(workspace);
+        Pemasukan pemasukan = factory.create();
         
         assertEquals(nama, pemasukan.getNama());
         assertEquals(keterangan, pemasukan.getKeterangan());
         assertEquals(nominal, pemasukan.getNominal());
         assertSame(kategoriPemasukan, pemasukan.getKategori());
         assertSame(currentTime, pemasukan.getWaktu());
-        
-        verify(workspace, times(1)).addFinancialEvent(pemasukan);
     }
 }
