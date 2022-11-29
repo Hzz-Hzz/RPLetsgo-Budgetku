@@ -28,7 +28,7 @@ class PemasukanFactoryTest {
     
     @BeforeEach
     void setup(){
-        currentTime = LocalDateTime.now();
+        currentTime = LocalDateTime.of(2000, 1, 1, 1, 1 );
         dateTimeFactory = mock(ILocalDateTimeFactory.class);
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
@@ -55,5 +55,19 @@ class PemasukanFactoryTest {
         assertEquals(nominal, pemasukan.getNominal());
         assertSame(kategoriPemasukan, pemasukan.getKategori());
         assertSame(currentTime, pemasukan.getWaktu());
+    }
+    
+    
+    @Test
+    void createWithSpecificTime() {
+        IPemasukanFactory factory = initializeBlueprint();
+        LocalDateTime waktu = currentTime.plusSeconds(-1);
+        Pemasukan pemasukan = factory.create(waktu);
+        
+        assertEquals(nama, pemasukan.getNama());
+        assertEquals(keterangan, pemasukan.getKeterangan());
+        assertEquals(nominal, pemasukan.getNominal());
+        assertSame(kategoriPemasukan, pemasukan.getKategori());
+        assertSame(waktu, pemasukan.getWaktu());
     }
 }

@@ -24,11 +24,13 @@ class TagihanFactoryTest {
     static SpendingAllowance sumberDana = mock(SpendingAllowance.class);
     
     static LocalDateTime currentTime;
+    static LocalDateTime currentTime2;
     static ILocalDateTimeFactory dateTimeFactory;
     
     @BeforeEach
     void setup(){
         currentTime = LocalDateTime.now();
+        currentTime2 = currentTime.plusSeconds(1);
         dateTimeFactory = mock(ILocalDateTimeFactory.class);
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
@@ -51,5 +53,18 @@ class TagihanFactoryTest {
         assertEquals(keterangan, tagihan.getKeterangan());
         assertEquals(nominal, tagihan.getNominal());
         assertSame(currentTime, tagihan.getWaktu());
+    }
+    
+    
+    @Test
+    void createWithSpecificTime() {
+        ITagihanFactory factory = initializeBlueprint();
+        factory.setLocalDateTimeFactory(dateTimeFactory);
+        Tagihan tagihan = factory.create(currentTime2);
+        
+        assertEquals(nama, tagihan.getNama());
+        assertEquals(keterangan, tagihan.getKeterangan());
+        assertEquals(nominal, tagihan.getNominal());
+        assertSame(currentTime2, tagihan.getWaktu());
     }
 }

@@ -12,6 +12,7 @@ public class AlokasiSpendingAllowance {
     @Setter
     @Id
     @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     
     @Getter

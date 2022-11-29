@@ -29,7 +29,7 @@ class PengeluaranFactoryTest {
     
     @BeforeEach
     void setup(){
-        currentTime = LocalDateTime.now();
+        currentTime = LocalDateTime.of(2000, 1, 1, 1, 1);
         dateTimeFactory = mock(ILocalDateTimeFactory.class);
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
@@ -53,6 +53,20 @@ class PengeluaranFactoryTest {
     @Test
     void create_nullTagihan() {
         verifyCreateWorkingCorrectly(null);
+    }
+    
+    @Test
+    void createWithSpecificTime(){
+        IPengeluaranFactory factory = initializeBlueprint(null);
+        var waktu = currentTime.plusSeconds(-1);
+        Pengeluaran pengeluaran = factory.create(waktu);
+    
+        assertEquals(nama, pengeluaran.getNama());
+        assertEquals(keterangan, pengeluaran.getKeterangan());
+        assertEquals(nominal, pengeluaran.getNominal());
+        assertSame(sumberDana, pengeluaran.getSumberDana());
+        assertSame(null, pengeluaran.getTagihanYangDibayar());
+        assertSame(waktu, pengeluaran.getWaktu());
     }
     
     static void verifyCreateWorkingCorrectly(Tagihan tagihan){
