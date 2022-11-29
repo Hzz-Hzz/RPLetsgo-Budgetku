@@ -7,7 +7,7 @@ import xyz.rpletsgo.common.core.IFinancialEventBlueprint;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class FinancialEventBlueprint implements IFinancialEventBlueprint {
+public abstract class FinancialEventBlueprint implements IFinancialEventBlueprint {
     @Getter
     @Id
     @Column(updatable = false)
