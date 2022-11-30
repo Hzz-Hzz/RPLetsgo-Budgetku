@@ -9,6 +9,7 @@ import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -42,6 +43,11 @@ public class Workspace implements IWorkspace {
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {
         financialEvents.add(financialEvent);
+    }
+    
+    @Override
+    public void addFinancialEvents(Collection<FinancialEvent> financialEvents) {
+        this.financialEvents.addAll(financialEvents);
     }
     
     // TODO automatic financial events

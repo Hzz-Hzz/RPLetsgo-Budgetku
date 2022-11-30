@@ -24,4 +24,20 @@ class WorkspaceTest {
         assertSame(financialEvent1, financialEventList.get(0));
         assertSame(financialEvent2, financialEventList.get(1));
     }
+    
+    
+    @Test
+    void addFinancialEvents() {
+        FinancialEvent financialEvent1 = mock(FinancialEvent.class);
+        FinancialEvent financialEvent2 = mock(FinancialEvent.class);
+        
+        IWorkspace workspace = new Workspace();
+        workspace.addFinancialEvents(
+            List.of(financialEvent1, financialEvent2)
+        );
+        
+        List<FinancialEvent> financialEventList = workspace.getFinancialEvents();
+        assertSame(financialEvent1, financialEventList.get(0));
+        assertSame(financialEvent2, financialEventList.get(1));
+    }
 }
