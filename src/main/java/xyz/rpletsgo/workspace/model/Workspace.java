@@ -3,6 +3,7 @@ package xyz.rpletsgo.workspace.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
+import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
@@ -23,16 +24,20 @@ public class Workspace implements IWorkspace {
     String nama;
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<SpendingAllowance> spendingAllowances = new ArrayList<>();
+    
+    @OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    AutomaticFinancialEvent automaticFinancialEvent;
+    
     
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {

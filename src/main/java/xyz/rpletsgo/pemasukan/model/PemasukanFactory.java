@@ -1,5 +1,6 @@
 package xyz.rpletsgo.pemasukan.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class PemasukanFactory extends FinancialEventFactory implements IPemasukanFactory {
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     KategoriPemasukan kategoriPemasukan;
     
     @Override

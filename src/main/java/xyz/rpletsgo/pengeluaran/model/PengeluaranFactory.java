@@ -1,5 +1,6 @@
 package xyz.rpletsgo.pengeluaran.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -18,12 +19,12 @@ import java.time.LocalDateTime;
 public class PengeluaranFactory extends FinancialEventFactory implements IPengeluaranFactory {
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     SpendingAllowance sumberDana;
     
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     Tagihan tagihanYangDibayar;
     
     @Override

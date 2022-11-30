@@ -26,7 +26,7 @@ public class KategoriPemasukan {
     
     @Getter
     @Setter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<AlokasiSpendingAllowance> alokasiSpendingAllowances = new ArrayList<>();
     
     

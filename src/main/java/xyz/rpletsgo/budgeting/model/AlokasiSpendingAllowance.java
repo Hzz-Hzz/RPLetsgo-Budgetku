@@ -17,7 +17,7 @@ public class AlokasiSpendingAllowance {
     
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     SpendingAllowance spendingAllowance;
     
     @Getter

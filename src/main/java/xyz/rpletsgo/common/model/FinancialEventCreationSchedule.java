@@ -34,7 +34,7 @@ public class FinancialEventCreationSchedule {
     
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     FinancialEventFactory financialEventFactory;
     
     @Getter
