@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.common.model.FinancialEventFactory;
 import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
 

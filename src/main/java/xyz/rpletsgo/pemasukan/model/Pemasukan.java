@@ -6,6 +6,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.common.model.FinancialEvent;
 
 @Entity

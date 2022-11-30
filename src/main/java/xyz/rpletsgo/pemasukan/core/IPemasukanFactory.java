@@ -1,8 +1,8 @@
 package xyz.rpletsgo.pemasukan.core;
 
 import org.springframework.lang.Nullable;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.common.core.IFinancialEventFactory;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.pemasukan.model.Pemasukan;
 
 import java.time.LocalDateTime;
