@@ -34,14 +34,14 @@ class PengeluaranFactoryTest {
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
     
-    static IPengeluaranFactory initializeBlueprint(Tagihan tagihan){
-        IPengeluaranFactory blueprint = new PengeluaranFactory();
-        blueprint.setNama(nama);
-        blueprint.setKeterangan(keterangan);
-        blueprint.setNominal(nominal);
-        blueprint.setSumberDana(sumberDana);
-        blueprint.setTagihanYangDibayar(tagihan);
-        return blueprint;
+    static IPengeluaranFactory initializeFactory(Tagihan tagihan){
+        IPengeluaranFactory factory = new PengeluaranFactory();
+        factory.setNama(nama);
+        factory.setKeterangan(keterangan);
+        factory.setNominal(nominal);
+        factory.setSumberDana(sumberDana);
+        factory.setTagihanYangDibayar(tagihan);
+        return factory;
     }
     
     @Test
@@ -57,7 +57,7 @@ class PengeluaranFactoryTest {
     
     @Test
     void createWithSpecificTime(){
-        IPengeluaranFactory factory = initializeBlueprint(null);
+        IPengeluaranFactory factory = initializeFactory(null);
         var waktu = currentTime.plusSeconds(-1);
         Pengeluaran pengeluaran = factory.create(waktu);
     
@@ -70,7 +70,7 @@ class PengeluaranFactoryTest {
     }
     
     static void verifyCreateWorkingCorrectly(Tagihan tagihan){
-        IPengeluaranFactory factory = initializeBlueprint(tagihan);
+        IPengeluaranFactory factory = initializeFactory(tagihan);
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pengeluaran pengeluaran = factory.create();
         

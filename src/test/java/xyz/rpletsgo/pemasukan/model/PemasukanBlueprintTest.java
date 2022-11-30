@@ -34,19 +34,19 @@ class PemasukanFactoryTest {
     }
     
     
-    static IPemasukanFactory initializeBlueprint(){
-        IPemasukanFactory blueprint = new PemasukanFactory();
-        blueprint.setNama(nama);
-        blueprint.setKeterangan(keterangan);
-        blueprint.setNominal(nominal);
-        blueprint.setKategoriPemasukan(kategoriPemasukan);
-        return blueprint;
+    static IPemasukanFactory initializeFactory(){
+        IPemasukanFactory factory = new PemasukanFactory();
+        factory.setNama(nama);
+        factory.setKeterangan(keterangan);
+        factory.setNominal(nominal);
+        factory.setKategoriPemasukan(kategoriPemasukan);
+        return factory;
     }
     
     
     @Test
     void create() {
-        IPemasukanFactory factory = initializeBlueprint();
+        IPemasukanFactory factory = initializeFactory();
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pemasukan pemasukan = factory.create();
         
@@ -60,7 +60,7 @@ class PemasukanFactoryTest {
     
     @Test
     void createWithSpecificTime() {
-        IPemasukanFactory factory = initializeBlueprint();
+        IPemasukanFactory factory = initializeFactory();
         LocalDateTime waktu = currentTime.plusSeconds(-1);
         Pemasukan pemasukan = factory.create(waktu);
         

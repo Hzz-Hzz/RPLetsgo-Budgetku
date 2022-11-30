@@ -35,17 +35,17 @@ class TagihanFactoryTest {
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
     
-    static ITagihanFactory initializeBlueprint(){
-        ITagihanFactory blueprint = new TagihanFactory();
-        blueprint.setNama(nama);
-        blueprint.setKeterangan(keterangan);
-        blueprint.setNominal(nominal);
-        return blueprint;
+    static ITagihanFactory initializeFactory(){
+        ITagihanFactory factory = new TagihanFactory();
+        factory.setNama(nama);
+        factory.setKeterangan(keterangan);
+        factory.setNominal(nominal);
+        return factory;
     }
     
     @Test
     void create() {
-        ITagihanFactory factory = initializeBlueprint();
+        ITagihanFactory factory = initializeFactory();
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Tagihan tagihan = factory.create();
         
@@ -58,7 +58,7 @@ class TagihanFactoryTest {
     
     @Test
     void createWithSpecificTime() {
-        ITagihanFactory factory = initializeBlueprint();
+        ITagihanFactory factory = initializeFactory();
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Tagihan tagihan = factory.create(currentTime2);
         
