@@ -3,10 +3,12 @@ package xyz.rpletsgo.common.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.common.core.LocalDateTimeFactory;
-import xyz.rpletsgo.workspace.core.IWorkspace;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -15,6 +17,7 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Getter
     @Id
     @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
     
     @Setter
@@ -39,14 +42,16 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     ILocalDateTimeFactory localDateTimeFactory = new LocalDateTimeFactory();
     
     protected void sideEffect_initialize(
-            IWorkspace workspace,
-            FinancialEvent sideEffect_financialEvent)
-    {
+            FinancialEvent sideEffect_financialEvent,
+            @Nullable LocalDateTime waktu
+    ){
         sideEffect_financialEvent.setKeterangan(getKeterangan());
         sideEffect_financialEvent.setNama(getNama());
         sideEffect_financialEvent.setNominal(getNominal());
-        sideEffect_financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
         
-        workspace.addFinancialEvent(sideEffect_financialEvent);
+        if (waktu == null)
+            sideEffect_financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
+        else
+            sideEffect_financialEvent.setWaktu(waktu);
     }
 }

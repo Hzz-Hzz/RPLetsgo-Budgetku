@@ -2,12 +2,15 @@ package xyz.rpletsgo.workspace.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
+import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,21 +26,35 @@ public class Workspace implements IWorkspace {
     String nama;
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
-    @OneToMany
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
     List<SpendingAllowance> spendingAllowances = new ArrayList<>();
+    
+    @Getter
+    @Setter
+    @OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    AutomaticFinancialEvent automaticFinancialEvent;
+    
     
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {
         financialEvents.add(financialEvent);
     }
     
-    // TODO automatic financial events
+    @Override
+    public void addFinancialEvents(Collection<FinancialEvent> financialEvents) {
+        this.financialEvents.addAll(financialEvents);
+    }
+    
+    @Override
+    public void triggerAutomation(){
+        automaticFinancialEvent.triggerEventCreation(this);
+    }
 }
