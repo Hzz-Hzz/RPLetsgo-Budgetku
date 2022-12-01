@@ -1,13 +1,11 @@
-package xyz.rpletsgo.common.model;
+package xyz.rpletsgo.auth.model;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import xyz.rpletsgo.common.core.IPengguna;
 

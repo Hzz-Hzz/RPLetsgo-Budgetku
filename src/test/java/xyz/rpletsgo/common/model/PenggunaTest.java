@@ -1,6 +1,7 @@
 package xyz.rpletsgo.common.model;
 
 import org.junit.jupiter.api.Test;
+import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.common.core.IPengguna;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
