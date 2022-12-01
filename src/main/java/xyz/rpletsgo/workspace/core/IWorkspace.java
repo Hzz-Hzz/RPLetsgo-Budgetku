@@ -1,8 +1,8 @@
 package xyz.rpletsgo.workspace.core;
 
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEvent;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface IWorkspace {
     
     
     KategoriPemasukan getKategoriPemasukan(String id);
-    SpendingAllowance getSpendingAllowance(String id);
+    SpendingAllowance getSpendingAllowanceOrThrow(String id);
     void addKategoriPemasukan(KategoriPemasukan kategoriPemasukan);
     void addSpendingAllowance(SpendingAllowance spendingAllowance);
     

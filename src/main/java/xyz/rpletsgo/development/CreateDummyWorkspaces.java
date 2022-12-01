@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.PenggunaRepository;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
-import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.model.Workspace;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class CreateDummyWorkspaces {
     @PostConstruct
     void main(){
         if (run){
-            Pengguna pengguna = penggunaRepository.findByUsername("a");
+            Pengguna pengguna = penggunaRepository.findByUsername("a").orElseThrow();
             pengguna.addToCreatedWorkspaces(
                 createWorkspace()
             );
@@ -34,7 +34,6 @@ public class CreateDummyWorkspaces {
     
     Workspace createWorkspace(){
         Workspace workspace = new Workspace();
-    
         
         var spendingAllowanceDefault = new SpendingAllowance("sp-1", "sp-1-name", 10_000);
         var spendingAllowance2 = new SpendingAllowance("sp-2", "sp-2-name", 5000);
@@ -42,7 +41,6 @@ public class CreateDummyWorkspaces {
         workspace.addSpendingAllowance(spendingAllowanceDefault);
         workspace.addSpendingAllowance(spendingAllowance2);
         workspace.addSpendingAllowance(spendingAllowance3);
-        
         
         KategoriPemasukan kategoriDefault = new KategoriPemasukan();
         kategoriDefault.setNama("kat-1");

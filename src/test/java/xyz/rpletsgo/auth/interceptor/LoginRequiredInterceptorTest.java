@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.auth.exceptions.InvalidCredentialException;
 import xyz.rpletsgo.auth.exceptions.InvalidSessionException;
 import xyz.rpletsgo.auth.model.Pengguna;
@@ -15,11 +16,11 @@ import xyz.rpletsgo.auth.repository.SessionRepository;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class LoginRequiredInterceptorTest {
     SessionRepository sessionRepository;
+    CurrentLoggedInPengguna currentPengguna;
     
     @InjectMocks
     LoginRequiredInterceptor loginRequiredInterceptor;
@@ -27,6 +28,7 @@ class LoginRequiredInterceptorTest {
     @BeforeEach
     void setUp() {
         sessionRepository = mock(SessionRepository.class);
+        currentPengguna = mock(CurrentLoggedInPengguna.class);
         MockitoAnnotations.openMocks(this);
     }
     
@@ -68,13 +70,14 @@ class LoginRequiredInterceptorTest {
         when(sessionRepository.getSessionOrThrow("a")).thenReturn(pengguna);
         
         assertTrue(
-            () -> testPreHandle(
-                    "/login-required",
-                    new Cookie[]{
-                        new Cookie("session", "a")
-                    }
+            testPreHandle(
+                "/login-required",
+                new Cookie[]{
+                    new Cookie("session", "a")
+                }
             )
         );
+        verify(currentPengguna, times(1)).setCurrentPengguna(pengguna);
     }
     
     

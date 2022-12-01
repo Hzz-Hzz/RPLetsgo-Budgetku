@@ -4,6 +4,8 @@ package xyz.rpletsgo.auth.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
+import xyz.rpletsgo.auth.exceptions.UnauthorizedAccessException;
 import xyz.rpletsgo.common.core.IPengguna;
 import xyz.rpletsgo.workspace.model.Workspace;
 
@@ -43,7 +45,6 @@ public class Pengguna implements IPengguna {
     List<Workspace> createdWorkspaces;
     
     
-    
     public Pengguna(String username, String password, String email){
         this.username = username;
         this.password = password;
@@ -51,6 +52,27 @@ public class Pengguna implements IPengguna {
     }
     
     protected Pengguna(){}
+    
+    
+    @Nullable
+    public Workspace getWorkspace(String workspaceId){
+        for (Workspace joinedWorkspace: joinedWorkspaces) {
+            if (joinedWorkspace.getId().equals(workspaceId))
+                return joinedWorkspace;
+        }
+        for (Workspace createdWorkspace: createdWorkspaces) {
+            if (createdWorkspace.getId().equals(workspaceId))
+                return createdWorkspace;
+        }
+        return null;
+    }
+    
+    public Workspace getWorkspaceIfAuthorizedOrThrow(String workspaceId){
+        var ret = getWorkspace(workspaceId);
+        if (ret == null)
+            throw new UnauthorizedAccessException("Workspace is not found");
+        return ret;
+    }
     
     
     

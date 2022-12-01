@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table
@@ -17,6 +18,7 @@ public class SpendingAllowance {
     private String id;
     
     @Getter
+    @Setter
     @Column(name = "nama")
     String nama;
     

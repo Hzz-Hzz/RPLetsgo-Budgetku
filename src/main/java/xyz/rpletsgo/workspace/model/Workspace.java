@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
-import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class Workspace implements IWorkspace {
     }
     
     @Override
-    public SpendingAllowance getSpendingAllowance(String id) {
+    public SpendingAllowance getSpendingAllowanceOrThrow(String id) {
         for (var spendingAllowance: spendingAllowances) {
             if (spendingAllowance.getId().equals(id))
                 return spendingAllowance;

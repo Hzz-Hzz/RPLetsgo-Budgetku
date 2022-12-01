@@ -15,6 +15,8 @@ import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.PenggunaRepository;
 import xyz.rpletsgo.auth.repository.SessionRepository;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -43,7 +45,7 @@ class PenggunaServiceTest {
     
     @Test
     void getPengguna_returnedSuccessfully() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(pengguna1);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.of(pengguna1));
     
         var pengguna = penggunaService.getPengguna("a");
         
@@ -52,7 +54,7 @@ class PenggunaServiceTest {
     
     @Test
     void getPengguna_returnedNullIfNotFound() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(null);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.empty());
         
         var pengguna = penggunaService.getPengguna("a");
         
@@ -63,7 +65,7 @@ class PenggunaServiceTest {
     
     @Test
     void getPenggunaOrThrow_returnedSuccessfully() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(pengguna1);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.of(pengguna1));
     
         var pengguna = penggunaService.getPenggunaOrThrow("a");
     
@@ -72,7 +74,7 @@ class PenggunaServiceTest {
     
     @Test
     void getPenggunaOrThrow_throwIfNotFound() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(null);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.empty());
     
         assertThrows(UsernameNotFoundException.class,
                      () -> penggunaService.getPenggunaOrThrow("a"));
@@ -83,7 +85,7 @@ class PenggunaServiceTest {
     
     @Test
     void loginPengguna_returnedSuccessfully() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(pengguna1);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.of(pengguna1));
         when(sessionRepository.createSession(any())).thenReturn("session");
         
         var session = penggunaService.loginPengguna("a", password);
@@ -94,7 +96,7 @@ class PenggunaServiceTest {
     
     @Test
     void loginPengguna_throwIfUsernameNotFound() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(null);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.empty());
         
         assertThrows(UsernameNotFoundException.class,
                      () -> penggunaService.loginPengguna("a", password));
@@ -103,7 +105,7 @@ class PenggunaServiceTest {
     
     @Test
     void loginPengguna_throwIfPasswordWrong() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(pengguna1);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.of(pengguna1));
         
         assertThrows(InvalidCredentialException.class,
                      () -> penggunaService.loginPengguna("a", "c"));
@@ -113,7 +115,7 @@ class PenggunaServiceTest {
     
     @Test
     void registerPengguna_throwIfUsernameAlreadyExist() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(pengguna1);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.of(pengguna1));
         
         assertThrows(UsernameAlreadyExistsException.class,
                      () -> penggunaService.registerPengguna("a", "b", "c"));
@@ -121,7 +123,7 @@ class PenggunaServiceTest {
     
     @Test
     void registerPengguna_saveToDatabaseIfSuccess() {
-        when(penggunaRepository.findByUsername("a")).thenReturn(null);
+        when(penggunaRepository.findByUsername("a")).thenReturn(Optional.empty());
         
         penggunaService.registerPengguna("a", "b", "c");
     
