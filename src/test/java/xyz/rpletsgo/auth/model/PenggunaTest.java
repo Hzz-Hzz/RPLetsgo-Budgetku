@@ -1,7 +1,6 @@
-package xyz.rpletsgo.common.model;
+package xyz.rpletsgo.auth.model;
 
 import org.junit.jupiter.api.Test;
-import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.common.core.IPengguna;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -15,24 +14,21 @@ class PenggunaTest {
     
     @Test
     void constructorIsCorrect(){
-        IPengguna pengguna = new Pengguna(username, password, name, email);
+        IPengguna pengguna = new Pengguna(username, password, email);
         
         assertEquals(username, pengguna.getUsername());
         assertEquals(password, pengguna.getPassword());
-        assertEquals(name, pengguna.getName());
         assertEquals(email, pengguna.getEmail());
     }
     
     @Test
     void setterGetterRunsCorrectly(){
-        IPengguna pengguna = new Pengguna("", "", "", "");
+        IPengguna pengguna = new Pengguna("", "", "");
         
         pengguna.setPassword(password);
-        pengguna.setName(name);
         pengguna.setEmail(email);
-    
+        
         assertEquals(password, pengguna.getPassword());
-        assertEquals(name, pengguna.getName());
         assertEquals(email, pengguna.getEmail());
     }
     

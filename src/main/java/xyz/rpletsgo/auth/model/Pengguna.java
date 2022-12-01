@@ -26,11 +26,6 @@ public class Pengguna implements IPengguna {
     
     @Getter
     @Setter
-    @Column(name = "name")
-    private String name;
-    
-    @Getter
-    @Setter
     @Column(name = "email")
     private String email;
     
@@ -39,10 +34,9 @@ public class Pengguna implements IPengguna {
     private LocalDateTime lastLoginDate;
     
     
-    public Pengguna(String username, String password, String name, String email){
+    public Pengguna(String username, String password, String email){
         this.username = username;
         this.password = password;
-        this.name = name;
         this.email = email;
     }
     
