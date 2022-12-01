@@ -1,6 +1,6 @@
 package xyz.rpletsgo.workspace.core;
 
-import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEvent;
 

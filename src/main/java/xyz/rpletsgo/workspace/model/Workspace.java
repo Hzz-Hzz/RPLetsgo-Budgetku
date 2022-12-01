@@ -3,7 +3,7 @@ package xyz.rpletsgo.workspace.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
