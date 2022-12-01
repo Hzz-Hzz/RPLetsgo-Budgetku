@@ -19,12 +19,12 @@ import java.time.LocalDateTime;
 public class PengeluaranFactory extends FinancialEventFactory implements IPengeluaranFactory {
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     SpendingAllowance sumberDana;
     
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     Tagihan tagihanYangDibayar;
     
     @Override

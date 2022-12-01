@@ -14,6 +14,6 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 public class Pemasukan extends FinancialEvent {
     @Getter
     @Setter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     KategoriPemasukan kategori;
 }

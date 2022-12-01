@@ -13,8 +13,18 @@ public interface IWorkspace {
     List<KategoriPemasukan> getKategoriPemasukan();
     List<FinancialEvent> getFinancialEvents();
     List<SpendingAllowance> getSpendingAllowances();
+    
+    
+    
+    KategoriPemasukan getKategoriPemasukan(String id);
+    SpendingAllowance getSpendingAllowance(String id);
+    void addKategoriPemasukan(KategoriPemasukan kategoriPemasukan);
+    void addSpendingAllowance(SpendingAllowance spendingAllowance);
+    
+    
     void addFinancialEvent(FinancialEvent financialEvent);
     void addFinancialEvents(Collection<FinancialEvent> financialEvent);
+    
     
     void triggerAutomation();
 }

@@ -15,7 +15,7 @@ public class AutomaticFinancialEvent {
     @Column
     String id;
     
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     List<FinancialEventCreationSchedule> schedules = new ArrayList<>();
     
     public void triggerEventCreation(IWorkspace workspace){
