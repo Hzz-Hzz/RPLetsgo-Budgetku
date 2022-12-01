@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class PemasukanFactory extends FinancialEventFactory implements IPemasukanFactory {
     @Getter
     @Setter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     KategoriPemasukan kategoriPemasukan;
     
     @Override

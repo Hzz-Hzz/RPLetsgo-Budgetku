@@ -1,12 +1,16 @@
 package xyz.rpletsgo.budgeting.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Entity
 @Table
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlokasiSpendingAllowance {
     @Getter
     @Setter
@@ -17,7 +21,7 @@ public class AlokasiSpendingAllowance {
     
     @Getter
     @Setter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     SpendingAllowance spendingAllowance;
     
     @Getter

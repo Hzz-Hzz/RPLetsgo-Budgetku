@@ -1,15 +1,14 @@
 package xyz.rpletsgo.auth.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import xyz.rpletsgo.common.core.IPengguna;
+import xyz.rpletsgo.workspace.model.Workspace;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -33,6 +32,17 @@ public class Pengguna implements IPengguna {
     @Column(name = "lastLoginDate")
     private LocalDateTime lastLoginDate;
     
+    @Getter
+    @Setter
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    List<Workspace> joinedWorkspaces;
+    
+    @Getter
+    @Setter
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    List<Workspace> createdWorkspaces;
+    
+    
     
     public Pengguna(String username, String password, String email){
         this.username = username;
@@ -41,4 +51,16 @@ public class Pengguna implements IPengguna {
     }
     
     protected Pengguna(){}
+    
+    
+    
+    @Override
+    public void joinWorkspace(Workspace workspace) {
+        joinedWorkspaces.add(workspace);
+    }
+    
+    @Override
+    public void addToCreatedWorkspaces(Workspace workspace) {
+        createdWorkspaces.add(workspace);
+    }
 }
