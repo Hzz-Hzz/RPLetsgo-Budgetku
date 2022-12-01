@@ -11,15 +11,15 @@ import xyz.rpletsgo.auth.repository.PenggunaRepository;
 public class PenggunaDetailService implements UserDetailsService {
     @Autowired
     PenggunaRepository penggunaRepository;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var pengguna = penggunaRepository.findByUsername(username);
         if (pengguna == null)
             throw new UsernameNotFoundException("User Not Found");
-        
+
         return new PenggunaDetails(pengguna.getUsername(), pengguna.getPassword());
     }
-    
-    
+
+
 }
