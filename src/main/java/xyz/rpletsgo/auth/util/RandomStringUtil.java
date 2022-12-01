@@ -20,11 +20,6 @@ public class RandomStringUtil {
         return randomString(length, allowedCharacters, new SecureRandom());
     }
     
-    public static String randomString(int length, Random randomObj){
-        final String ALLOWED_CHARACTERS = ALPHABET_AND_NUMBER;
-        return randomString(length, ALLOWED_CHARACTERS, randomObj);
-    }
-    
     public static String randomString(int length, String allowedCharacters, Random randomObj){
         var ret = new StringBuilder();
         

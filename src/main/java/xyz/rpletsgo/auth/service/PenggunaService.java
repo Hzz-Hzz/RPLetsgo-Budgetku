@@ -14,7 +14,6 @@ public class PenggunaService {
     @Autowired
     PenggunaRepository penggunaRepository;
     
-    
     @Autowired
     SessionRepository sessionRepository;
     
