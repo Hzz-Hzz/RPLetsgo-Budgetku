@@ -1,13 +1,11 @@
-package xyz.rpletsgo.common.model;
+package xyz.rpletsgo.auth.model;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import xyz.rpletsgo.common.core.IPengguna;
 
@@ -28,11 +26,6 @@ public class Pengguna implements IPengguna {
     
     @Getter
     @Setter
-    @Column(name = "name")
-    private String name;
-    
-    @Getter
-    @Setter
     @Column(name = "email")
     private String email;
     
@@ -41,10 +34,9 @@ public class Pengguna implements IPengguna {
     private LocalDateTime lastLoginDate;
     
     
-    public Pengguna(String username, String password, String name, String email){
+    public Pengguna(String username, String password, String email){
         this.username = username;
         this.password = password;
-        this.name = name;
         this.email = email;
     }
     

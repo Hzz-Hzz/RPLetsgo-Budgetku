@@ -1,4 +1,4 @@
-package xyz.rpletsgo.common.controller;
+package xyz.rpletsgo.auth.controller;
 
 import lombok.Generated;
 import org.springframework.stereotype.Controller;
@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @ResponseBody
-@RequestMapping("/")
-public class MainController {
+@RequestMapping("/logged-in")
+public class LoggedInTestController {
     
     @Generated
     @GetMapping(produces = "text/html;charset=UTF-8")
     public String mainPage() {
-        return "Hello RPLetsgo!";
+        return "Hello logged in RPLetsgo!";
     }
 
 }
