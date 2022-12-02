@@ -1,11 +1,11 @@
 package xyz.rpletsgo.budgeting.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import xyz.rpletsgo.budgeting.model.SpendingAllowance;
+import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 
 import java.util.Optional;
 
-public interface KategoriPemasukanRepository extends JpaRepository<SpendingAllowance, String> {
+public interface KategoriPemasukanRepository extends JpaRepository<KategoriPemasukan, String> {
     @Override
-    public abstract Optional<SpendingAllowance> findById(String id);
+    public abstract Optional<KategoriPemasukan> findById(String id);
 }
