@@ -1,15 +1,26 @@
 package xyz.rpletsgo.common.core;
 
+import xyz.rpletsgo.workspace.model.Workspace;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface IPengguna {
-    public String getUsername();
-    public String getPassword();
-    public String getName();
-    public String getEmail();
-    public LocalDateTime getLastLoginDate();
+    String getUsername();
+    String getPassword();
+    String getEmail();
+    LocalDateTime getLastLoginDate();
     
-    public void setPassword(String value);
-    public void setName(String value);
-    public void setEmail(String value);
+    void setPassword(String value);
+    void setEmail(String value);
+    
+    List<Workspace> getCreatedWorkspaces();
+    void setCreatedWorkspaces(List<Workspace> workspaces);
+
+    
+    List<Workspace> getJoinedWorkspaces();
+    void setJoinedWorkspaces(List<Workspace> workspaces);
+    
+    void joinWorkspace(Workspace workspace);
+    void addToCreatedWorkspaces(Workspace workspace);
 }

@@ -4,12 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
-import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PemasukanFactoryTest {
     
@@ -28,36 +28,46 @@ class PemasukanFactoryTest {
     
     @BeforeEach
     void setup(){
-        currentTime = LocalDateTime.now();
+        currentTime = LocalDateTime.of(2000, 1, 1, 1, 1 );
         dateTimeFactory = mock(ILocalDateTimeFactory.class);
         when(dateTimeFactory.createLocalDateTime()).thenReturn(currentTime);
     }
     
     
-    static IPemasukanFactory initializeBlueprint(){
-        IPemasukanFactory blueprint = new PemasukanFactory();
-        blueprint.setNama(nama);
-        blueprint.setKeterangan(keterangan);
-        blueprint.setNominal(nominal);
-        blueprint.setKategoriPemasukan(kategoriPemasukan);
-        return blueprint;
+    static IPemasukanFactory initializeFactory(){
+        IPemasukanFactory factory = new PemasukanFactory();
+        factory.setNama(nama);
+        factory.setKeterangan(keterangan);
+        factory.setNominal(nominal);
+        factory.setKategoriPemasukan(kategoriPemasukan);
+        return factory;
     }
     
     
     @Test
     void create() {
-        IWorkspace workspace = mock(IWorkspace.class);
-        
-        IPemasukanFactory factory = initializeBlueprint();
+        IPemasukanFactory factory = initializeFactory();
         factory.setLocalDateTimeFactory(dateTimeFactory);
-        Pemasukan pemasukan = factory.create(workspace);
+        Pemasukan pemasukan = factory.create();
         
         assertEquals(nama, pemasukan.getNama());
         assertEquals(keterangan, pemasukan.getKeterangan());
         assertEquals(nominal, pemasukan.getNominal());
         assertSame(kategoriPemasukan, pemasukan.getKategori());
         assertSame(currentTime, pemasukan.getWaktu());
+    }
+    
+    
+    @Test
+    void createWithSpecificTime() {
+        IPemasukanFactory factory = initializeFactory();
+        LocalDateTime waktu = currentTime.plusSeconds(-1);
+        Pemasukan pemasukan = factory.create(waktu);
         
-        verify(workspace, times(1)).addFinancialEvent(pemasukan);
+        assertEquals(nama, pemasukan.getNama());
+        assertEquals(keterangan, pemasukan.getKeterangan());
+        assertEquals(nominal, pemasukan.getNominal());
+        assertSame(kategoriPemasukan, pemasukan.getKategori());
+        assertSame(waktu, pemasukan.getWaktu());
     }
 }

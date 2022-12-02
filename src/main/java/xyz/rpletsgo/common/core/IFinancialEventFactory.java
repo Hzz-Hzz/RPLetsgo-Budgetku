@@ -1,6 +1,9 @@
 package xyz.rpletsgo.common.core;
 
-import xyz.rpletsgo.workspace.core.IWorkspace;
+import org.springframework.lang.Nullable;
+import xyz.rpletsgo.common.model.FinancialEvent;
+
+import java.time.LocalDateTime;
 
 public interface IFinancialEventFactory {
     String getId();
@@ -14,5 +17,7 @@ public interface IFinancialEventFactory {
     
     ILocalDateTimeFactory getLocalDateTimeFactory();
     void setLocalDateTimeFactory(ILocalDateTimeFactory localDateTimeFactory);
-    IFinancialEvent create(IWorkspace workspace);
+    
+    FinancialEvent create();
+    FinancialEvent create(@Nullable LocalDateTime waktu);
 }

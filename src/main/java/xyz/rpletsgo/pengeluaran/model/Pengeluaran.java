@@ -1,5 +1,6 @@
 package xyz.rpletsgo.pengeluaran.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -15,12 +16,12 @@ import xyz.rpletsgo.tagihan.model.Tagihan;
 public class Pengeluaran extends FinancialEvent {
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     SpendingAllowance sumberDana;
     
     @Nullable
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     Tagihan tagihanYangDibayar;
 }

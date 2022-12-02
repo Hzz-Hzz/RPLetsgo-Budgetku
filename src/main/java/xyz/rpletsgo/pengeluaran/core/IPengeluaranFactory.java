@@ -5,7 +5,8 @@ import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.IFinancialEventFactory;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
 import xyz.rpletsgo.tagihan.model.Tagihan;
-import xyz.rpletsgo.workspace.core.IWorkspace;
+
+import java.time.LocalDateTime;
 
 public interface IPengeluaranFactory extends IFinancialEventFactory {
     SpendingAllowance getSumberDana();
@@ -15,6 +16,10 @@ public interface IPengeluaranFactory extends IFinancialEventFactory {
     Tagihan getTagihanYangDibayar();
     void setTagihanYangDibayar(@Nullable Tagihan value);
     
+    
     @Override
-    Pengeluaran create(IWorkspace workspace);
+    Pengeluaran create();
+    
+    @Override
+    Pengeluaran create(@Nullable LocalDateTime waktu);
 }

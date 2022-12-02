@@ -1,5 +1,6 @@
 package xyz.rpletsgo.pemasukan.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -12,6 +13,6 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 public class Pemasukan extends FinancialEvent {
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     KategoriPemasukan kategori;
 }
