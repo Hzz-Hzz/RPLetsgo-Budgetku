@@ -27,6 +27,9 @@ public interface IWorkspace {
     void removeSpendingAllowance(String spendingAllowanceId);
 
     void existFinancialEventOrThrow(String id);
+
+    List<FinancialEvent> getPengeluarans();
+
     void addFinancialEvent(FinancialEvent financialEvent);
     void addFinancialEvents(Collection<FinancialEvent> financialEvent);
     List<FinancialEvent> getTagihan();
