@@ -18,8 +18,12 @@ public class Pemasukan extends FinancialEvent {
     @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     KategoriPemasukan kategori;
 
-    public Pemasukan(String nama, String keterangan, LocalDateTime waktu,
-                     long nominal, KategoriPemasukan kategoriPemasukan) {
+    public Pemasukan() {
+    }
 
+    public Pemasukan(String nama, String keterangan, LocalDateTime waktu,
+                     long nominal, KategoriPemasukan kategori) {
+        super(null, nama, keterangan, waktu, nominal);
+        this.kategori = kategori;
     }
 }
