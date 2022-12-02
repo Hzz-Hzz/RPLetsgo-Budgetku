@@ -2,6 +2,7 @@ package xyz.rpletsgo.common.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.common.core.IFinancialEventFactory;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@NoArgsConstructor
 public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Getter
     @Id
@@ -34,6 +36,18 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Getter
     @Column
     long nominal;
+    
+    public FinancialEventFactory(String nama, String keterangan, long nominal){
+        this.nama = nama;
+        this.keterangan = keterangan;
+        this.nominal = nominal;
+    }
+    
+    protected void set(String nama, String keterangan, long nominal){
+        this.nama = nama;
+        this.keterangan = keterangan;
+        this.nominal = nominal;
+    }
     
     
     @Getter

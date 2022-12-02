@@ -34,6 +34,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     @PostConstruct
     void defineAuthRequiredUrls(){
         authRequiredUrls.add("/logged-in");
+        authRequiredUrls.add("/spending-allowance");
     }
     
     @Override

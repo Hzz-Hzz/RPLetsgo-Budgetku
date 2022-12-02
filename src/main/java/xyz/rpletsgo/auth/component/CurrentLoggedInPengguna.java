@@ -16,6 +16,6 @@ public class CurrentLoggedInPengguna {
     private Pengguna currentPengguna;
     
     public Workspace authorizeWorkspace(String workspaceId){
-        return currentPengguna.getWorkspace(workspaceId);
+        return currentPengguna.getWorkspaceIfAuthorizedOrThrow(workspaceId);
     }
 }

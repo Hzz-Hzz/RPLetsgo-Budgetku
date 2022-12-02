@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
@@ -16,7 +17,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
+@NoArgsConstructor
 public class PengeluaranFactory extends FinancialEventFactory implements IPengeluaranFactory {
+    public void set(String nama, String keterangan, long nominal, SpendingAllowance sumberDana,
+                    Tagihan tagihanYangDibayar){
+        super.set(nama, keterangan, nominal);
+        this.sumberDana = sumberDana;
+        this.tagihanYangDibayar = tagihanYangDibayar;
+    }
+    
     @Setter
     @Getter
     @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})

@@ -9,16 +9,12 @@ import xyz.rpletsgo.tagihan.model.Tagihan;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class PengeluaranFactoryTest {
-    @Test
-    void constructorRunsCorrectly(){
-        assertDoesNotThrow(PengeluaranFactory::new);
-    }
-    
     static String nama = "a";
     static String keterangan = "b";
     static long nominal = 1;

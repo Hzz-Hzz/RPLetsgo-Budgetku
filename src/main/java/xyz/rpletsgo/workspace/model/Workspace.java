@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
+import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
@@ -29,20 +30,32 @@ public class Workspace implements IWorkspace {
     String nama;
     
     @Getter
-    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(
+        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        fetch = FetchType.EAGER
+    )
     List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
-    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(
+        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        fetch = FetchType.EAGER
+    )
     List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
-    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(
+        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        fetch = FetchType.EAGER
+    )
     List<SpendingAllowance> spendingAllowances = new ArrayList<>();
     
     @Getter
     @Setter
-    @OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(
+        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        fetch = FetchType.EAGER
+    )
     AutomaticFinancialEvent automaticFinancialEvent;
     
     
@@ -73,6 +86,22 @@ public class Workspace implements IWorkspace {
     public void addSpendingAllowance(SpendingAllowance spendingAllowance) {
         spendingAllowances.add(spendingAllowance);
     }
+    
+    @Override
+    public void removeSpendingAllowance(String spendingAllowanceId) {
+        if (spendingAllowances.size() <= 1)
+            throw new SpendingAllowanceException("Workspace must have at least one spending allowance");
+        
+        for (SpendingAllowance spendingAllowance: spendingAllowances) {
+            if (spendingAllowance.getId().equals(spendingAllowanceId)) {
+                spendingAllowances.remove(spendingAllowance);
+                return;
+            }
+        }
+        
+        throw new SpendingAllowanceNotFoundException("Spending allowance not found");
+    }
+    
     
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {
