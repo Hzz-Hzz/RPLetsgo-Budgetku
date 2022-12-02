@@ -5,7 +5,7 @@ import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 
 import java.util.Optional;
 
-public interface SpendingAllowanceRepository extends JpaRepository<SpendingAllowance, String> {
+public interface KategoriPemasukanRepository extends JpaRepository<SpendingAllowance, String> {
     @Override
     public abstract Optional<SpendingAllowance> findById(String id);
 }
