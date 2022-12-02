@@ -10,6 +10,8 @@ import java.util.List;
 public interface IWorkspace {
     String getId();
     String getNama();
+
+    void setNama(String nama);
     List<KategoriPemasukan> getKategoriPemasukan();
     List<FinancialEvent> getFinancialEvents();
     List<SpendingAllowance> getSpendingAllowances();
