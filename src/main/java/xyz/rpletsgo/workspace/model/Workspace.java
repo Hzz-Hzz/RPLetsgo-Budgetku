@@ -10,6 +10,7 @@ import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
+import xyz.rpletsgo.pengeluaran.exceptions.FinancialEventNotFoundException;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
@@ -101,8 +102,17 @@ public class Workspace implements IWorkspace {
         
         throw new SpendingAllowanceNotFoundException("Spending allowance not found");
     }
-    
-    
+
+
+    @Override
+    public void existFinancialEventOrThrow(String id) {
+        for (var financialEvent: financialEvents) {
+            if (financialEvent.getId().equals(id))
+                return;
+        }
+        throw new FinancialEventNotFoundException("Financial Event not found");
+    }
+
     @Override
     public void addFinancialEvent(FinancialEvent financialEvent) {
         financialEvents.add(financialEvent);
