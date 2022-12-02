@@ -84,10 +84,24 @@ public class Workspace implements IWorkspace {
         this.financialEvents.addAll(financialEvents);
     }
     
-    
-    
     @Override
     public void triggerAutomation(){
         automaticFinancialEvent.triggerEventCreation(this);
     }
+
+    @Override
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    @Override
+    public String getNama() {
+        return nama;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
 }
