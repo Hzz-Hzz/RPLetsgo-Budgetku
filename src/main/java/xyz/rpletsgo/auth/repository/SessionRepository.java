@@ -31,7 +31,7 @@ public class SessionRepository implements ISessionRepository{
     public Pengguna getSessionOrThrow(String session) {
         var pengguna = sessionToPenggunaMapping.getIfPresent(session);
         if (pengguna == null){
-            throw new InvalidSessionException("Invalid session id");
+            throw new InvalidSessionException("Not logged in (Invalid session id)");
         }
         
         return pengguna;

@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.common.model.FinancialEventFactory;
 import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
@@ -24,7 +25,8 @@ public class PemasukanFactory extends FinancialEventFactory implements IPemasuka
     
     @Getter
     @Setter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     KategoriPemasukan kategoriPemasukan;
     
     @Override

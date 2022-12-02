@@ -3,6 +3,9 @@ package xyz.rpletsgo.workspace.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
+import xyz.rpletsgo.budgeting.core.KategoriPemasukanFactory;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
@@ -34,30 +37,34 @@ public class Workspace implements IWorkspace {
     String nama;
     
     @Getter
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
-        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
     )
     List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
-        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
     )
     List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
-        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
     )
     List<SpendingAllowance> spendingAllowances = new ArrayList<>();
     
     @Getter
     @Setter
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToOne(
-        cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
+        cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
     )
     AutomaticFinancialEvent automaticFinancialEvent;
@@ -78,7 +85,16 @@ public class Workspace implements IWorkspace {
             if (spendingAllowance.getId().equals(id))
                 return spendingAllowance;
         }
-        throw new SpendingAllowanceNotFoundException("kategori pemasukan not found");
+        throw new SpendingAllowanceNotFoundException("Spending allowance not found");
+    }
+    @Override
+    public List<SpendingAllowance> getSpendingAllowanceOrThrow(List<String> id) {
+        var ret = new ArrayList<SpendingAllowance>();
+        
+        for (String spendingAllowanceId: id) {
+            ret.add(getSpendingAllowanceOrThrow(spendingAllowanceId));
+        }
+        return ret;
     }
     
     @Override
@@ -159,4 +175,25 @@ public class Workspace implements IWorkspace {
         return id;
     }
 
+    
+    @Transient
+    KategoriPemasukanFactory kategoriPemasukanFactory = new KategoriPemasukanFactory();
+    @Transient
+    AlokasiSpendingAllowanceFactory alokasiSpendingAllowanceFactory = new AlokasiSpendingAllowanceFactory();
+    
+    public void initialize(){
+        var spendingAllowance = new SpendingAllowance(null, "default", 0);
+        var kategoriPemasukan = kategoriPemasukanFactory.create(
+            "default"
+        );
+        var alokasi = alokasiSpendingAllowanceFactory.create(
+            List.of(spendingAllowance), List.of(100.0)
+        );
+        kategoriPemasukan.setAlokasiSpendingAllowances(alokasi);
+        
+        automaticFinancialEvent = new AutomaticFinancialEvent();
+        
+        addSpendingAllowance(spendingAllowance);
+        addKategoriPemasukan(kategoriPemasukan);
+    }
 }
