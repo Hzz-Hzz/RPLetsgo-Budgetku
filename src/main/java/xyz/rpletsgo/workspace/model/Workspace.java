@@ -15,6 +15,7 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.pengeluaran.exceptions.FinancialEventNotFoundException;
 import xyz.rpletsgo.tagihan.model.Tagihan;
+import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
@@ -130,6 +131,13 @@ public class Workspace implements IWorkspace {
                 return;
         }
         throw new FinancialEventNotFoundException("Financial Event not found");
+    }
+
+    @Override
+    public List<FinancialEvent> getPengeluarans() {
+        return financialEvents.stream()
+                .filter(financialEvent -> financialEvent instanceof Pengeluaran)
+                .collect(Collectors.toList());
     }
 
     @Override
