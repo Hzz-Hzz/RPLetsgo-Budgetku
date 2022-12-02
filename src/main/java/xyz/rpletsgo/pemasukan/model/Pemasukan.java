@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import xyz.rpletsgo.common.model.FinancialEvent;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table
 public class Pemasukan extends FinancialEvent {
@@ -15,4 +17,9 @@ public class Pemasukan extends FinancialEvent {
     @Setter
     @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     KategoriPemasukan kategori;
+
+    public Pemasukan(String nama, String keterangan, LocalDateTime waktu,
+                     long nominal, KategoriPemasukan kategoriPemasukan) {
+
+    }
 }
