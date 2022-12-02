@@ -21,6 +21,6 @@ public class CurrentLoggedInPengguna {
     }
     
     public Workspace authorizeWorkspace(String workspaceId){
-        return currentPengguna.getWorkspaceIfAuthorizedOrThrow(workspaceId);
+        return getCurrentPengguna().getWorkspaceIfAuthorizedOrThrow(workspaceId);
     }
 }

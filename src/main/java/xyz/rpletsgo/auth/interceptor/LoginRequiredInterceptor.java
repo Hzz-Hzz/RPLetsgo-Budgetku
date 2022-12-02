@@ -27,7 +27,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     List<String> urlExceptions = new ArrayList<>();
     
     @Autowired
-    CurrentLoggedInPengguna currentPengguna;
+    CurrentLoggedInPengguna loggedInPengguna;
     
     
     @PostConstruct
@@ -51,7 +51,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
         }
         
         var pengguna = sessionRepository.getSessionOrThrow(sessionCookie.getValue());
-        currentPengguna.setCurrentPengguna(pengguna);
+        loggedInPengguna.setCurrentPengguna(pengguna);
         
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
