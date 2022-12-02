@@ -3,11 +3,8 @@ package xyz.rpletsgo.budgeting.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
-import xyz.rpletsgo.budgeting.model.SpendingAllowance;
-import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
+import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
-
-import java.util.List;
 
 @Service
 public class KategoriPemasukanService {
@@ -17,12 +14,15 @@ public class KategoriPemasukanService {
     WorkspaceRepository workspaceRepository;
     
     @Autowired
-    SpendingAllowanceRepository spendingAllowanceRepository;
+    KategoriPemasukanRepository kategoriPemasukanRepository;
     
     
-    public void create(String workspaceId, String spendingAllowanceName){
+    /*
+    public void create(String workspaceId,
+                       String namaKategoriPemasukan,
+                       ){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var spendingAllowance = new SpendingAllowance("", spendingAllowanceName, 0);
+        var spendingAllowance = new KategoriPemasukan("", namaKategoriPemasukan, 0);
         workspace.addSpendingAllowance(spendingAllowance);
     
         workspaceRepository.save(workspace);
@@ -51,5 +51,5 @@ public class KategoriPemasukanService {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         workspace.removeSpendingAllowance(spendingAllowanceId);
         workspaceRepository.save(workspace);
-    }
+    }*/
 }
