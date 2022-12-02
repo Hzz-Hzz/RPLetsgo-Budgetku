@@ -1,8 +1,10 @@
-package xyz.rpletsgo.budgeting.model;
+package xyz.rpletsgo.pemasukan.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
+import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class KategoriPemasukan {
     
     @Getter
     @Setter
-    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     List<AlokasiSpendingAllowance> alokasiSpendingAllowances = new ArrayList<>();
     
     
