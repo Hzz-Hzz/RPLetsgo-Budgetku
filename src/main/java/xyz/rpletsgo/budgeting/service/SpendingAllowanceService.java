@@ -44,4 +44,12 @@ public class SpendingAllowanceService {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         return workspace.getSpendingAllowances();
     }
+    
+    public void deleteSpendingAllowanceFromWorkspace(
+        String workspaceId, String spendingAllowanceId
+    ){
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        workspace.removeSpendingAllowance(spendingAllowanceId);
+        workspaceRepository.save(workspace);
+    }
 }

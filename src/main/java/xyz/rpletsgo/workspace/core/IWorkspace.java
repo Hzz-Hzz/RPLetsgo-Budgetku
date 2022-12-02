@@ -22,6 +22,8 @@ public interface IWorkspace {
     void addSpendingAllowance(SpendingAllowance spendingAllowance);
     
     
+    void removeSpendingAllowance(String spendingAllowanceId);
+    
     void addFinancialEvent(FinancialEvent financialEvent);
     void addFinancialEvents(Collection<FinancialEvent> financialEvent);
     

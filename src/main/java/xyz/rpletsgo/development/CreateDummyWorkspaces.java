@@ -18,7 +18,7 @@ public class CreateDummyWorkspaces {
     @Autowired
     PenggunaRepository penggunaRepository;
     
-    boolean run = true;
+    boolean run = false;
     
     @PostConstruct
     void main(){

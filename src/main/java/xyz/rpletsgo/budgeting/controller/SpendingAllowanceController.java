@@ -2,10 +2,7 @@ package xyz.rpletsgo.budgeting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
 
@@ -14,36 +11,50 @@ import java.util.List;
 @Controller
 @RequestMapping("/spending-allowance")
 public class SpendingAllowanceController {
+    String success = "success";
+    
     @Autowired
     SpendingAllowanceService spendingAllowanceService;
     
     
-    @PostMapping("/create")
+    @PostMapping("/{workspaceId}/create")
     @ResponseBody
     public String createSpendingAllowance(
-        @RequestParam String workspaceId,
+        @PathVariable String workspaceId,
         @RequestParam String nama
     ){
         spendingAllowanceService.create(workspaceId, nama);
-        return "success";
+        return success;
     }
     
-    @PostMapping("/update")
+    @PostMapping("/{workspaceId}/update")
     @ResponseBody
     public String updateSpendingAllowance(
-        @RequestParam String workspaceId,
+        @PathVariable String workspaceId,
         @RequestParam String spendingAllowanceId,
-        @RequestParam String newName
+        @RequestParam String nama
     ){
-        spendingAllowanceService.update(workspaceId, spendingAllowanceId, newName);
-        return "success";
+        spendingAllowanceService.update(workspaceId, spendingAllowanceId, nama);
+        return success;
     }
     
-    @PostMapping("/update")
+    @GetMapping("/{workspaceId}")
     @ResponseBody
     public List<SpendingAllowance> getSpendingAllowance(
-        @RequestParam String workspaceId
+        @PathVariable String workspaceId
     ){
         return spendingAllowanceService.getSpendingAllowancesByWorkspace(workspaceId);
+    }
+    
+    
+    
+    @PostMapping("/{workspaceId}/delete")
+    @ResponseBody
+    public String deleteSpendingAllowanceFromWorkspace(
+        @PathVariable String workspaceId,
+        @RequestParam String spendingAllowanceId
+    ){
+        spendingAllowanceService.deleteSpendingAllowanceFromWorkspace(workspaceId, spendingAllowanceId);
+        return success;
     }
 }

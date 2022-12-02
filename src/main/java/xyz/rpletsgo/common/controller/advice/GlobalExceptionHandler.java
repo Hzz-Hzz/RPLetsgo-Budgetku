@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<String> handleException(AutomaticallyHandledException e) {
         return new ResponseEntity<>(
-            e.getClass().getName() + ": " + e.getMessage(), e.getStatus()
+            e.getClass().getSimpleName() + ": " + e.getMessage(), e.getStatus()
         );
     }
 }
