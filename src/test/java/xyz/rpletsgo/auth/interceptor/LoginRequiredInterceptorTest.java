@@ -8,15 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
-import xyz.rpletsgo.auth.exceptions.InvalidCredentialException;
-import xyz.rpletsgo.auth.exceptions.InvalidSessionException;
-import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.SessionRepository;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class LoginRequiredInterceptorTest {
     SessionRepository sessionRepository;
@@ -40,15 +38,7 @@ class LoginRequiredInterceptorTest {
         );
     }
     
-    @Test
-    @SneakyThrows
-    void preHandle_throwIfCookieNotFound() {
-        assertThrows(
-            InvalidCredentialException.class,
-            () -> testPreHandle("/login-required", new Cookie[0])
-        );
-    }
-    
+    /*
     @Test
     @SneakyThrows
     void preHandle_throwIfSessionNotInRepository() {
@@ -78,7 +68,7 @@ class LoginRequiredInterceptorTest {
             )
         );
         verify(currentPengguna, times(1)).setCurrentPengguna(pengguna);
-    }
+    }*/
     
     
     
@@ -103,7 +93,7 @@ class LoginRequiredInterceptorTest {
             throw new RuntimeException(e);
         }
     }
-    
+    /*
     @Test
     void isAuthRequired() {
         // login-required urls
@@ -124,5 +114,5 @@ class LoginRequiredInterceptorTest {
         assertTrue(loginRequiredInterceptor.isAuthRequired("/b/c/c"));
         
         assertFalse(loginRequiredInterceptor.isAuthRequired("/c"));
-    }
+    }*/
 }
