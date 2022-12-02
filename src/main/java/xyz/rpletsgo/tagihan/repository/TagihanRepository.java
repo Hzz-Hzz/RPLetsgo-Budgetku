@@ -1,6 +1,7 @@
 package xyz.rpletsgo.tagihan.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.tagihan.model.Tagihan;
 
 import java.util.Optional;

@@ -29,7 +29,9 @@ public interface IWorkspace {
     void existFinancialEventOrThrow(String id);
     void addFinancialEvent(FinancialEvent financialEvent);
     void addFinancialEvents(Collection<FinancialEvent> financialEvent);
-    
+    List<FinancialEvent> getTagihan();
     
     void triggerAutomation();
+
+    void deleteFinancialEventOrThrow(String financialEventId);
 }

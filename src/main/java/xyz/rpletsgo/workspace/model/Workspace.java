@@ -11,11 +11,14 @@ import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.pengeluaran.exceptions.FinancialEventNotFoundException;
+import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -122,7 +125,20 @@ public class Workspace implements IWorkspace {
     public void addFinancialEvents(Collection<FinancialEvent> financialEvents) {
         this.financialEvents.addAll(financialEvents);
     }
-    
+
+    @Override
+    public List<FinancialEvent> getTagihan() {
+        return financialEvents.stream()
+                .filter(financialEvent -> financialEvent instanceof Tagihan)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteFinancialEventOrThrow(String financialEventId) {
+        this.existFinancialEventOrThrow(financialEventId);
+        financialEvents.removeIf(financialEvent -> (Objects.equals(financialEvent.getId(), financialEventId)));
+    }
+
     @Override
     public void triggerAutomation(){
         automaticFinancialEvent.triggerEventCreation(this);
