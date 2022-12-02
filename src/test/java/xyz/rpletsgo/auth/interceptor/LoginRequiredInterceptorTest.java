@@ -93,7 +93,7 @@ class LoginRequiredInterceptorTest {
         var loginRequiredUrls = List.of(
             "/login-required"
         );
-        loginRequiredInterceptor.setAuthRequiredUrls(loginRequiredUrls);
+        loginRequiredInterceptor.setUrlExceptions(loginRequiredUrls);
         
         try {
             return loginRequiredInterceptor.preHandle(servletRequest, null, null);
@@ -111,7 +111,7 @@ class LoginRequiredInterceptorTest {
             "/a",
             "/b/c"
         );
-        loginRequiredInterceptor.setAuthRequiredUrls(loginRequiredUrls);
+        loginRequiredInterceptor.setUrlExceptions(loginRequiredUrls);
         
         assertTrue(loginRequiredInterceptor.isAuthRequired("/a"));
         assertTrue(loginRequiredInterceptor.isAuthRequired("/a/b"));

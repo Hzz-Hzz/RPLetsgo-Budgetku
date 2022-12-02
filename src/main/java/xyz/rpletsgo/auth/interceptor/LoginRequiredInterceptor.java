@@ -24,7 +24,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     
     @Getter
     @Setter
-    List<String> authRequiredUrls = new ArrayList<>();
+    List<String> urlExceptions = new ArrayList<>();
     
     @Autowired
     CurrentLoggedInPengguna currentPengguna;
@@ -32,14 +32,17 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     
     @PostConstruct
     void defineAuthRequiredUrls(){
-        authRequiredUrls.add("/logged-in");
-        authRequiredUrls.add("/spending-allowance");
+        urlExceptions.add("/");
     }
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception
     {
+        var uri = request.getRequestURI();
+        if (!isAuthRequired(uri))
+            return true;
+        
         var sessionCookie = WebUtils.getCookie(request, "session");
         if (sessionCookie == null){
             return true;
@@ -52,10 +55,10 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     }
     
     public boolean isAuthRequired(String uri){
-        for (String authRequiredUrl: authRequiredUrls) {
-            if (uri.startsWith(authRequiredUrl))
-                return true;
+        for (String authRequiredUrl: urlExceptions) {
+            if (uri.equals(authRequiredUrl))
+                return false;
         }
-        return false;
+        return true;
     }
 }
