@@ -33,6 +33,8 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     @PostConstruct
     void defineAuthRequiredUrls(){
         urlExceptions.add("/");
+        urlExceptions.add("/login");
+        urlExceptions.add("");
     }
     
     @Override
