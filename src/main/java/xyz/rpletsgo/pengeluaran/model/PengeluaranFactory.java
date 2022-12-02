@@ -46,8 +46,7 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
         Pengeluaran pengeluaran = new Pengeluaran();
         sideEffect_initialize(pengeluaran, waktu);
         
-        pengeluaran.setSumberDana(getSumberDana());
-        pengeluaran.setTagihanYangDibayar(getTagihanYangDibayar());
+        pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, getNominal());
         return pengeluaran;
     }
 }

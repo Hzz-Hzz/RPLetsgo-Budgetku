@@ -7,4 +7,7 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 @Entity
 @Table
 public class Tagihan extends FinancialEvent {
+    public void increaseNominal(long nominal) {
+        this.nominal -= nominal;
+    }
 }
