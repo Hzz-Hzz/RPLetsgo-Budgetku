@@ -1,12 +1,11 @@
 package xyz.rpletsgo.pemasukan.service;
 
-import jakarta.persistence.AttributeOverride;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
+import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.common.model.FinancialEvent;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.pemasukan.model.Pemasukan;
 import xyz.rpletsgo.pemasukan.repository.PemasukanRepository;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
@@ -24,6 +23,8 @@ public class PemasukanService {
     PemasukanRepository pemasukanRepository;
     @Autowired
     KategoriPemasukanRepository kategoriPemasukanRepository;
+    @Autowired
+    SpendingAllowanceRepository spendingAllowanceRepository;
 
     public List<FinancialEvent> getPemasukansByWorkspace(String workspaceId){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
@@ -38,8 +39,10 @@ public class PemasukanService {
         var pemasukan = new Pemasukan(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
 
         kategoriPemasukan.addPemasukan(pemasukan.getNominal());
+        spendingAllowanceRepository.saveAllAndFlush(kategoriPemasukan.getSpendingAllowanceYangTerkait());
 
         workspace.addFinancialEvent(pemasukan);
+        pemasukanRepository.saveAndFlush(pemasukan);
         workspaceRepository.save(workspace);
         return pemasukan;
     }
@@ -54,9 +57,14 @@ public class PemasukanService {
         var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
 
         pemasukan.getKategori().addPemasukan(-1 * pemasukan.getNominal());
+        spendingAllowanceRepository.saveAllAndFlush(pemasukan.getKategori().getSpendingAllowanceYangTerkait());
+
         kategoriPemasukan.addPemasukan(nominal);
+        spendingAllowanceRepository.saveAllAndFlush(kategoriPemasukan.getSpendingAllowanceYangTerkait());
 
         pemasukan.valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
+
+        pemasukanRepository.saveAndFlush(pemasukan);
         workspaceRepository.save(workspace);
         return pemasukan;
     }
