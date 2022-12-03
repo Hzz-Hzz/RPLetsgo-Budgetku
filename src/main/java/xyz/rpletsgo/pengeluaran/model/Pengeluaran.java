@@ -4,10 +4,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
@@ -52,7 +50,7 @@ public class Pengeluaran extends FinancialEvent {
             this.sumberDana.increaseNominal(this.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(-this.getNominal());
+            this.tagihanYangDibayar.increaseNominal(this.getNominal());
         }
 
         this.sumberDana = sumberDana;
@@ -63,7 +61,7 @@ public class Pengeluaran extends FinancialEvent {
             this.sumberDana.increaseNominal(-this.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(this.getNominal());
+            this.tagihanYangDibayar.increaseNominal(-this.getNominal());
         }
     }
 
