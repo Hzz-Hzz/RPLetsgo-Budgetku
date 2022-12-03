@@ -24,18 +24,15 @@ public class Pengeluaran extends FinancialEvent {
 
     @Override
     public void setNominal(long nominal) {
-        setSumberDanaTagihanNominal(this.sumberDana, this.tagihanYangDibayar, nominal);
+        setSumberDanaTagihanNominal(nominal);
     }
 
+    @Setter
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne()
     
     SpendingAllowance sumberDana;
-
-    public void setSumberDanaForcefully(SpendingAllowance spendingAllowance){
-        sumberDana = spendingAllowance;
-    }
 
     @Nullable
     @Getter
@@ -44,36 +41,23 @@ public class Pengeluaran extends FinancialEvent {
     @ManyToOne()
     Tagihan tagihanYangDibayar;
 
-    public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
-        if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(this.nominal);
-        }
-        if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(this.nominal);
-        }
+    public void setSumberDanaTagihanNominal(long nominal) {
+        long nominalDiff = nominal - this.nominal;
 
-        this.sumberDana = sumberDana;
-        this.tagihanYangDibayar = tagihanYangDibayar;
-
-        this.nominal = nominal;
-        if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(-this.nominal);
-        }
+        this.sumberDana.increaseNominal(nominalDiff);
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(-this.nominal);
+            this.tagihanYangDibayar.increaseNominal(nominalDiff);
         }
     }
 
     public void valueUpdate(String nama,
                             String keteragan,
                             LocalDateTime waktu,
-                            long nominal,
-                            SpendingAllowance sumberDana,
-                            Tagihan tagihanYangDibayar) {
+                            long nominal) {
         setNama(nama);
         setKeterangan(keteragan);
         setWaktu(waktu);
-        setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
+        setSumberDanaTagihanNominal(nominal);
     }
 
 }

@@ -59,42 +59,58 @@ public class PengeluaranService {
         }
 
         var pengeluaran = new Pengeluaran(nama, keterangan, waktu);
-        pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
+        pengeluaran.setSumberDanaTagihanNominal(nominal);
 
         pengeluaranRepository.saveAndFlush(pengeluaran);
         workspace.addFinancialEvent(pengeluaran);
         workspaceRepository.save(workspace);
     }
 
-    public void update(String workspaceId, String pengeluaranId, String nama, String keterangan, LocalDateTime waktu, long nominal, String spendingAllowanceId, String tagihanId) {
+    public void update(String workspaceId, String pengeluaranId, String nama, String keterangan, LocalDateTime waktu, long nominal) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var sumberDana = workspace.getSpendingAllowanceOrThrow(spendingAllowanceId);
-
-        Tagihan tagihanYangDibayar = null;
-        if(tagihanId != null) {
-            workspace.existFinancialEventOrThrow(tagihanId);
-            tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
-        }
 
         workspace.existFinancialEventOrThrow(pengeluaranId);
         var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElseThrow(
-            () -> new GeneralException("Pengeluaran with id " + pengeluaranId + " not found", HttpStatus.BAD_REQUEST)
+                () -> new GeneralException("Pengeluaran with id " + pengeluaranId + " not found", HttpStatus.BAD_REQUEST)
         );
 
-        var sumberDanaBefore = pengeluaran.getSumberDana();
-        if (sumberDanaBefore.getId().equals(sumberDana.getId()))
-            sumberDanaBefore = sumberDana;
-        pengeluaran.setSumberDanaForcefully(sumberDanaBefore);
-        pengeluaran.valueUpdate(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
+        pengeluaran.valueUpdate(nama, keterangan, waktu, nominal);
 
         workspace.deleteFinancialEventOrThrow(pengeluaranId);
         workspace.addFinancialEvent(pengeluaran);
 
-        spendingAllowanceRepository.saveAndFlush(sumberDanaBefore);
-        spendingAllowanceRepository.saveAndFlush(sumberDana);
-        pengeluaranRepository.save(pengeluaran);
         workspaceRepository.save(workspace);
     }
+
+//    public void update(String workspaceId, String pengeluaranId, String nama, String keterangan, LocalDateTime waktu, long nominal, String spendingAllowanceId, String tagihanId) {
+//        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+//        var sumberDana = workspace.getSpendingAllowanceOrThrow(spendingAllowanceId);
+//
+//        Tagihan tagihanYangDibayar = null;
+//        if(tagihanId != null) {
+//            workspace.existFinancialEventOrThrow(tagihanId);
+//            tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
+//        }
+//
+//        workspace.existFinancialEventOrThrow(pengeluaranId);
+//        var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElseThrow(
+//            () -> new GeneralException("Pengeluaran with id " + pengeluaranId + " not found", HttpStatus.BAD_REQUEST)
+//        );
+//
+//        var sumberDanaBefore = pengeluaran.getSumberDana();
+//        if (sumberDanaBefore.getId().equals(sumberDana.getId()))
+//            sumberDanaBefore = sumberDana;
+//        pengeluaran.setSumberDanaForcefully(sumberDanaBefore);
+//        pengeluaran.valueUpdate(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
+//
+//        workspace.deleteFinancialEventOrThrow(pengeluaranId);
+//        workspace.addFinancialEvent(pengeluaran);
+//
+//        spendingAllowanceRepository.saveAndFlush(sumberDanaBefore);
+//        spendingAllowanceRepository.saveAndFlush(sumberDana);
+//        pengeluaranRepository.save(pengeluaran);
+//        workspaceRepository.save(workspace);
+//    }
 
     public void delete(String workspaceId, String pengeluaranId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);

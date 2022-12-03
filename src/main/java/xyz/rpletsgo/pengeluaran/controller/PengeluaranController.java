@@ -72,8 +72,7 @@ public class PengeluaranController {
     ){
         LocalDateTime dateTime = LocalDate.parse(waktu, formatter).atStartOfDay();
         pengeluaranService.update(workspaceId, pengeluaranId, nama,
-                keterangan, dateTime, nominal,
-                spendingAllowanceId, tagihanId.orElse(null));
+                keterangan, dateTime, nominal);
         return success;
     }
 
