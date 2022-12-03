@@ -9,7 +9,7 @@ import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import java.util.List;
 
 @Controller
-@RequestMapping("/kategori-pemasukan")
+@RequestMapping("/{workspaceId}/kategori-pemasukan")
 public class KategoriPemasukanController {
     String success = "success";
     
@@ -17,7 +17,7 @@ public class KategoriPemasukanController {
     KategoriPemasukanService kategoriPemasukanService;
     
     
-    @PostMapping("/{workspaceId}/create")
+    @PostMapping("/create")
     @ResponseBody
     public KategoriPemasukan createSpendingAllowance(
         @PathVariable String workspaceId,
@@ -28,7 +28,7 @@ public class KategoriPemasukanController {
         return kategoriPemasukanService.create(workspaceId, nama, besarAlokasi, spendingAllowanceId);
     }
 
-    @PostMapping("/{workspaceId}/update")
+    @PostMapping("/update")
     @ResponseBody
     public KategoriPemasukan updateSpendingAllowance(
         @PathVariable String workspaceId,
@@ -37,13 +37,13 @@ public class KategoriPemasukanController {
          @RequestParam(value = "besarAlokasi[]") Double[] besarAlokasi,
          @RequestParam(value = "spendingAllowanceId[]") String[] spendingAllowanceId
     ){
-        
         return kategoriPemasukanService.update(
             workspaceId, kategoriPemasukanId, nama,
             besarAlokasi, spendingAllowanceId);
     }
 
-    @GetMapping("/{workspaceId}")
+    
+    @GetMapping("")
     @ResponseBody
     public List<KategoriPemasukan> getKategoriPemasukan(
         @PathVariable String workspaceId
@@ -52,14 +52,14 @@ public class KategoriPemasukanController {
     }
 
 
-//
-//    @PostMapping("/{workspaceId}/delete")
-//    @ResponseBody
-//    public String deleteSpendingAllowanceFromWorkspace(
-//        @PathVariable String workspaceId,
-//        @RequestParam String spendingAllowanceId
-//    ){
-//        spendingAllowanceService.deleteSpendingAllowanceFromWorkspace(workspaceId, spendingAllowanceId);
-//        return success;
-//    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public String deleteSpendingAllowanceFromWorkspace(
+        @PathVariable String workspaceId,
+        @RequestParam String kategoriPemasukanId
+    ){
+        kategoriPemasukanService.deleteKategoriPemasukanFromWorkspace(workspaceId, kategoriPemasukanId);
+        return success;
+    }
 }

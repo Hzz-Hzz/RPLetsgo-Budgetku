@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface SpendingAllowanceRepository extends JpaRepository<SpendingAllowance, String> {
     @Override
-    public abstract Optional<SpendingAllowance> findById(String id);
+    Optional<SpendingAllowance> findById(String id);
     
     List<SpendingAllowance> findByIdIn(List<String> id);
 }

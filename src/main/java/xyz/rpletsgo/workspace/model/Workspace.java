@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
 import xyz.rpletsgo.budgeting.core.KategoriPemasukanFactory;
+import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanException;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
@@ -14,8 +15,8 @@ import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.pengeluaran.exceptions.FinancialEventNotFoundException;
-import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
+import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.ArrayList;
@@ -122,7 +123,23 @@ public class Workspace implements IWorkspace {
         
         throw new SpendingAllowanceNotFoundException("Spending allowance not found");
     }
-
+    
+    
+    @Override
+    public void removeKategoriPemasukan(String kategoriPemasukanId) {
+        if (kategoriPemasukan.size() <= 1)
+            throw new KategoriPemasukanException("Workspace must have at least one spending allowance");
+        
+        for (var kategori: kategoriPemasukan) {
+            var areIdEqual = Objects.equals(kategori.getId(), kategoriPemasukanId);
+            if (areIdEqual) {
+                kategoriPemasukan.remove(kategori);
+                return;
+            }
+        }
+        
+        throw new KategoriPemasukanNotFoundException("Kategori pemasukan not found");
+    }
 
     @Override
     public void existFinancialEventOrThrow(String id) {
@@ -136,7 +153,7 @@ public class Workspace implements IWorkspace {
     @Override
     public List<FinancialEvent> getPengeluarans() {
         return financialEvents.stream()
-                .filter(financialEvent -> financialEvent instanceof Pengeluaran)
+                .filter(Pengeluaran.class::isInstance)
                 .collect(Collectors.toList());
     }
 
@@ -153,7 +170,7 @@ public class Workspace implements IWorkspace {
     @Override
     public List<FinancialEvent> getTagihan() {
         return financialEvents.stream()
-                .filter(financialEvent -> financialEvent instanceof Tagihan)
+                .filter(Tagihan.class::isInstance)
                 .collect(Collectors.toList());
     }
 
@@ -191,17 +208,17 @@ public class Workspace implements IWorkspace {
     
     public void initialize(){
         var spendingAllowance = new SpendingAllowance(null, "default", 0);
-        var kategoriPemasukan = kategoriPemasukanFactory.create(
+        var kategori = kategoriPemasukanFactory.create(
             "default"
         );
         var alokasi = alokasiSpendingAllowanceFactory.create(
             List.of(spendingAllowance), List.of(100.0)
         );
-        kategoriPemasukan.setAlokasiSpendingAllowances(alokasi);
+        kategori.setAlokasiSpendingAllowances(alokasi);
         
         automaticFinancialEvent = new AutomaticFinancialEvent();
         
         addSpendingAllowance(spendingAllowance);
-        addKategoriPemasukan(kategoriPemasukan);
+        addKategoriPemasukan(kategori);
     }
 }

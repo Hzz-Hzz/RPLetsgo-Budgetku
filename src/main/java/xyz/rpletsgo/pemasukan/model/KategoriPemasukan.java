@@ -27,7 +27,7 @@ public class KategoriPemasukan {
     
     @Getter
     @Setter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @OneToMany(cascade={CascadeType.REMOVE})
     List<AlokasiSpendingAllowance> alokasiSpendingAllowances = new ArrayList<>();
     

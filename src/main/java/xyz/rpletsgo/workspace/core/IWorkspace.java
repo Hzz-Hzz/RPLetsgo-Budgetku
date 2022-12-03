@@ -28,7 +28,9 @@ public interface IWorkspace {
     
     
     void removeSpendingAllowance(String spendingAllowanceId);
-
+    
+    void removeKategoriPemasukan(String kategoriPemasukanId);
+    
     void existFinancialEventOrThrow(String id);
 
     List<FinancialEvent> getPengeluarans();

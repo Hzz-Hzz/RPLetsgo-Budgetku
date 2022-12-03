@@ -7,6 +7,7 @@ import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
 import xyz.rpletsgo.budgeting.core.KategoriPemasukanFactory;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.repository.AdditionalSpendingAllowanceRepository;
+import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
@@ -26,6 +27,9 @@ public class KategoriPemasukanService {
     KategoriPemasukanRepository kategoriPemasukanRepository;
     @Autowired
     SpendingAllowanceRepository spendingAllowanceRepository;
+    @Autowired
+    AlokasiSpendingAllowanceRepository alokasiSpendingAllowanceRepository;
+    
     @Autowired
     AdditionalSpendingAllowanceRepository additionalSpendingAllowanceRepository;
     
@@ -48,15 +52,21 @@ public class KategoriPemasukanService {
         var kategoriPemasukan = kategoriPemasukanFactory.create(
             namaKategoriPemasukan
         );
+        
         kategoriPemasukan.setAlokasiSpendingAllowances(alokasi);
+        alokasiSpendingAllowanceRepository.saveAllAndFlush(alokasi);
         kategoriPemasukanRepository.saveAndFlush(kategoriPemasukan);
         
         workspace.addKategoriPemasukan(kategoriPemasukan);
         workspaceRepository.save(workspace);
         return kategoriPemasukan;
     }
-
-
+    
+    
+    /**
+     * Updating besarAlokasi and spendingAllowanceId won't update existing
+     * spending allowance
+     */
     public KategoriPemasukan update(
         String workspaceId,
         String kategoriPemasukanId,
@@ -79,6 +89,7 @@ public class KategoriPemasukanService {
         kategoriPemasukan.setAlokasiSpendingAllowances(alokasi);
     
         workspace.addKategoriPemasukan(kategoriPemasukan);
+        alokasiSpendingAllowanceRepository.saveAllAndFlush(alokasi);
         kategoriPemasukanRepository.saveAndFlush(kategoriPemasukan);
         return kategoriPemasukan;
     }
@@ -91,12 +102,16 @@ public class KategoriPemasukanService {
         return workspace.getKategoriPemasukan();
     }
     
-//
-//    public void deleteSpendingAllowanceFromWorkspace(
-//        String workspaceId, String spendingAllowanceId
-//    ){
-//        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-//        workspace.removeSpendingAllowance(spendingAllowanceId);
-//        workspaceRepository.save(workspace);
-//    }
+    
+    /**
+     * Delete a KategoriPemasukan from workspace.
+     * Note, this method doesn't remove KategoriPemasukan from 'history'.
+     */
+    public void deleteKategoriPemasukanFromWorkspace(
+        String workspaceId, String kategoriPemasukanId
+    ){
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        workspace.removeKategoriPemasukan(kategoriPemasukanId);
+        workspaceRepository.save(workspace);
+    }
 }

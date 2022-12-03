@@ -9,7 +9,7 @@ import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/spending-allowance")
+@RequestMapping("/{workspaceId}/spending-allowance")
 public class SpendingAllowanceController {
     String success = "success";
     
@@ -17,7 +17,7 @@ public class SpendingAllowanceController {
     SpendingAllowanceService spendingAllowanceService;
     
     
-    @PostMapping("/{workspaceId}/create")
+    @PostMapping("/create")
     @ResponseBody
     public SpendingAllowance createSpendingAllowance(
         @PathVariable String workspaceId,
@@ -26,7 +26,7 @@ public class SpendingAllowanceController {
         return spendingAllowanceService.create(workspaceId, nama);
     }
     
-    @PostMapping("/{workspaceId}/update")
+    @PostMapping("/update")
     @ResponseBody
     public String updateSpendingAllowance(
         @PathVariable String workspaceId,
@@ -37,7 +37,7 @@ public class SpendingAllowanceController {
         return success;
     }
     
-    @GetMapping("/{workspaceId}")
+    @GetMapping("/")
     @ResponseBody
     public List<SpendingAllowance> getSpendingAllowance(
         @PathVariable String workspaceId
@@ -47,7 +47,7 @@ public class SpendingAllowanceController {
     
     
     
-    @PostMapping("/{workspaceId}/delete")
+    @PostMapping("/delete")
     @ResponseBody
     public String deleteSpendingAllowanceFromWorkspace(
         @PathVariable String workspaceId,
