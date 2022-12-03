@@ -9,13 +9,17 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
 import xyz.rpletsgo.pengeluaran.service.PengeluaranService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/{workspaceId}/pengeluaran")
 public class PengeluaranController {
     String success = "success";
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
     PengeluaranService pengeluaranService;
@@ -43,13 +47,14 @@ public class PengeluaranController {
             @PathVariable String workspaceId,
             @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDateTime waktu,
+            @RequestParam String waktu,
             @RequestParam long nominal,
             @RequestParam String spendingAllowanceId,
-            @RequestParam String tagihanId
+            @RequestParam Optional<String> tagihanId
     ){
+        LocalDateTime dateTime = LocalDate.parse(waktu, formatter).atStartOfDay();
         pengeluaranService.create(workspaceId, nama, keterangan,
-                waktu, nominal, spendingAllowanceId, tagihanId);
+                dateTime, nominal, spendingAllowanceId, tagihanId.orElse(null));
         return success;
     }
 
@@ -60,14 +65,15 @@ public class PengeluaranController {
             @PathVariable String pengeluaranId,
             @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDateTime waktu,
+            @RequestParam String waktu,
             @RequestParam long nominal,
             @RequestParam String spendingAllowanceId,
-            @RequestParam String tagihanId
+            @RequestParam Optional<String> tagihanId
     ){
+        LocalDateTime dateTime = LocalDate.parse(waktu, formatter).atStartOfDay();
         pengeluaranService.update(workspaceId, pengeluaranId, nama,
-                keterangan, waktu, nominal,
-                spendingAllowanceId, tagihanId);
+                keterangan, dateTime, nominal,
+                spendingAllowanceId, tagihanId.orElse(null));
         return success;
     }
 

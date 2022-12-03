@@ -6,8 +6,10 @@ import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
 import xyz.rpletsgo.common.model.FinancialEvent;
+import xyz.rpletsgo.common.repository.FinancialEventRepository;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
 import xyz.rpletsgo.pengeluaran.repository.PengeluaranRepository;
+import xyz.rpletsgo.tagihan.model.Tagihan;
 import xyz.rpletsgo.tagihan.repository.TagihanRepository;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
@@ -29,6 +31,8 @@ public class PengeluaranService {
     SpendingAllowanceService spendingAllowanceService;
     @Autowired
     PengeluaranRepository pengeluaranRepository;
+    @Autowired
+    FinancialEventRepository financialEventRepository;
 
     public List<FinancialEvent> getPengeluaransByWorkspace(String workspaceId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
@@ -46,12 +50,16 @@ public class PengeluaranService {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         var sumberDana = workspace.getSpendingAllowanceOrThrow(spendingAllowanceId);
 
-        workspace.existFinancialEventOrThrow(tagihanId);
-        var tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
+        Tagihan tagihanYangDibayar = null;
+        if(tagihanId != null) {
+            workspace.existFinancialEventOrThrow(tagihanId);
+            tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
+        }
 
         var pengeluaran = new Pengeluaran(nama, keterangan, waktu);
         pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
 
+        pengeluaranRepository.saveAndFlush(pengeluaran);
         workspace.addFinancialEvent(pengeluaran);
         workspaceRepository.save(workspace);
     }
@@ -60,13 +68,18 @@ public class PengeluaranService {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         var sumberDana = workspace.getSpendingAllowanceOrThrow(spendingAllowanceId);
 
-        workspace.existFinancialEventOrThrow(tagihanId);
-        var tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
+        Tagihan tagihanYangDibayar = null;
+        if(tagihanId != null) {
+            workspace.existFinancialEventOrThrow(tagihanId);
+            tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
+        }
 
         workspace.existFinancialEventOrThrow(pengeluaranId);
         var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElse(null);
 
         pengeluaran.valueUpdate(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
+        pengeluaranRepository.saveAndFlush(pengeluaran);
+        financialEventRepository.saveAndFlush(pengeluaran);
         workspaceRepository.save(workspace);
     }
 

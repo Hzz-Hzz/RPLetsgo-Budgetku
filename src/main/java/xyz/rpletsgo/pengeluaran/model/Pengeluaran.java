@@ -28,13 +28,13 @@ public class Pengeluaran extends FinancialEvent {
     }
 
     @Getter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne(cascade={CascadeType.REMOVE})
     SpendingAllowance sumberDana;
 
     @Nullable
     @Getter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne(cascade={CascadeType.REMOVE})
     Tagihan tagihanYangDibayar;
 
