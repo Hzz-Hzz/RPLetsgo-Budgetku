@@ -45,7 +45,8 @@ public class PemasukanService {
     public Pemasukan create(String workspaceId, String pemasukanNama, String keterangan, LocalDateTime waktu,
                        Long nominal, String kategoriPemasukanId){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId).orElseThrow();
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId)
+            .orElseThrow(() -> new KategoriPemasukanNotFoundException("kategori not found"));
 
         var pemasukan = new Pemasukan(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
 
@@ -79,7 +80,7 @@ public class PemasukanService {
         }
     
         var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId)
-            .orElseThrow(() -> new KategoriPemasukanNotFoundException(""));
+            .orElseThrow(() -> new KategoriPemasukanNotFoundException("kategori not found"));
         kategoriPemasukan.addPemasukan(nominal);
         var alokasiAfter = kategoriPemasukan.getSpendingAllowanceYangTerkait();
         spendingAllowanceRepository.saveAllAndFlush(alokasiAfter);
