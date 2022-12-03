@@ -1,6 +1,5 @@
 package xyz.rpletsgo.pengeluaran.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,13 +28,13 @@ public class Pengeluaran extends FinancialEvent {
 
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @ManyToOne(cascade={CascadeType.REMOVE})
+    @ManyToOne()
     SpendingAllowance sumberDana;
 
     @Nullable
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @ManyToOne(cascade={CascadeType.REMOVE})
+    @ManyToOne()
     Tagihan tagihanYangDibayar;
 
     public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
