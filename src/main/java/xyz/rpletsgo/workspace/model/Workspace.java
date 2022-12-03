@@ -34,6 +34,7 @@ public class Workspace implements IWorkspace {
     @Column(updatable = false)
     String id;
     
+    @Setter
     @Getter
     @Column
     String nama;
@@ -73,7 +74,7 @@ public class Workspace implements IWorkspace {
     
     
     @Override
-    public KategoriPemasukan getKategoriPemasukan(String id) {
+    public KategoriPemasukan getKategoriPemasukanOrThrow(String id) {
         for (var kategori: kategoriPemasukan) {
             if (kategori.getId().equals(id))
                 return kategori;
@@ -185,20 +186,6 @@ public class Workspace implements IWorkspace {
         automaticFinancialEvent.triggerEventCreation(this);
     }
 
-    @Override
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    @Override
-    public String getNama() {
-        return nama;
-    }
-
-    @Override
-    public String getId() {
-        return id;
-    }
 
     
     @Transient
@@ -212,7 +199,7 @@ public class Workspace implements IWorkspace {
             "default"
         );
         var alokasi = alokasiSpendingAllowanceFactory.create(
-            List.of(spendingAllowance), List.of(100.0)
+            List.of(spendingAllowance), List.of(1.0)
         );
         kategori.setAlokasiSpendingAllowances(alokasi);
         

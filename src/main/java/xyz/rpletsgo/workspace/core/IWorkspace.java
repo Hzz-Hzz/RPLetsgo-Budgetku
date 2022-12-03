@@ -18,7 +18,9 @@ public interface IWorkspace {
     
     
     
-    KategoriPemasukan getKategoriPemasukan(String id);
+    
+    KategoriPemasukan getKategoriPemasukanOrThrow(String id);
+    
     SpendingAllowance getSpendingAllowanceOrThrow(String id);
     
     List<SpendingAllowance> getSpendingAllowanceOrThrow(List<String> id);
