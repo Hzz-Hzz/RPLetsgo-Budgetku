@@ -28,13 +28,13 @@ public class WorkspaceController {
         return "Workspace updated";
     }
 
-    @GetMapping("/{workspaceId}/workspace")
+    @GetMapping("/{workspaceId}/workspace/get")
     @ResponseBody
     public IWorkspace getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
         return workspaceService.getWorkspace(workspaceId);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/workspace/get")
     @ResponseBody
     public List<Workspace> getWorkspace () {
         return workspaceService.getWorkspaces();

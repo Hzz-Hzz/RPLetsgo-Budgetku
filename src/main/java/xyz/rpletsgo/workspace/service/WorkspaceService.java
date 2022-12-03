@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.auth.repository.PenggunaRepository;
+import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
+import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
+import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 import xyz.rpletsgo.workspace.model.Workspace;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
@@ -19,11 +22,22 @@ public class WorkspaceService {
     PenggunaRepository penggunaRepository;
     
     @Autowired
+    KategoriPemasukanRepository kategoriPemasukanRepository;
+    @Autowired
+    AlokasiSpendingAllowanceRepository alokasiSpendingAllowanceRepository;
+    @Autowired
+    SpendingAllowanceRepository spendingAllowanceRepository;
+    
+    @Autowired
     CurrentLoggedInPengguna loggedInPengguna;
     
     public Workspace createWorkspace(String nama){
         var workspace = new Workspace();
         workspace.initialize();
+        spendingAllowanceRepository.saveAllAndFlush(workspace.getSpendingAllowances());
+        alokasiSpendingAllowanceRepository.saveAllAndFlush(workspace.getAlokasiSpendingAllowances());
+        kategoriPemasukanRepository.saveAllAndFlush(workspace.getKategoriPemasukan());
+        
         workspace.setNama(nama);
         workspaceRepository.save(workspace);
     
@@ -34,13 +48,13 @@ public class WorkspaceService {
     }
 
     public void updateWorkspace(String workspaceId, String nama){
-        var workspace = workspaceRepository.findById(workspaceId).get();
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         workspace.setNama(nama);
         workspaceRepository.save(workspace);
     }
 
     public IWorkspace getWorkspace(String workspaceId){
-        return workspaceRepository.findById(workspaceId).get();
+        return loggedInPengguna.authorizeWorkspace(workspaceId);
     }
 
     public List<Workspace> getWorkspaces(){

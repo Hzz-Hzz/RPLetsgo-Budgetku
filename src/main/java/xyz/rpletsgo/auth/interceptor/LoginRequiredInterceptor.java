@@ -35,6 +35,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     void defineAuthRequiredUrls(){
         urlExceptions.add("/");
         urlExceptions.add("/login");
+        urlExceptions.add("/register");
         urlExceptions.add("");
     }
     
