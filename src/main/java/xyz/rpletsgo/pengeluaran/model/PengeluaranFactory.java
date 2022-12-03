@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEventFactory;
@@ -16,15 +18,25 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
+@NoArgsConstructor
 public class PengeluaranFactory extends FinancialEventFactory implements IPengeluaranFactory {
+    public void set(String nama, String keterangan, long nominal, SpendingAllowance sumberDana,
+                    Tagihan tagihanYangDibayar){
+        super.set(nama, keterangan, nominal);
+        this.sumberDana = sumberDana;
+        this.tagihanYangDibayar = tagihanYangDibayar;
+    }
+    
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     SpendingAllowance sumberDana;
     
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     Tagihan tagihanYangDibayar;
     
     @Override
@@ -37,8 +49,7 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
         Pengeluaran pengeluaran = new Pengeluaran();
         sideEffect_initialize(pengeluaran, waktu);
         
-        pengeluaran.setSumberDana(getSumberDana());
-        pengeluaran.setTagihanYangDibayar(getTagihanYangDibayar());
+        pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, getNominal());
         return pengeluaran;
     }
 }

@@ -7,7 +7,7 @@ import xyz.rpletsgo.workspace.core.IWorkspace;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class WorkspaceTest {
@@ -42,6 +42,9 @@ class WorkspaceTest {
         assertSame(financialEvent2, financialEventList.get(1));
     }
     
+    
+    
+    
     @Test
     void triggerAutomation(){
         var automaticFinancialEvent = mock(AutomaticFinancialEvent.class);
@@ -51,5 +54,34 @@ class WorkspaceTest {
         workspace.triggerAutomation();
         
         verify(automaticFinancialEvent, times(1)).triggerEventCreation(workspace);
+    }
+    
+    
+    @Test
+    void initialize_itShouldInitializeAutomaticFinancialEvent() {
+        var workspace = new Workspace();
+        workspace.initialize();
+        
+        assertNotNull(workspace.getAutomaticFinancialEvent());
+    }
+    
+    @Test
+    void initialize_itShouldCreateInitialKategoriAndSpendingAllowanceWithCorrectConnectionBetweenThem(){
+        var workspace = new Workspace();
+        workspace.initialize();
+        
+        var spendingAllowanceList = workspace.getSpendingAllowances();
+        var kategoriPemasukanList = workspace.getKategoriPemasukan();
+        
+        assertEquals(1, spendingAllowanceList.size());
+        assertEquals(1, kategoriPemasukanList.size());
+        
+        var spendingAllowance = spendingAllowanceList.get(0);
+        var kategoriPemasukan = kategoriPemasukanList.get(0);
+        var alokasiSpendingAllowance = kategoriPemasukan.getAlokasiSpendingAllowances();
+        
+        assertEquals(1, alokasiSpendingAllowance.size());
+        assertEquals(1.0, alokasiSpendingAllowance.get(0).getBesarAlokasi());
+        assertSame(spendingAllowance, alokasiSpendingAllowance.get(0).getSpendingAllowance());
     }
 }

@@ -2,7 +2,9 @@ package xyz.rpletsgo.common.model;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import xyz.rpletsgo.common.core.IFinancialEvent;
 
@@ -10,7 +12,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@AllArgsConstructor
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class FinancialEvent implements IFinancialEvent {
     @Getter
     @Id
@@ -36,5 +40,5 @@ public class FinancialEvent implements IFinancialEvent {
     @Getter
     @Setter
     @Column
-    long nominal;
+    protected long nominal;
 }

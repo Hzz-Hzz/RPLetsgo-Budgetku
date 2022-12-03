@@ -8,6 +8,7 @@ import xyz.rpletsgo.auth.exceptions.UsernameNotFoundException;
 import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.PenggunaRepository;
 import xyz.rpletsgo.auth.repository.SessionRepository;
+import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
 @Service
 public class PenggunaService {
@@ -17,8 +18,11 @@ public class PenggunaService {
     @Autowired
     SessionRepository sessionRepository;
     
+    
+    
+    
     public Pengguna getPengguna(String username){
-        return penggunaRepository.findByUsername(username);
+        return penggunaRepository.findByUsername(username).orElse(null);
     }
     
     
@@ -43,5 +47,16 @@ public class PenggunaService {
     
         pengguna = new Pengguna(username, password, email);
         penggunaRepository.save(pengguna);
+    }
+    
+    
+    
+    @Autowired
+    WorkspaceRepository workspaceRepository;
+    
+    public void authorizeWorkspaceAccessOrThrow(String username, String workspaceId){
+        var pengguna = penggunaRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(""));
+        pengguna.getWorkspaceIfAuthorizedOrThrow(workspaceId);
     }
 }

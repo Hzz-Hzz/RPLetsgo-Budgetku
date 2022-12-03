@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.common.core.LocalDateTimeFactory;
 
@@ -34,7 +35,11 @@ public class FinancialEventCreationSchedule {
     
     @Getter
     @Setter
-    @OneToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToOne(
+        cascade={CascadeType.REMOVE},
+        fetch = FetchType.EAGER
+    )
     FinancialEventFactory financialEventFactory;
     
     @Getter

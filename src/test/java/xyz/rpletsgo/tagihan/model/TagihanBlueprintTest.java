@@ -8,15 +8,12 @@ import xyz.rpletsgo.tagihan.core.ITagihanFactory;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class TagihanFactoryTest {
-    @Test
-    void constructorRunsCorrectly(){
-        assertDoesNotThrow(TagihanFactory::new);
-    }
     
     static String nama = "a";
     static String keterangan = "b";
