@@ -1,5 +1,6 @@
 package xyz.rpletsgo.pemasukan.service;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
@@ -35,6 +36,8 @@ public class PemasukanService {
     
     @Autowired
     AlokasiSpendingAllowanceRepository alokasiSpendingAllowanceRepository;
+    
+    @Setter
     AlokasiSpendingAllowanceFactory alokasiSpendingAllowanceFactory = new AlokasiSpendingAllowanceFactory();
 
     public List<FinancialEvent> getPemasukansByWorkspace(String workspaceId){
