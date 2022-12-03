@@ -1,5 +1,6 @@
 package xyz.rpletsgo.budgeting.service;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
@@ -33,7 +34,9 @@ public class KategoriPemasukanService {
     @Autowired
     AdditionalSpendingAllowanceRepository additionalSpendingAllowanceRepository;
     
+    @Setter
     KategoriPemasukanFactory kategoriPemasukanFactory = new KategoriPemasukanFactory();
+    @Setter
     AlokasiSpendingAllowanceFactory alokasiSpendingAllowanceFactory = new AlokasiSpendingAllowanceFactory();
 
     public KategoriPemasukan create(
@@ -87,8 +90,7 @@ public class KategoriPemasukanService {
     
         kategoriPemasukan.setNama(namaKategoriPemasukan);
         kategoriPemasukan.setAlokasiSpendingAllowances(alokasi);
-    
-        workspace.addKategoriPemasukan(kategoriPemasukan);
+        
         alokasiSpendingAllowanceRepository.saveAllAndFlush(alokasi);
         kategoriPemasukanRepository.saveAndFlush(kategoriPemasukan);
         return kategoriPemasukan;

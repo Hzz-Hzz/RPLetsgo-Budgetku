@@ -70,6 +70,7 @@ public class Pengguna implements IPengguna {
         }
         return null;
     }
+
     
     public Workspace getWorkspaceIfAuthorizedOrThrow(String workspaceId){
         var ret = getWorkspace(workspaceId);

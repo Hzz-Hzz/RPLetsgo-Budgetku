@@ -13,6 +13,11 @@ import xyz.rpletsgo.workspace.model.Workspace;
 
 import java.util.List;
 
+/**
+ * Hanya bertujuan untuk membantu saat proses development.
+ * Tidak ada tujuan fungsionalitas fitur apapun
+ */
+@lombok.Generated
 @Service
 public class CreateDummyWorkspaces {
     @Autowired
