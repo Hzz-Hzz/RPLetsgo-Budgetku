@@ -6,6 +6,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import xyz.rpletsgo.common.model.FinancialEvent;
 
 @Entity
@@ -13,6 +14,7 @@ import xyz.rpletsgo.common.model.FinancialEvent;
 public class Pemasukan extends FinancialEvent {
     @Getter
     @Setter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     KategoriPemasukan kategori;
 }

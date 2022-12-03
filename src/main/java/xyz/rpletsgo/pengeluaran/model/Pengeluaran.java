@@ -27,12 +27,14 @@ public class Pengeluaran extends FinancialEvent {
     }
 
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     SpendingAllowance sumberDana;
 
     @Nullable
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     Tagihan tagihanYangDibayar;
 
     public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
@@ -40,7 +42,7 @@ public class Pengeluaran extends FinancialEvent {
             this.sumberDana.increaseNominal(this.nominal);
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(-this.nominal);
+            this.tagihanYangDibayar.increaseNominal(this.nominal);
         }
 
         this.sumberDana = sumberDana;
@@ -51,7 +53,7 @@ public class Pengeluaran extends FinancialEvent {
             this.sumberDana.increaseNominal(-this.nominal);
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(this.nominal);
+            this.tagihanYangDibayar.increaseNominal(-this.nominal);
         }
     }
 

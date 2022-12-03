@@ -3,6 +3,7 @@ package xyz.rpletsgo.auth.interceptor;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     @Autowired
     CurrentLoggedInPengguna loggedInPengguna;
     
-    
+    @Generated
     @PostConstruct
     void defineAuthRequiredUrls(){
         urlExceptions.add("/");

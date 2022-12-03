@@ -20,12 +20,14 @@ public class SpendingAllowanceService {
     SpendingAllowanceRepository spendingAllowanceRepository;
     
     
-    public void create(String workspaceId, String spendingAllowanceName){
+    public SpendingAllowance create(String workspaceId, String spendingAllowanceName){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var spendingAllowance = new SpendingAllowance("", spendingAllowanceName, 0);
+        var spendingAllowance = new SpendingAllowance(spendingAllowanceName, 0);
         workspace.addSpendingAllowance(spendingAllowance);
     
+        spendingAllowanceRepository.saveAndFlush(spendingAllowance);
         workspaceRepository.save(workspace);
+        return spendingAllowance;
     }
     
     

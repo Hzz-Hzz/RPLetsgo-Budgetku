@@ -1,6 +1,7 @@
 package xyz.rpletsgo.common.core;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 import xyz.rpletsgo.common.model.FinancialEventCreationSchedule;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 
@@ -15,8 +16,8 @@ public class AutomaticFinancialEvent {
     @Column
     String id;
     
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
-        cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
         fetch = FetchType.EAGER
     )
     List<FinancialEventCreationSchedule> schedules = new ArrayList<>();

@@ -4,6 +4,8 @@ package xyz.rpletsgo.auth.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.auth.exceptions.UnauthorizedAccessException;
 import xyz.rpletsgo.common.core.IPengguna;
@@ -36,12 +38,14 @@ public class Pengguna implements IPengguna {
     
     @Getter
     @Setter
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER)
     List<Workspace> joinedWorkspaces;
     
     @Getter
     @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @Cascade({CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER)
     List<Workspace> createdWorkspaces;
     
     
@@ -66,6 +70,7 @@ public class Pengguna implements IPengguna {
         }
         return null;
     }
+
     
     public Workspace getWorkspaceIfAuthorizedOrThrow(String workspaceId){
         var ret = getWorkspace(workspaceId);

@@ -16,6 +16,6 @@ public class Tagihan extends FinancialEvent {
         setWaktu(waktu);
     }
     public void increaseNominal(long nominal) {
-        this.nominal -= nominal;
+        this.nominal += nominal;
     }
 }

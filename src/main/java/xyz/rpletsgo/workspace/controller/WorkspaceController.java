@@ -2,14 +2,12 @@ package xyz.rpletsgo.workspace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
+import xyz.rpletsgo.workspace.core.IWorkspace;
+import xyz.rpletsgo.workspace.model.Workspace;
 import xyz.rpletsgo.workspace.service.WorkspaceService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/workspace")
@@ -19,9 +17,9 @@ public class WorkspaceController {
 
     @PostMapping("/create")
     @ResponseBody
-    public String createWorkspace (@RequestParam String nama){
-        workspaceService.createWorkspace(nama);
-        return "Workspace created";
+    public Workspace createWorkspace (@RequestParam String nama){
+        Workspace workspace = workspaceService.createWorkspace(nama);
+        return workspace;
     }
 
     @PostMapping("/update/{workspaceId}")
@@ -33,9 +31,14 @@ public class WorkspaceController {
 
     @GetMapping("/get/{workspaceId}")
     @ResponseBody
-    public String getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
-        workspaceService.getWorkspace(workspaceId);
-        return "Workspace retrieved";
+    public IWorkspace getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
+        return workspaceService.getWorkspace(workspaceId);
+    }
+
+    @GetMapping("/get")
+    @ResponseBody
+    public List<Workspace> getWorkspace () {
+        return workspaceService.getWorkspaces();
     }
 
     @PostMapping("/delete/{workspaceId}")

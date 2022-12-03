@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
+import xyz.rpletsgo.auth.exceptions.InvalidSessionException;
+import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.SessionRepository;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class LoginRequiredInterceptorTest {
     SessionRepository sessionRepository;
@@ -38,7 +39,6 @@ class LoginRequiredInterceptorTest {
         );
     }
     
-    /*
     @Test
     @SneakyThrows
     void preHandle_throwIfSessionNotInRepository() {
@@ -48,7 +48,7 @@ class LoginRequiredInterceptorTest {
         assertThrows(
             InvalidSessionException.class,
             () -> testPreHandle(
-                    "/login-required",
+                    "/",
                     new Cookie[]{cookie}
             )
         );
@@ -61,15 +61,29 @@ class LoginRequiredInterceptorTest {
         
         assertTrue(
             testPreHandle(
-                "/login-required",
+                "/",
                 new Cookie[]{
                     new Cookie("session", "a")
                 }
             )
         );
         verify(currentPengguna, times(1)).setCurrentPengguna(pengguna);
-    }*/
+    }
     
+    @Test
+    void preHandle_returnTrueIfUrlDoesntNeedLogin() {
+        var pengguna = mock(Pengguna.class);
+        when(sessionRepository.getSessionOrThrow("a")).thenReturn(pengguna);
+    
+        assertTrue(
+            testPreHandle(
+                "/login-not-required",
+                new Cookie[]{
+                    new Cookie("session", "a")
+                }
+            )
+        );
+    }
     
     
     boolean testPreHandle(String uri, Cookie[] cookieArr){
@@ -80,10 +94,8 @@ class LoginRequiredInterceptorTest {
             cookieArr
         );
         
-        var loginRequiredUrls = List.of(
-            "/login-required"
-        );
-        loginRequiredInterceptor.setUrlExceptions(loginRequiredUrls);
+        var whiteListUrls = List.of("/login-not-required");
+        loginRequiredInterceptor.setUrlExceptions(whiteListUrls);
         
         try {
             return loginRequiredInterceptor.preHandle(servletRequest, null, null);
@@ -93,7 +105,7 @@ class LoginRequiredInterceptorTest {
             throw new RuntimeException(e);
         }
     }
-    /*
+    
     @Test
     void isAuthRequired() {
         // login-required urls
@@ -103,16 +115,11 @@ class LoginRequiredInterceptorTest {
         );
         loginRequiredInterceptor.setUrlExceptions(loginRequiredUrls);
         
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/a"));
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/a/b"));
+        assertFalse(loginRequiredInterceptor.isAuthRequired("/a"));
+        assertFalse(loginRequiredInterceptor.isAuthRequired("/b/c"));
     
-        assertFalse(loginRequiredInterceptor.isAuthRequired("/b"));
-        assertFalse(loginRequiredInterceptor.isAuthRequired("/b/d"));
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/b/c"));
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/b/c/a"));
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/b/c/b"));
-        assertTrue(loginRequiredInterceptor.isAuthRequired("/b/c/c"));
-        
-        assertFalse(loginRequiredInterceptor.isAuthRequired("/c"));
-    }*/
+        assertTrue(loginRequiredInterceptor.isAuthRequired("/a/b"));
+        assertTrue(loginRequiredInterceptor.isAuthRequired("/b"));
+        assertTrue(loginRequiredInterceptor.isAuthRequired("/c"));
+    }
 }
