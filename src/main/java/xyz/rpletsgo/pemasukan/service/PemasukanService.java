@@ -3,6 +3,7 @@ package xyz.rpletsgo.pemasukan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
+import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.common.model.FinancialEvent;
@@ -50,17 +51,20 @@ public class PemasukanService {
     public Pemasukan update(String workspaceId, String pemasukanId, String pemasukanNama, String keterangan,
                        LocalDateTime waktu, Long nominal, String kategoriPemasukanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId).orElseThrow();
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId)
+            .orElseThrow(() -> new KategoriPemasukanNotFoundException(""));
 
         workspace.existFinancialEventOrThrow(pemasukanId);
 
         var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
 
         pemasukan.getKategori().addPemasukan(-1 * pemasukan.getNominal());
-        spendingAllowanceRepository.saveAllAndFlush(pemasukan.getKategori().getSpendingAllowanceYangTerkait());
+        var alokasiBefore = pemasukan.getKategori().getSpendingAllowanceYangTerkait();
+        spendingAllowanceRepository.saveAllAndFlush(alokasiBefore);
 
         kategoriPemasukan.addPemasukan(nominal);
-        spendingAllowanceRepository.saveAllAndFlush(kategoriPemasukan.getSpendingAllowanceYangTerkait());
+        var alokasiAfter = kategoriPemasukan.getSpendingAllowanceYangTerkait();
+        spendingAllowanceRepository.saveAllAndFlush(alokasiAfter);
 
         pemasukan.valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
 

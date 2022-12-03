@@ -83,15 +83,15 @@ public class PengeluaranService {
 
         var sumberDanaBefore = pengeluaran.getSumberDana();
         if (sumberDanaBefore.getId().equals(sumberDana.getId()))
-            sumberDana = sumberDanaBefore;
-
+            sumberDanaBefore = sumberDana;
+        pengeluaran.setSumberDanaForcefully(sumberDanaBefore);
         pengeluaran.valueUpdate(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
 
         workspace.deleteFinancialEventOrThrow(pengeluaranId);
         workspace.addFinancialEvent(pengeluaran);
 
-        spendingAllowanceRepository.save(sumberDanaBefore);
-        spendingAllowanceRepository.save(sumberDana);
+        spendingAllowanceRepository.saveAndFlush(sumberDanaBefore);
+        spendingAllowanceRepository.saveAndFlush(sumberDana);
         pengeluaranRepository.save(pengeluaran);
         workspaceRepository.save(workspace);
     }

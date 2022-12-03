@@ -5,6 +5,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
@@ -29,10 +30,16 @@ public class Pengeluaran extends FinancialEvent {
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne()
+    
     SpendingAllowance sumberDana;
+
+    public void setSumberDanaForcefully(SpendingAllowance spendingAllowance){
+        sumberDana = spendingAllowance;
+    }
 
     @Nullable
     @Getter
+    @Setter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne()
     Tagihan tagihanYangDibayar;
@@ -40,13 +47,10 @@ public class Pengeluaran extends FinancialEvent {
     public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
         if(this.sumberDana != null) {
             this.sumberDana.increaseNominal(this.nominal);
-            System.out.println(sumberDana.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
             this.tagihanYangDibayar.increaseNominal(this.nominal);
         }
-
-        System.out.println(this.nominal);
 
         this.sumberDana = sumberDana;
         this.tagihanYangDibayar = tagihanYangDibayar;
@@ -54,7 +58,6 @@ public class Pengeluaran extends FinancialEvent {
         this.nominal = nominal;
         if(this.sumberDana != null) {
             this.sumberDana.increaseNominal(-this.nominal);
-            System.out.println(sumberDana.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
             this.tagihanYangDibayar.increaseNominal(-this.nominal);

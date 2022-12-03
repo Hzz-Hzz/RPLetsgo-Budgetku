@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface KategoriPemasukanRepository extends JpaRepository<KategoriPemasukan, String> {
     @Override
     Optional<KategoriPemasukan> findById(String id);
+    
 }
