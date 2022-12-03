@@ -3,10 +3,13 @@ package xyz.rpletsgo.pemasukan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
+import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
+import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.common.model.FinancialEvent;
+import xyz.rpletsgo.common.repository.FinancialEventRepository;
 import xyz.rpletsgo.pemasukan.model.Pemasukan;
 import xyz.rpletsgo.pemasukan.repository.PemasukanRepository;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
@@ -25,7 +28,14 @@ public class PemasukanService {
     @Autowired
     KategoriPemasukanRepository kategoriPemasukanRepository;
     @Autowired
+    FinancialEventRepository financialEventRepository;
+    @Autowired
     SpendingAllowanceRepository spendingAllowanceRepository;
+    
+    
+    @Autowired
+    AlokasiSpendingAllowanceRepository alokasiSpendingAllowanceRepository;
+    AlokasiSpendingAllowanceFactory alokasiSpendingAllowanceFactory = new AlokasiSpendingAllowanceFactory();
 
     public List<FinancialEvent> getPemasukansByWorkspace(String workspaceId){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
@@ -51,24 +61,33 @@ public class PemasukanService {
     public Pemasukan update(String workspaceId, String pemasukanId, String pemasukanNama, String keterangan,
                        LocalDateTime waktu, Long nominal, String kategoriPemasukanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        workspace.existFinancialEventOrThrow(pemasukanId);
+    
+        var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
+        {
+            var oldKategori = pemasukan.getKategori();
+            var oldAlokasi = alokasiSpendingAllowanceFactory.create(
+                oldKategori.getAlokasiSpendingAllowances(),
+                alokasiSpendingAllowanceRepository, spendingAllowanceRepository
+            );
+        
+            oldKategori.setAlokasiSpendingAllowances(oldAlokasi);
+            oldKategori.addPemasukan(-1 * pemasukan.getNominal());
+            spendingAllowanceRepository.saveAllAndFlush(
+                oldKategori.getSpendingAllowanceYangTerkait()
+            );
+        }
+    
         var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId)
             .orElseThrow(() -> new KategoriPemasukanNotFoundException(""));
-
-        workspace.existFinancialEventOrThrow(pemasukanId);
-
-        var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
-
-        pemasukan.getKategori().addPemasukan(-1 * pemasukan.getNominal());
-        var alokasiBefore = pemasukan.getKategori().getSpendingAllowanceYangTerkait();
-        spendingAllowanceRepository.saveAllAndFlush(alokasiBefore);
-
         kategoriPemasukan.addPemasukan(nominal);
         var alokasiAfter = kategoriPemasukan.getSpendingAllowanceYangTerkait();
         spendingAllowanceRepository.saveAllAndFlush(alokasiAfter);
-
+    
+        pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
         pemasukan.valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
-
-        pemasukanRepository.saveAndFlush(pemasukan);
+        pemasukanRepository.save(pemasukan);
+        financialEventRepository.save(pemasukan);
         workspaceRepository.save(workspace);
         return pemasukan;
     }

@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.tagihan.service.TagihanService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -14,6 +16,7 @@ import java.util.List;
 public class TagihanController {
     @Autowired
     TagihanService tagihanService;
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @PostMapping("/create")
     @ResponseBody
@@ -21,9 +24,10 @@ public class TagihanController {
             @PathVariable String workspaceId,
             @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam LocalDateTime waktu,
+            @RequestParam String waktuStr,
             @RequestParam long nominal
             ){
+        LocalDateTime waktu = LocalDate.parse(waktuStr, formatter).atStartOfDay();
         tagihanService.create(workspaceId, nama, keterangan, waktu, nominal);
         return "success";
     }
@@ -33,12 +37,13 @@ public class TagihanController {
     public String updateTagihan(
             @PathVariable String workspaceId,
             @PathVariable String tagihanId,
-            @RequestParam String name,
+            @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam LocalDateTime waktu,
+            @RequestParam String waktuStr,
             @RequestParam long nominal
     ){
-        tagihanService.update(workspaceId, tagihanId, name, keterangan, waktu, nominal);
+        LocalDateTime waktu = LocalDate.parse(waktuStr, formatter).atStartOfDay();
+        tagihanService.update(workspaceId, tagihanId, nama, keterangan, waktu, nominal);
         return "success";
     }
 
@@ -52,11 +57,11 @@ public class TagihanController {
         return "success";
     }
 
-    @GetMapping("/getid")
+    @GetMapping("/getid/{tagihanId}")
     @ResponseBody
     public FinancialEvent getTagihan(
             @PathVariable String workspaceId,
-            @RequestParam String tagihanId
+            @PathVariable String tagihanId
     ){
         return tagihanService.getTagihan(workspaceId, tagihanId);
     }
