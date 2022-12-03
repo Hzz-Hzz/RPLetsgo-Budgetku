@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.springframework.http.HttpStatus;
+import xyz.rpletsgo.common.exceptions.GeneralException;
 
 
 @Entity
@@ -27,9 +29,15 @@ public class AlokasiSpendingAllowance {
     SpendingAllowance spendingAllowance;
     
     @Getter
-    @Setter
     @Column(name="besarAlokasi")
     double besarAlokasi;
+    
+    public void setBesarAlokasi(double value){
+        if (value < 0 || value > 1){
+            throw new GeneralException("Besar alokasi spending allowance harus antara 0 dan 1", HttpStatus.BAD_REQUEST);
+        }
+        this.besarAlokasi = value;
+    }
     
     
     public long increaseNominal(long nominalKeseluruhan) {
