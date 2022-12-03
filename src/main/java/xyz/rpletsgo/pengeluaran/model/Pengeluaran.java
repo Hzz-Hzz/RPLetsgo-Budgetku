@@ -41,10 +41,13 @@ public class Pengeluaran extends FinancialEvent {
     public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
         if(this.sumberDana != null) {
             this.sumberDana.increaseNominal(this.nominal);
+            System.out.println(sumberDana.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
             this.tagihanYangDibayar.increaseNominal(this.nominal);
         }
+
+        System.out.println(this.nominal);
 
         this.sumberDana = sumberDana;
         this.tagihanYangDibayar = tagihanYangDibayar;
@@ -52,6 +55,7 @@ public class Pengeluaran extends FinancialEvent {
         this.nominal = nominal;
         if(this.sumberDana != null) {
             this.sumberDana.increaseNominal(-this.nominal);
+            System.out.println(sumberDana.getNominal());
         }
         if(this.tagihanYangDibayar != null) {
             this.tagihanYangDibayar.increaseNominal(-this.nominal);
