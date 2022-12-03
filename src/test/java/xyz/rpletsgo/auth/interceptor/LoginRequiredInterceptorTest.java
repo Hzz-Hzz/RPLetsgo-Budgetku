@@ -12,7 +12,6 @@ import xyz.rpletsgo.auth.exceptions.InvalidSessionException;
 import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.SessionRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,6 +70,20 @@ class LoginRequiredInterceptorTest {
         verify(currentPengguna, times(1)).setCurrentPengguna(pengguna);
     }
     
+    @Test
+    void preHandle_returnTrueIfUrlDoesntNeedLogin() {
+        var pengguna = mock(Pengguna.class);
+        when(sessionRepository.getSessionOrThrow("a")).thenReturn(pengguna);
+    
+        assertTrue(
+            testPreHandle(
+                "/login-not-required",
+                new Cookie[]{
+                    new Cookie("session", "a")
+                }
+            )
+        );
+    }
     
     
     boolean testPreHandle(String uri, Cookie[] cookieArr){
@@ -81,7 +94,7 @@ class LoginRequiredInterceptorTest {
             cookieArr
         );
         
-        var whiteListUrls = new ArrayList<String>();
+        var whiteListUrls = List.of("/login-not-required");
         loginRequiredInterceptor.setUrlExceptions(whiteListUrls);
         
         try {

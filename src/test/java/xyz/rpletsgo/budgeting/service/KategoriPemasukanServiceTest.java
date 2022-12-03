@@ -13,7 +13,6 @@ import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
-import xyz.rpletsgo.budgeting.repository.AdditionalSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
@@ -45,9 +44,6 @@ class KategoriPemasukanServiceTest {
     @MockBean
     AlokasiSpendingAllowanceRepository alokasiSpendingAllowanceRepository;
     
-    @MockBean
-    AdditionalSpendingAllowanceRepository additionalSpendingAllowanceRepository;
-    
     AlokasiSpendingAllowanceFactory alokasiSpendingAllowanceFactory;
     KategoriPemasukanFactory kategoriPemasukanFactory;
     
@@ -78,7 +74,6 @@ class KategoriPemasukanServiceTest {
         kategoriPemasukanRepository = mock(KategoriPemasukanRepository.class);
         spendingAllowanceRepository = mock(SpendingAllowanceRepository.class);
         alokasiSpendingAllowanceRepository = mock(AlokasiSpendingAllowanceRepository.class);
-        additionalSpendingAllowanceRepository = mock(AdditionalSpendingAllowanceRepository.class);
         alokasiSpendingAllowanceFactory = mock(AlokasiSpendingAllowanceFactory.class);
         kategoriPemasukanFactory = mock(KategoriPemasukanFactory.class);
         
