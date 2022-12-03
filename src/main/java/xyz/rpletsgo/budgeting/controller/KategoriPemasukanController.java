@@ -19,7 +19,7 @@ public class KategoriPemasukanController {
     
     @PostMapping("/create")
     @ResponseBody
-    public KategoriPemasukan createSpendingAllowance(
+    public KategoriPemasukan createKategoriPemasukan(
         @PathVariable String workspaceId,
         @RequestParam String nama,
         @RequestParam(value = "besarAlokasi[]") Double[] besarAlokasi,
@@ -30,7 +30,7 @@ public class KategoriPemasukanController {
 
     @PostMapping("/update")
     @ResponseBody
-    public KategoriPemasukan updateSpendingAllowance(
+    public KategoriPemasukan updateKategoriPemasukan(
         @PathVariable String workspaceId,
          @RequestParam String kategoriPemasukanId,
          @RequestParam String nama,
@@ -55,7 +55,7 @@ public class KategoriPemasukanController {
 
     @PostMapping("/delete")
     @ResponseBody
-    public String deleteSpendingAllowanceFromWorkspace(
+    public String deleteKategoriPemasukanFromWorkspace(
         @PathVariable String workspaceId,
         @RequestParam String kategoriPemasukanId
     ){
