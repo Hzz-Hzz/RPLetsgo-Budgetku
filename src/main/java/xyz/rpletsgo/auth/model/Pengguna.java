@@ -11,7 +11,7 @@ import xyz.rpletsgo.auth.exceptions.UnauthorizedAccessException;
 import xyz.rpletsgo.common.core.IPengguna;
 import xyz.rpletsgo.workspace.model.Workspace;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,20 +33,16 @@ public class Pengguna implements IPengguna {
     private String email;
     
     @Getter
-    @Column(name = "lastLoginDate")
-    private LocalDateTime lastLoginDate;
-    
-    @Getter
     @Setter
     @Cascade({CascadeType.ALL})
     @ManyToMany(fetch = FetchType.EAGER)
-    List<Workspace> joinedWorkspaces;
+    List<Workspace> joinedWorkspaces = new ArrayList<>();
     
     @Getter
     @Setter
     @Cascade({CascadeType.ALL})
     @OneToMany(fetch = FetchType.EAGER)
-    List<Workspace> createdWorkspaces;
+    List<Workspace> createdWorkspaces = new ArrayList<>();
     
     
     public Pengguna(String username, String password, String email){
