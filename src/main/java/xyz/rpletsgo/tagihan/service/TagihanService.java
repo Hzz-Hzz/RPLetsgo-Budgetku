@@ -30,12 +30,8 @@ public class TagihanService {
         tagihan.updateValue(nama, keterangan, waktu, nominal);
 
         workspace.addFinancialEvent(tagihan);
-        tagihanRepository.save(tagihan);
-        workspaceRepository.save(workspace);
-    }
-
-    public void createAuto(String workspaceId, String tagihanId, String newName, String newKeterangan, LocalDateTime newWaktu, long newNominal, int intervalId) {
-
+        tagihanRepository.saveAndFlush(tagihan);
+        workspaceRepository.saveAndFlush(workspace);
     }
     
     public void update(String workspaceId, String tagihanId, String newName, String newKeterangan, LocalDateTime newWaktu, long newNominal){
@@ -43,13 +39,18 @@ public class TagihanService {
         workspace.existFinancialEventOrThrow(tagihanId);
         var tagihan = tagihanRepository.findById(tagihanId).orElseThrow();
         tagihan.updateValue(newName, newKeterangan, newWaktu, newNominal);
-        tagihanRepository.save(tagihan);
+
+        workspace.deleteFinancialEventOrThrow(tagihanId);
+        workspace.addFinancialEvent(tagihan);
+        tagihanRepository.saveAndFlush(tagihan);
+        workspaceRepository.saveAndFlush(workspace);
     }
 
     public void deleteTagihan(String workspaceId, String tagihanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         workspace.deleteFinancialEventOrThrow(tagihanId);
         tagihanRepository.deleteById(tagihanId);
+        workspaceRepository.saveAndFlush(workspace);
     }
 
     public List<FinancialEvent> getListTagihan(String workspaceId) {
