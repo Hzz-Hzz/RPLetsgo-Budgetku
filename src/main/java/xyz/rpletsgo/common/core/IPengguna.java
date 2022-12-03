@@ -2,14 +2,12 @@ package xyz.rpletsgo.common.core;
 
 import xyz.rpletsgo.workspace.model.Workspace;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IPengguna {
     String getUsername();
     String getPassword();
     String getEmail();
-    LocalDateTime getLastLoginDate();
     
     void setPassword(String value);
     void setEmail(String value);
