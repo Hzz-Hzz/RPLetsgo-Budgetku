@@ -1,6 +1,7 @@
 package xyz.rpletsgo.pemasukan.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import xyz.rpletsgo.common.model.FinancialEvent;
@@ -31,10 +32,11 @@ public class PemasukanController {
             @PathVariable String workspaceId,
             @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam LocalDateTime waktu,
+            @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime waktu,
             @RequestParam Long nominal,
             @RequestParam String kategoriPemasukanId
     ){
+
         return pemasukanService.create(workspaceId, nama, keterangan, waktu, nominal, kategoriPemasukanId);
     }
 
@@ -45,7 +47,7 @@ public class PemasukanController {
             @RequestParam String pemasukanId,
             @RequestParam String nama,
             @RequestParam String keterangan,
-            @RequestParam LocalDateTime waktu,
+            @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime waktu,
             @RequestParam Long nominal,
             @RequestParam String kategoriPemasukanId
     ) {
