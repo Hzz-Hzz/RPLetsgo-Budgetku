@@ -58,7 +58,7 @@ public class PengeluaranService {
             tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
         }
 
-        var pengeluaran = new Pengeluaran(nama, keterangan, waktu);
+        var pengeluaran = new Pengeluaran(nama, keterangan, waktu, sumberDana, tagihanYangDibayar);
         pengeluaran.setSumberDanaTagihanNominal(nominal);
 
         pengeluaranRepository.saveAndFlush(pengeluaran);
@@ -114,7 +114,14 @@ public class PengeluaranService {
 
     public void delete(String workspaceId, String pengeluaranId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        workspace.existFinancialEventOrThrow(pengeluaranId);
+        var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElseThrow(
+                () -> new GeneralException("Pengeluaran with id " + pengeluaranId + " not found", HttpStatus.BAD_REQUEST)
+        );
+        pengeluaran.valueUpdate(null, null, null, 0);
+
         workspace.deleteFinancialEventOrThrow(pengeluaranId);
         pengeluaranRepository.deleteById(pengeluaranId);
+        workspaceRepository.saveAndFlush(workspace);
     }
 }

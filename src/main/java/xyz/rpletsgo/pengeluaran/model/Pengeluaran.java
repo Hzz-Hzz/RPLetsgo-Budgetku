@@ -18,8 +18,10 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 public class Pengeluaran extends FinancialEvent {
-    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu) {
+    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu, SpendingAllowance sumberDana, Tagihan tagihanYangDibayar) {
         super(null, nama, keterangan, waktu, 0);
+        this.sumberDana = sumberDana;
+        this.tagihanYangDibayar = tagihanYangDibayar;
     }
 
     @Override
@@ -42,12 +44,14 @@ public class Pengeluaran extends FinancialEvent {
     Tagihan tagihanYangDibayar;
 
     public void setSumberDanaTagihanNominal(long nominal) {
-        long nominalDiff = nominal - this.nominal;
+        long nominalDiff = this.nominal - nominal;
 
         this.sumberDana.increaseNominal(nominalDiff);
         if(this.tagihanYangDibayar != null) {
             this.tagihanYangDibayar.increaseNominal(nominalDiff);
         }
+
+        this.nominal = nominal;
     }
 
     public void valueUpdate(String nama,
