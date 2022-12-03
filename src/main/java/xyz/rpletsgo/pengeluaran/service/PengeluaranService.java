@@ -35,6 +35,13 @@ public class PengeluaranService {
         return workspace.getPengeluarans();
     }
 
+    public Pengeluaran getPengeluaranById(String workspaceId, String pengeluaranId) {
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        workspace.existFinancialEventOrThrow(pengeluaranId);
+        var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElse(null);
+        return pengeluaran;
+    }
+
     public void create(String workspaceId, String nama, String keterangan, LocalDateTime waktu, long nominal, String spendingAllowanceId, String tagihanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         var sumberDana = workspace.getSpendingAllowanceOrThrow(spendingAllowanceId);
@@ -42,7 +49,7 @@ public class PengeluaranService {
         workspace.existFinancialEventOrThrow(tagihanId);
         var tagihanYangDibayar = tagihanRepository.findById(tagihanId).orElse(null);
 
-        var pengeluaran = new Pengeluaran(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
+        var pengeluaran = new Pengeluaran(nama, keterangan, waktu);
         pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
 
         workspace.addFinancialEvent(pengeluaran);
@@ -68,5 +75,4 @@ public class PengeluaranService {
         workspace.deleteFinancialEventOrThrow(pengeluaranId);
         pengeluaranRepository.deleteById(pengeluaranId);
     }
-
 }

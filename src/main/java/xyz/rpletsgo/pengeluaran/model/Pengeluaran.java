@@ -17,15 +17,8 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 public class Pengeluaran extends FinancialEvent {
-    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu, long nominal, SpendingAllowance sumberDana, @Nullable Tagihan tagihanYangDibayar) {
-        super(null, nama, keterangan, waktu, nominal);
-        this.sumberDana = sumberDana;
-        this.tagihanYangDibayar = tagihanYangDibayar;
-    }
-
-    public Pengeluaran(SpendingAllowance sumberDana, @Nullable Tagihan tagihanYangDibayar) {
-        this.sumberDana = sumberDana;
-        this.tagihanYangDibayar = tagihanYangDibayar;
+    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu) {
+        super(null, nama, keterangan, waktu, 0);
     }
 
     @Override
@@ -44,10 +37,10 @@ public class Pengeluaran extends FinancialEvent {
 
     public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
         if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(this.getNominal());
+            this.sumberDana.increaseNominal(this.nominal);
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(-this.getNominal());
+            this.tagihanYangDibayar.increaseNominal(-this.nominal);
         }
 
         this.sumberDana = sumberDana;
@@ -55,10 +48,10 @@ public class Pengeluaran extends FinancialEvent {
 
         this.nominal = nominal;
         if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(-this.getNominal());
+            this.sumberDana.increaseNominal(-this.nominal);
         }
         if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(this.getNominal());
+            this.tagihanYangDibayar.increaseNominal(this.nominal);
         }
     }
 
