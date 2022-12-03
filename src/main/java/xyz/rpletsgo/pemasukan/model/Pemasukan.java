@@ -26,4 +26,13 @@ public class Pemasukan extends FinancialEvent {
         super(null, nama, keterangan, waktu, nominal);
         this.kategori = kategori;
     }
+
+    public void valueUpdate(String nama, String keterangan, LocalDateTime waktu,
+                            long nominal, KategoriPemasukan kategori) {
+        this.setNama(nama);
+        this.setKeterangan(keterangan);
+        this.setWaktu(waktu);
+        this.setNominal(nominal);
+        this.setKategori(kategori);
+    }
 }

@@ -26,8 +26,30 @@ public class PemasukanService {
     public void create(String workspaceId, String pemasukanNama, String keterangan, LocalDateTime waktu,
                        Long nominal, String kategoriPemasukanId){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId)
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId);
+
         var pemasukan = new Pemasukan(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan.orElseThrow());
+
+        kategoriPemasukan.orElseThrow().addPemasukan(pemasukan.getNominal());
+
+        workspace.addFinancialEvent(pemasukan);
+        workspaceRepository.save(workspace);
+    }
+
+    public void update(String workspaceId, String pemasukanId, String pemasukanNama, String keterangan,
+                       LocalDateTime waktu, Long nominal, String kategoriPemasukanId) {
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId);
+
+        workspace.existFinancialEventOrThrow(pemasukanId);
+        var pemasukan = pemasukanRepository.findById(pemasukanId);
+
+        pemasukan.orElseThrow().valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan.orElseThrow());
+        workspaceRepository.save(workspace);
+    }
+
+    public void delete(String workspaceId, String pemasukanId) {
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
 
     }
 }
