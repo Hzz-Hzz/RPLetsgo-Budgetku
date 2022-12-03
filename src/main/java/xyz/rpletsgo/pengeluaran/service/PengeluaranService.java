@@ -1,10 +1,12 @@
 package xyz.rpletsgo.pengeluaran.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
+import xyz.rpletsgo.common.exceptions.GeneralException;
 import xyz.rpletsgo.common.model.FinancialEvent;
 import xyz.rpletsgo.common.repository.FinancialEventRepository;
 import xyz.rpletsgo.pengeluaran.model.Pengeluaran;
@@ -75,9 +77,13 @@ public class PengeluaranService {
         }
 
         workspace.existFinancialEventOrThrow(pengeluaranId);
-        var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElse(null);
+        var pengeluaran = pengeluaranRepository.findById(pengeluaranId).orElseThrow(
+            () -> new GeneralException("Pengeluaran with id " + pengeluaranId + " not found", HttpStatus.BAD_REQUEST)
+        );
 
         var sumberDanaBefore = pengeluaran.getSumberDana();
+        if (sumberDanaBefore.getId().equals(sumberDana.getId()))
+            sumberDana = sumberDanaBefore;
 
         pengeluaran.valueUpdate(nama, keterangan, waktu, nominal, sumberDana, tagihanYangDibayar);
 

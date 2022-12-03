@@ -68,6 +68,17 @@ class ITPengeluaranTest {
         assertEquals(initialNominal, tagihan2.getNominal());
         assertEquals(initialNominal, spendingAllowance2.getNominal());
     }
+    @Test
+    void setSumberDanaTagihanNominal_shouldNotBeAffectedIfCalledMultipleTimes(){
+        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
+        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
+        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
+    
+        assertEquals(initialNominal - besarPengeluaran, tagihan1.getNominal());
+        assertEquals(initialNominal - besarPengeluaran, spendingAllowance1.getNominal());
+        assertEquals(initialNominal, tagihan2.getNominal());
+        assertEquals(initialNominal, spendingAllowance2.getNominal());
+    }
     
     @Test
     void setNominal(){
