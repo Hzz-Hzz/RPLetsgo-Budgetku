@@ -2,6 +2,7 @@ package xyz.rpletsgo.budgeting.core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
@@ -46,19 +47,20 @@ class AlokasiSpendingAllowanceFactoryTest {
         alokasiSpendingAllowanceRepository = mock(AlokasiSpendingAllowanceRepository.class);
         when(alokasiSpendingAllowanceRepository.findById(alokasiId1))
             .thenReturn(Optional.of(alokasi1));
-        when(alokasiSpendingAllowanceRepository.findById(alokasiId2))
-            .thenReturn(Optional.of(alokasi2));
     
         spendingAllowanceRepository = mock(SpendingAllowanceRepository.class);
         when(spendingAllowanceRepository.findById(spendingId1))
             .thenReturn(Optional.of(spendingAllowance1));
-        when(spendingAllowanceRepository.findById(spendingId2))
-            .thenReturn(Optional.of(spendingAllowance2));
     }
     
     
     @Test
     void createFromExisting() {
+        when(alokasiSpendingAllowanceRepository.findById(alokasiId2))
+            .thenReturn(Optional.of(alokasi2));
+        when(spendingAllowanceRepository.findById(spendingId2))
+            .thenReturn(Optional.of(spendingAllowance2));
+        
         var factory = new AlokasiSpendingAllowanceFactory();
         var alokasiList = List.of(alokasi1, alokasi2);
         
@@ -66,9 +68,48 @@ class AlokasiSpendingAllowanceFactoryTest {
             alokasiList, alokasiSpendingAllowanceRepository, spendingAllowanceRepository);
         assertEquals(alokasiList, alokasiSpendingAllowancesList);
     }
+    @Test
+    void createFromExisting_throwIfAlokasiNotFound() {
+        when(alokasiSpendingAllowanceRepository.findById(alokasiId2))
+            .thenReturn(Optional.empty());
+        when(spendingAllowanceRepository.findById(spendingId2))
+            .thenReturn(Optional.of(spendingAllowance2));
+        
+        var factory = new AlokasiSpendingAllowanceFactory();
+        var alokasiList = List.of(alokasi1, alokasi2);
+        
+        assertThrows(
+            GeneralException.class,
+            () -> factory.create(alokasiList, alokasiSpendingAllowanceRepository, spendingAllowanceRepository)
+        );
+    }
+    @Test
+    void createFromExisting_throwIfSpendingAllowanceNotFound() {
+        when(alokasiSpendingAllowanceRepository.findById(alokasiId2))
+            .thenReturn(Optional.of(alokasi2));
+        when(spendingAllowanceRepository.findById(spendingId2))
+            .thenReturn(Optional.empty());
+        
+        var factory = new AlokasiSpendingAllowanceFactory();
+        var alokasiList = List.of(alokasi1, alokasi2);
+        
+        assertThrows(
+            SpendingAllowanceNotFoundException.class,
+            () -> factory.create(alokasiList, alokasiSpendingAllowanceRepository, spendingAllowanceRepository)
+        );
+    }
     
     
     
+    @Test
+    void create_itShouldThrowsIfGivenListsLengthAreNotEqual() {
+        var factory = new AlokasiSpendingAllowanceFactory();
+        var spendingAllowances = List.of(spendingAllowance1);  // one item
+        List<Double> besarAlokasi = List.of();  // empty
+        
+        assertThrows(GeneralException.class,
+                     () -> factory.create(spendingAllowances, besarAlokasi));
+    }
     @Test
     void create_itShouldThrowsIfTotalAlokasiIsGreaterThanOne() {
         var factory = new AlokasiSpendingAllowanceFactory();
