@@ -10,26 +10,25 @@ import xyz.rpletsgo.workspace.service.WorkspaceService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/workspace")
+@RequestMapping("/")
 public class WorkspaceController {
     @Autowired
     WorkspaceService workspaceService;
 
-    @PostMapping("/create")
+    @PostMapping("/workspace/create")
     @ResponseBody
     public Workspace createWorkspace (@RequestParam String nama){
-        Workspace workspace = workspaceService.createWorkspace(nama);
-        return workspace;
+        return workspaceService.createWorkspace(nama);
     }
 
-    @PostMapping("/update/{workspaceId}")
+    @PostMapping("/{workspaceId}/workspace/update")
     @ResponseBody
     public String updateWorkspace (@PathVariable(name = "workspaceId") String workspaceId, @RequestParam String nama){
         workspaceService.updateWorkspace(workspaceId, nama);
         return "Workspace updated";
     }
 
-    @GetMapping("/get/{workspaceId}")
+    @GetMapping("/{workspaceId}/workspace")
     @ResponseBody
     public IWorkspace getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
         return workspaceService.getWorkspace(workspaceId);
@@ -41,7 +40,7 @@ public class WorkspaceController {
         return workspaceService.getWorkspaces();
     }
 
-    @PostMapping("/delete/{workspaceId}")
+    @PostMapping("/{workspaceId}/workspace/delete")
     @ResponseBody
     public String deleteWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
         workspaceService.deleteWorkspace(workspaceId);
