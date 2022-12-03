@@ -35,6 +35,7 @@ public interface IWorkspace {
     
     void existFinancialEventOrThrow(String id);
 
+    List<FinancialEvent> getPemasukans();
     List<FinancialEvent> getPengeluarans();
 
     void addFinancialEvent(FinancialEvent financialEvent);
