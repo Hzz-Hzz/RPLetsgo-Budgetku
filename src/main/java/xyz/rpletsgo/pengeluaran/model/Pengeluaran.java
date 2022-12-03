@@ -4,10 +4,9 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEvent;
@@ -19,8 +18,8 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 public class Pengeluaran extends FinancialEvent {
-    public Pengeluaran(String id, String nama, String keterangan, LocalDateTime waktu, long nominal, SpendingAllowance sumberDana, @Nullable Tagihan tagihanYangDibayar) {
-        super(id, nama, keterangan, waktu, nominal);
+    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu, long nominal, SpendingAllowance sumberDana, @Nullable Tagihan tagihanYangDibayar) {
+        super(null, nama, keterangan, waktu, nominal);
         this.sumberDana = sumberDana;
         this.tagihanYangDibayar = tagihanYangDibayar;
     }
@@ -30,16 +29,52 @@ public class Pengeluaran extends FinancialEvent {
         this.tagihanYangDibayar = tagihanYangDibayar;
     }
 
-    @Setter
+    @Override
+    public void setNominal(long nominal) {
+        setSumberDanaTagihanNominal(this.sumberDana, this.tagihanYangDibayar, nominal);
+    }
+
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     SpendingAllowance sumberDana;
-    
+
     @Nullable
-    @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     Tagihan tagihanYangDibayar;
 
+    public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
+        if(this.sumberDana != null) {
+            this.sumberDana.increaseNominal(this.getNominal());
+        }
+        if(this.tagihanYangDibayar != null) {
+            this.tagihanYangDibayar.increaseNominal(this.getNominal());
+        }
+
+        this.sumberDana = sumberDana;
+        this.tagihanYangDibayar = tagihanYangDibayar;
+
+        this.nominal = nominal;
+        if(this.sumberDana != null) {
+            this.sumberDana.increaseNominal(-this.getNominal());
+        }
+        if(this.tagihanYangDibayar != null) {
+            this.tagihanYangDibayar.increaseNominal(-this.getNominal());
+        }
+    }
+
+    public void valueUpdate(String nama,
+                            String keteragan,
+                            LocalDateTime waktu,
+                            long nominal,
+                            SpendingAllowance sumberDana,
+                            Tagihan tagihanYangDibayar) {
+        setNama(nama);
+        setKeterangan(keteragan);
+        setWaktu(waktu);
+        setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
+    }
 
 }

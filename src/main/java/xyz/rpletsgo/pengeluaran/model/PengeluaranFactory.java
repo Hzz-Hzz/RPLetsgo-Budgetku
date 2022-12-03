@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.model.FinancialEventFactory;
@@ -28,12 +29,14 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
     
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     SpendingAllowance sumberDana;
     
     @Setter
     @Getter
-    @ManyToOne(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REMOVE})
     Tagihan tagihanYangDibayar;
     
     @Override
@@ -46,8 +49,7 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
         Pengeluaran pengeluaran = new Pengeluaran();
         sideEffect_initialize(pengeluaran, waktu);
         
-        pengeluaran.setSumberDana(getSumberDana());
-        pengeluaran.setTagihanYangDibayar(getTagihanYangDibayar());
+        pengeluaran.setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, getNominal());
         return pengeluaran;
     }
 }

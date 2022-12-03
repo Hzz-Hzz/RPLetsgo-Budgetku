@@ -3,6 +3,7 @@ package xyz.rpletsgo.auth.interceptor;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
-import xyz.rpletsgo.auth.exceptions.InvalidCredentialException;
 import xyz.rpletsgo.auth.repository.SessionRepository;
 
 import java.util.ArrayList;
@@ -25,42 +25,43 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     
     @Getter
     @Setter
-    List<String> authRequiredUrls = new ArrayList<>();
+    List<String> urlExceptions = new ArrayList<>();
     
     @Autowired
-    CurrentLoggedInPengguna currentPengguna;
+    CurrentLoggedInPengguna loggedInPengguna;
     
-    
+    @Generated
     @PostConstruct
     void defineAuthRequiredUrls(){
-        authRequiredUrls.add("/logged-in");
-        authRequiredUrls.add("/spending-allowance");
+        urlExceptions.add("/");
+        urlExceptions.add("/login");
+        urlExceptions.add("");
     }
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception
     {
-        String uri = request.getRequestURI();
+        var uri = request.getRequestURI();
         if (!isAuthRequired(uri))
             return true;
-    
+        
         var sessionCookie = WebUtils.getCookie(request, "session");
         if (sessionCookie == null){
-            throw new InvalidCredentialException("No login credential");
+            return true;
         }
         
         var pengguna = sessionRepository.getSessionOrThrow(sessionCookie.getValue());
-        currentPengguna.setCurrentPengguna(pengguna);
+        loggedInPengguna.setCurrentPengguna(pengguna);
         
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
     
     public boolean isAuthRequired(String uri){
-        for (String authRequiredUrl: authRequiredUrls) {
-            if (uri.startsWith(authRequiredUrl))
-                return true;
+        for (String authRequiredUrl: urlExceptions) {
+            if (uri.equals(authRequiredUrl))
+                return false;
         }
-        return false;
+        return true;
     }
 }

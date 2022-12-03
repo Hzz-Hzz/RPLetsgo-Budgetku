@@ -3,6 +3,7 @@ package xyz.rpletsgo.pemasukan.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 
@@ -26,7 +27,8 @@ public class KategoriPemasukan {
     
     @Getter
     @Setter
-    @OneToMany(cascade={CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @OneToMany(cascade={CascadeType.REMOVE})
     List<AlokasiSpendingAllowance> alokasiSpendingAllowances = new ArrayList<>();
     
     

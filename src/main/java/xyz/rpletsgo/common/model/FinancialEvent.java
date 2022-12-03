@@ -40,5 +40,5 @@ public class FinancialEvent implements IFinancialEvent {
     @Getter
     @Setter
     @Column
-    long nominal;
+    protected long nominal;
 }

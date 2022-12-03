@@ -18,18 +18,30 @@ public interface IWorkspace {
     
     
     
-    KategoriPemasukan getKategoriPemasukan(String id);
+    
+    KategoriPemasukan getKategoriPemasukanOrThrow(String id);
+    
     SpendingAllowance getSpendingAllowanceOrThrow(String id);
+    
+    List<SpendingAllowance> getSpendingAllowanceOrThrow(List<String> id);
+    
     void addKategoriPemasukan(KategoriPemasukan kategoriPemasukan);
     void addSpendingAllowance(SpendingAllowance spendingAllowance);
     
     
     void removeSpendingAllowance(String spendingAllowanceId);
-
+    
+    void removeKategoriPemasukan(String kategoriPemasukanId);
+    
     void existFinancialEventOrThrow(String id);
+
+    List<FinancialEvent> getPengeluarans();
+
     void addFinancialEvent(FinancialEvent financialEvent);
     void addFinancialEvents(Collection<FinancialEvent> financialEvent);
-    
+    List<FinancialEvent> getTagihan();
     
     void triggerAutomation();
+
+    void deleteFinancialEventOrThrow(String financialEventId);
 }
