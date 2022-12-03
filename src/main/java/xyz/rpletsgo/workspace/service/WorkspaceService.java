@@ -1,5 +1,6 @@
 package xyz.rpletsgo.workspace.service;
 
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
@@ -8,6 +9,7 @@ import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
 import xyz.rpletsgo.workspace.core.IWorkspace;
+import xyz.rpletsgo.workspace.core.WorkspaceFactory;
 import xyz.rpletsgo.workspace.model.Workspace;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
@@ -31,14 +33,16 @@ public class WorkspaceService {
     @Autowired
     CurrentLoggedInPengguna loggedInPengguna;
     
+    @Setter
+    WorkspaceFactory workspaceFactory = new WorkspaceFactory();
+    
     public Workspace createWorkspace(String nama){
-        var workspace = new Workspace();
-        workspace.initialize();
+        var workspace = workspaceFactory.create(nama);
+        
         spendingAllowanceRepository.saveAllAndFlush(workspace.getSpendingAllowances());
         alokasiSpendingAllowanceRepository.saveAllAndFlush(workspace.getAlokasiSpendingAllowances());
         kategoriPemasukanRepository.saveAllAndFlush(workspace.getKategoriPemasukan());
         
-        workspace.setNama(nama);
         workspaceRepository.save(workspace);
     
         var pengguna = loggedInPengguna.getCurrentPengguna();
@@ -62,6 +66,7 @@ public class WorkspaceService {
     }
 
     public void deleteWorkspace(String workspaceId){
+        loggedInPengguna.authorizeWorkspace(workspaceId);
         workspaceRepository.deleteById(workspaceId);
     }
 }
