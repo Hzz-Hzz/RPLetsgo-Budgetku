@@ -3,6 +3,7 @@ package xyz.rpletsgo.workspace.model;
 import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanException;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
+import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
 import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 
 import java.util.List;
@@ -12,6 +13,34 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class WorkspaceKategoriTest {
+    @Test
+    void getAlokasiSpendingAllowance(){
+        var alokasi1 = mock(AlokasiSpendingAllowance.class);
+        var alokasi2 = mock(AlokasiSpendingAllowance.class);
+        var alokasi3 = mock(AlokasiSpendingAllowance.class);
+        
+        var kategori1 = mock(KategoriPemasukan.class);
+        var kategori2 = mock(KategoriPemasukan.class);
+        when(kategori1.getId()).thenReturn("a");
+        when(kategori2.getId()).thenReturn("b");
+        
+        when(kategori1.getAlokasiSpendingAllowances()).thenReturn(
+            List.of(alokasi1, alokasi2)
+        );
+        when(kategori2.getAlokasiSpendingAllowances()).thenReturn(
+            List.of(alokasi3)
+        );
+        
+        var workspace = new Workspace();
+        workspace.addKategoriPemasukan(kategori1);
+        workspace.addKategoriPemasukan(kategori2);
+        
+        assertEquals(List.of(alokasi1, alokasi2, alokasi3),
+                     workspace.getAlokasiSpendingAllowances());
+    }
+    
+    
+    
     @Test
     void getKategoriPemasukan_shouldThrowIfNotFound(){
         var kategori1 = mock(KategoriPemasukan.class);

@@ -42,6 +42,9 @@ class WorkspaceTest {
         assertSame(financialEvent2, financialEventList.get(1));
     }
     
+    
+    
+    
     @Test
     void triggerAutomation(){
         var automaticFinancialEvent = mock(AutomaticFinancialEvent.class);
