@@ -26,11 +26,11 @@ public class PemasukanService {
     public void create(String workspaceId, String pemasukanNama, String keterangan, LocalDateTime waktu,
                        Long nominal, String kategoriPemasukanId){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId);
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId).orElseThrow();
 
-        var pemasukan = new Pemasukan(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan.orElseThrow());
+        var pemasukan = new Pemasukan(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
 
-        kategoriPemasukan.orElseThrow().addPemasukan(pemasukan.getNominal());
+        kategoriPemasukan.addPemasukan(pemasukan.getNominal());
 
         workspace.addFinancialEvent(pemasukan);
         workspaceRepository.save(workspace);
@@ -39,17 +39,27 @@ public class PemasukanService {
     public void update(String workspaceId, String pemasukanId, String pemasukanNama, String keterangan,
                        LocalDateTime waktu, Long nominal, String kategoriPemasukanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
-        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId);
+        var kategoriPemasukan = kategoriPemasukanRepository.findById(kategoriPemasukanId).orElseThrow();
 
         workspace.existFinancialEventOrThrow(pemasukanId);
-        var pemasukan = pemasukanRepository.findById(pemasukanId);
 
-        pemasukan.orElseThrow().valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan.orElseThrow());
+        var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
+
+        pemasukan.getKategori().addPemasukan(-1 * pemasukan.getNominal());
+        kategoriPemasukan.addPemasukan(nominal);
+
+        pemasukan.valueUpdate(pemasukanNama, keterangan, waktu, nominal, kategoriPemasukan);
         workspaceRepository.save(workspace);
     }
 
     public void delete(String workspaceId, String pemasukanId) {
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        var pemasukan = pemasukanRepository.findById(pemasukanId).orElseThrow();
+        var kategoriPemasukan = pemasukan.getKategori();
+        kategoriPemasukan.addPemasukan(-1 * pemasukan.getNominal());
 
+        workspace.deleteFinancialEventOrThrow(pemasukanId);
+        pemasukanRepository.deleteById(pemasukanId);
+        workspaceRepository.save(workspace);
     }
 }
