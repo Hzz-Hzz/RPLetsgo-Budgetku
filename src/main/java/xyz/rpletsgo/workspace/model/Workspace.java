@@ -42,7 +42,7 @@ public class Workspace implements IWorkspace {
     String nama;
     
     @Getter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
         cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
@@ -50,7 +50,7 @@ public class Workspace implements IWorkspace {
     List<KategoriPemasukan> kategoriPemasukan = new ArrayList<>();
     
     @Getter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
         cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER
@@ -58,7 +58,7 @@ public class Workspace implements IWorkspace {
     List<FinancialEvent> financialEvents = new ArrayList<>();
     
     @Getter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @OneToMany(
         cascade={CascadeType.REMOVE},
         fetch = FetchType.EAGER

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class FinancialEvent implements IFinancialEvent {
     @Getter
     @Id
