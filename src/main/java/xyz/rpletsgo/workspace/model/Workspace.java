@@ -10,6 +10,7 @@ import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanException;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceException;
 import xyz.rpletsgo.budgeting.exceptions.SpendingAllowanceNotFoundException;
+import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
 import xyz.rpletsgo.common.model.FinancialEvent;
@@ -72,6 +73,17 @@ public class Workspace implements IWorkspace {
         fetch = FetchType.EAGER
     )
     AutomaticFinancialEvent automaticFinancialEvent;
+    
+    
+    public List<AlokasiSpendingAllowance> getAlokasiSpendingAllowances(){
+        List<AlokasiSpendingAllowance> ret = new ArrayList<>();
+    
+        for (KategoriPemasukan kategori: kategoriPemasukan) {
+            ret.addAll(kategori.getAlokasiSpendingAllowances());
+        }
+        
+        return ret;
+    }
     
     
     @Override
