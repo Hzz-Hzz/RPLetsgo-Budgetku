@@ -41,6 +41,22 @@ class PengeluaranFactoryTest {
     }
     
     @Test
+    void set(){
+        var tagihan = mock(Tagihan.class);
+        
+        var factory = new PengeluaranFactory();
+        factory.set(nama, keterangan, nominal, sumberDana, tagihan);
+        var pemasukan = factory.create(currentTime);
+        
+        assertEquals(nama, pemasukan.getNama());
+        assertEquals(keterangan, pemasukan.getKeterangan());
+        assertEquals(nominal, pemasukan.getNominal());
+        assertSame(sumberDana, pemasukan.getSumberDana());
+        assertSame(tagihan, pemasukan.getTagihanYangDibayar());
+        assertSame(currentTime, pemasukan.getWaktu());
+    }
+    
+    @Test
     void create_nonNullTagihan() {
         Tagihan tagihan = mock(Tagihan.class);
         verifyCreateIsCorrect(tagihan);

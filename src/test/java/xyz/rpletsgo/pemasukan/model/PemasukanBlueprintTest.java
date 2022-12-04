@@ -43,6 +43,19 @@ class PemasukanFactoryTest {
         return factory;
     }
     
+    @Test
+    void set(){
+        var factory = new PemasukanFactory();
+        factory.set(nama, keterangan, nominal, kategoriPemasukan);
+        var pemasukan = factory.create(currentTime);
+        
+        assertEquals(nama, pemasukan.getNama());
+        assertEquals(keterangan, pemasukan.getKeterangan());
+        assertEquals(nominal, pemasukan.getNominal());
+        assertSame(kategoriPemasukan, pemasukan.getKategori());
+        assertSame(currentTime, pemasukan.getWaktu());
+    }
+    
     
     @Test
     void create() {
