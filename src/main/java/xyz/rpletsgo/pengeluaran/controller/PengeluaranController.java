@@ -66,14 +66,11 @@ public class PengeluaranController {
             @RequestParam String nama,
             @RequestParam String keterangan,
             @RequestParam String waktu,
-            @RequestParam long nominal,
-            @RequestParam String spendingAllowanceId,
-            @RequestParam Optional<String> tagihanId
+            @RequestParam long nominal
     ){
         LocalDateTime dateTime = LocalDate.parse(waktu, formatter).atStartOfDay();
         pengeluaranService.update(workspaceId, pengeluaranId, nama,
-                keterangan, dateTime, nominal,
-                spendingAllowanceId, tagihanId.orElse(null));
+                keterangan, dateTime, nominal);
         return success;
     }
 
