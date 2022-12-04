@@ -18,24 +18,18 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 public class Pengeluaran extends FinancialEvent {
-    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu) {
+    public Pengeluaran(String nama, String keterangan, LocalDateTime waktu, SpendingAllowance sumberDana, Tagihan tagihanYangDibayar) {
         super(null, nama, keterangan, waktu, 0);
+        this.sumberDana = sumberDana;
+        this.tagihanYangDibayar = tagihanYangDibayar;
     }
 
-    @Override
-    public void setNominal(long nominal) {
-        setSumberDanaTagihanNominal(this.sumberDana, this.tagihanYangDibayar, nominal);
-    }
-
+    @Setter
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @ManyToOne()
     
     SpendingAllowance sumberDana;
-
-    public void setSumberDanaForcefully(SpendingAllowance spendingAllowance){
-        sumberDana = spendingAllowance;
-    }
 
     @Nullable
     @Getter
@@ -44,36 +38,26 @@ public class Pengeluaran extends FinancialEvent {
     @ManyToOne()
     Tagihan tagihanYangDibayar;
 
-    public void setSumberDanaTagihanNominal(SpendingAllowance sumberDana, Tagihan tagihanYangDibayar, long nominal) {
-        if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(this.nominal);
-        }
-        if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(this.nominal);
-        }
+    @Override
+    public void setNominal(long nominal) {
+        long nominalDiff = this.nominal - nominal;
 
-        this.sumberDana = sumberDana;
-        this.tagihanYangDibayar = tagihanYangDibayar;
+        this.sumberDana.increaseNominal(nominalDiff);
+        if(this.tagihanYangDibayar != null) {
+            this.tagihanYangDibayar.increaseNominal(nominalDiff);
+        }
 
         this.nominal = nominal;
-        if(this.sumberDana != null) {
-            this.sumberDana.increaseNominal(-this.nominal);
-        }
-        if(this.tagihanYangDibayar != null) {
-            this.tagihanYangDibayar.increaseNominal(-this.nominal);
-        }
     }
 
     public void valueUpdate(String nama,
                             String keteragan,
                             LocalDateTime waktu,
-                            long nominal,
-                            SpendingAllowance sumberDana,
-                            Tagihan tagihanYangDibayar) {
+                            long nominal) {
         setNama(nama);
         setKeterangan(keteragan);
         setWaktu(waktu);
-        setSumberDanaTagihanNominal(sumberDana, tagihanYangDibayar, nominal);
+        setNominal(nominal);
     }
 
 }

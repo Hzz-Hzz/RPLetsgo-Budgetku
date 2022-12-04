@@ -62,10 +62,9 @@ class PengeluaranControllerTest {
     
     @Test
     void updatePengeluaran() {
-        pengeluaranController.updatePengeluaran(workspaceId, pengeluaranId, nama, keterangan, waktuStr, nominal,
-                                                spendingAllowanceId, Optional.of(tagihanId));
+        pengeluaranController.updatePengeluaran(workspaceId, pengeluaranId, nama, keterangan, waktuStr, nominal);
         verify(pengeluaranService, times(1))
-            .update(workspaceId, pengeluaranId, nama, keterangan, waktu, nominal,spendingAllowanceId, tagihanId);
+            .update(workspaceId, pengeluaranId, nama, keterangan, waktu, nominal);
     }
     
     @Test

@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
+import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class PemasukanServiceTest {
@@ -99,6 +101,15 @@ class PemasukanServiceTest {
         verify(pemasukanRepository, times(1)).saveAndFlush(pemasukan);
         verify(workspaceRepository, times(1)).save(workspace);
     }
+    @Test
+    void create_throwIfKategoriNotFound() {
+        reset(kategoriPemasukanRepository);
+        when(kategoriPemasukanRepository.findById(kategoriPemasukanId)).thenReturn(Optional.empty());
+        
+        assertThrows(KategoriPemasukanNotFoundException.class,
+                     () -> pemasukanService.create(workspaceId, "b", "c", localDateTime,
+                                                   nominal, kategoriPemasukanId));
+    }
     
     @Test
     void update() {
@@ -111,6 +122,21 @@ class PemasukanServiceTest {
         verify(kategoriPemasukan, times(1)).addPemasukan(nominal);
         verify(pemasukanRepository, times(1)).save(pemasukan);
         verify(workspaceRepository, times(1)).save(workspace);
+    }
+    
+    @Test
+    void update_throwIfKategoriNotFound() {
+        var pemasukan = mock(Pemasukan.class);
+        reset(kategoriPemasukanRepository);
+        when(kategoriPemasukanRepository.findById(kategoriPemasukanId)).thenReturn(Optional.empty());
+        
+        when(pemasukan.getKategori()).thenReturn(kategoriPemasukan);
+        when(pemasukanRepository.findById(pemasukanId)).thenReturn(Optional.of(pemasukan));
+        
+        assertThrows(KategoriPemasukanNotFoundException.class,
+                     () -> pemasukanService.update(workspaceId, pemasukanId, "b", "c", localDateTime,
+                                                   nominal, kategoriPemasukanId));
+    
     }
     
     @Test
