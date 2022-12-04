@@ -133,6 +133,24 @@ class PengeluaranServiceTest {
         assertEquals(nominal, pengeluaran.getNominal());
     }
     
+    @Test
+    void create_tagihanIsNull() {
+        pengeluaranService.create(workspaceId, "nama", "ket", waktu, nominal,
+                                  spendingAllowanceId, null);
+    
+        var pengeluaranCaptor = ArgumentCaptor.forClass(Pengeluaran.class);
+        verify(pengeluaranRepository, times(1)).saveAndFlush(pengeluaranCaptor.capture());
+    
+        var pengeluaran = pengeluaranCaptor.getValue();
+    
+        verify(workspace, times(1)).addFinancialEvent(pengeluaran);
+        verify(workspaceRepository, times(1)).save(workspace);
+        
+        assertEquals("nama", pengeluaran.getNama());
+        assertEquals("ket", pengeluaran.getKeterangan());
+        assertEquals(nominal, pengeluaran.getNominal());
+    }
+    
     
     
     @Test
