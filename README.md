@@ -1,13 +1,13 @@
 [![Coverage](https://raw.githubusercontent.com/Hzz-Hzz/RPLetsgo-Budgetku/gh-pages/badges/jacoco.svg)](https://hzz-hzz.github.io/RPLetsgo-Budgetku/badges/jacoco.svg)
 
-#Budgetku (Aplikasi Pengatur Keuangan)
+# Budgetku (Aplikasi Pengatur Keuangan)
 
-##Kelompok RPL
+## Kelompok RPL
 
-###Nama
+### Nama
 RPLetsgo
 
-###Anggota
+### Anggota
 - 2006462664 - Pradipta Davi Valendra
 - 2006463162 - Immanuel
 - 2006473610 - Azzam Labib Hakim
@@ -15,10 +15,10 @@ RPLetsgo
 - 2006473964 - Muhammad Irham Luthfi
 > Asisten Dosen: Basyira Sabita
 
-##Link Aplikasi
+## Link Aplikasi
 Aplikasi kami dapat dilihat [di sini](http://rpletsgo.xyz/)
 
-##Latar Belakang 
+## Latar Belakang 
 
 Survei Nasional Literasi dan Inklusi Keuangan (SNLIK) tahun 2019 menunjukkan indeks literasi keuangan sebesar 38,03% dan indeks inklusi keuangan sebesar 76,19%. Hal ini menunjukkan masih rendahnya sebagian besar masyarakat Indonesia dalam hal pengetahuan, perencanaan, maupun pengaturan keuangan. Hal ini tentu merupakan masalah yang perlu ditangani oleh masyarakat Indonesia. Sebab, dalam jangka panjang maupun jangka pendek, rendahnya tingkat literasi keuangan tersebut dapat menyebabkan masyarakat kesulitan untuk memenuhi kebutuhan primernya karena alokasi keuangan yang tidak terorganisir dengan baik.
 
