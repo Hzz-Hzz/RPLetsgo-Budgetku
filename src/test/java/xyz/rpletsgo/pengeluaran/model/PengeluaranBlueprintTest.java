@@ -41,14 +41,30 @@ class PengeluaranFactoryTest {
     }
     
     @Test
+    void set(){
+        var tagihan = mock(Tagihan.class);
+        
+        var factory = new PengeluaranFactory();
+        factory.set(nama, keterangan, nominal, sumberDana, tagihan);
+        var pemasukan = factory.create(currentTime);
+        
+        assertEquals(nama, pemasukan.getNama());
+        assertEquals(keterangan, pemasukan.getKeterangan());
+        assertEquals(nominal, pemasukan.getNominal());
+        assertSame(sumberDana, pemasukan.getSumberDana());
+        assertSame(tagihan, pemasukan.getTagihanYangDibayar());
+        assertSame(currentTime, pemasukan.getWaktu());
+    }
+    
+    @Test
     void create_nonNullTagihan() {
         Tagihan tagihan = mock(Tagihan.class);
-        verifyCreateWorkingCorrectly(tagihan);
+        verifyCreateIsCorrect(tagihan);
     }
     
     @Test
     void create_nullTagihan() {
-        verifyCreateWorkingCorrectly(null);
+        verifyCreateIsCorrect(null);
     }
     
     @Test
@@ -65,7 +81,7 @@ class PengeluaranFactoryTest {
         assertSame(waktu, pengeluaran.getWaktu());
     }
     
-    static void verifyCreateWorkingCorrectly(Tagihan tagihan){
+    static void verifyCreateIsCorrect(Tagihan tagihan){
         IPengeluaranFactory factory = initializeFactory(tagihan);
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pengeluaran pengeluaran = factory.create();

@@ -37,7 +37,7 @@ public class PemasukanFactory extends FinancialEventFactory implements IPemasuka
     @Override
     public Pemasukan create(@Nullable LocalDateTime waktu) {
         Pemasukan pemasukan = new Pemasukan();
-        sideEffect_initialize(pemasukan, waktu);
+        initializeFinancialEvent(pemasukan, waktu);
         pemasukan.setKategori(getKategoriPemasukan());
         return pemasukan;
     }

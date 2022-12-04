@@ -41,6 +41,15 @@ class LoginRequiredInterceptorTest {
     
     @Test
     @SneakyThrows
+    void preHandle_throwIfSessionNotFound_doNotSetPengguna() {
+        var cookie = new Cookie("other-session", "some-value");
+    
+        var res = testPreHandle("/", new Cookie[]{cookie});
+        assertTrue(res);
+        verify(sessionRepository, times(0)).getSessionOrThrow(any());
+    }
+    @Test
+    @SneakyThrows
     void preHandle_throwIfSessionNotInRepository() {
         when(sessionRepository.getSessionOrThrow("a")).thenThrow(InvalidSessionException.class);
         var cookie = new Cookie("session", "a");

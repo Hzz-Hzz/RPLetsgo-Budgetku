@@ -1,0 +1,1065 @@
+{
+	"info": {
+		"_postman_id": "a1b0f150-538e-496c-875b-13b529554f60",
+		"name": "RPLetsGo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20112452"
+	},
+	"item": [
+		{
+			"name": "CRUD Spending Allowance",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "def",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/spending-allowance/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"spending-allowance",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/spending-allowance/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"spending-allowance",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "jajan",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId",
+									"value": "e62a94ae-19db-4724-b14d-024a7863a759",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/spending-allowance/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"spending-allowance",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "spendingAllowanceId",
+									"value": "3647d0d9-1178-4682-8f3b-51eade699ead",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/spending-allowance/delete",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"spending-allowance",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CRUD Kategori Pemasukan",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "kategori-1",
+									"type": "text"
+								},
+								{
+									"key": "besarAlokasi[]",
+									"value": "0.2",
+									"type": "text"
+								},
+								{
+									"key": "besarAlokasi[]",
+									"value": "0.8",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId[]",
+									"value": "41dc5cb9-1a0d-4905-bf72-18ae8dc654ac",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId[]",
+									"value": "3647d0d9-1178-4682-8f3b-51eade699ead",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/kategori-pemasukan/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"kategori-pemasukan",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/kategori-pemasukan",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"kategori-pemasukan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kategoriPemasukanId",
+									"value": "feccfd85-9625-4536-a73d-ce4f02d3de77",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/kategori-pemasukan/delete",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"kategori-pemasukan",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "kategoriPemasukanId",
+									"value": "14e4e30f-55f0-41de-b663-dda74fe1066c",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "kt-3-name",
+									"type": "text"
+								},
+								{
+									"key": "besarAlokasi[]",
+									"value": "0.5",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId[]",
+									"value": "e62a94ae-19db-4724-b14d-024a7863a759",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/kategori-pemasukan/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"kategori-pemasukan",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CRUD Workspace",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "ws-2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/workspace/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"workspace",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/workspace/get",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"workspace",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/workspace/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"workspace",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "sp-1-name-2",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId",
+									"value": "2c1397cc-26f8-4671-a782-dd85e4e50162",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/workspace/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"workspace",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "spendingAllowanceId",
+									"value": "ce7d9c2e-e1a6-4891-9810-940234a2ea6e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/workspace/delete",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"workspace",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tagihan",
+			"item": [
+				{
+					"name": "getList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/tagihan/getlist",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"tagihan",
+								"getlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/tagihan/getid/8ed08f29-51a3-4889-84bf-b4d2a078ddb1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"tagihan",
+								"getid",
+								"8ed08f29-51a3-4889-84bf-b4d2a078ddb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/tagihan/delete/8ed08f29-51a3-4889-84bf-b4d2a078ddb1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"tagihan",
+								"delete",
+								"8ed08f29-51a3-4889-84bf-b4d2a078ddb1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "peng-1",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "peng-1peng-1",
+									"type": "text"
+								},
+								{
+									"key": "waktuStr",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "200000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/tagihan/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"tagihan",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "peng-2",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "peng-2peng-2",
+									"type": "text"
+								},
+								{
+									"key": "waktuStr",
+									"value": "2022-10-12",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "400000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/tagihan/update/8ed08f29-51a3-4889-84bf-b4d2a078ddb1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"tagihan",
+								"update",
+								"8ed08f29-51a3-4889-84bf-b4d2a078ddb1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pengeluaran",
+			"item": [
+				{
+					"name": "getList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pengeluaran/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pengeluaran",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pengeluaran/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pengeluaran",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "peng-2",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "idk",
+									"type": "text"
+								},
+								{
+									"key": "waktu",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "2000",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId",
+									"value": "e62a94ae-19db-4724-b14d-024a7863a759",
+									"type": "text"
+								},
+								{
+									"key": "tagihanId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pengeluaran/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pengeluaran",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "peng-2-baru",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "idk2",
+									"type": "text"
+								},
+								{
+									"key": "waktu",
+									"value": "2022-10-13",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "5000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pengeluaran/update/aefe7673-b76d-496d-9d60-2836bab22a6e",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pengeluaran",
+								"update",
+								"aefe7673-b76d-496d-9d60-2836bab22a6e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pengeluaran/delete/49666672-a4c7-4d09-85e1-1e53559b8a74",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pengeluaran",
+								"delete",
+								"49666672-a4c7-4d09-85e1-1e53559b8a74"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pemasukan",
+			"item": [
+				{
+					"name": "getList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pemasukan",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pemasukan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "abcpemas",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "abcpemas",
+									"type": "text"
+								},
+								{
+									"key": "waktu",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "10000",
+									"type": "text"
+								},
+								{
+									"key": "kategoriPemasukanId",
+									"value": "14e4e30f-55f0-41de-b663-dda74fe1066c",
+									"type": "text"
+								},
+								{
+									"key": "tagihanId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pemasukan/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pemasukan",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nama",
+									"value": "peng-1",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "peng-1peng-1",
+									"type": "text"
+								},
+								{
+									"key": "waktu",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "200000",
+									"type": "text"
+								},
+								{
+									"key": "spendingAllowanceId",
+									"value": "925138d5-7ac2-4b72-8a32-94a52366e229",
+									"type": "text"
+								},
+								{
+									"key": "tagihanId",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pemasukan/create",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pemasukan",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pemasukanId",
+									"value": "8b2b217c-1257-4cab-b602-26c6de892f77",
+									"type": "text"
+								},
+								{
+									"key": "nama",
+									"value": "pemas-1-baru-2",
+									"type": "text"
+								},
+								{
+									"key": "keterangan",
+									"value": "pemas-1-baru-2",
+									"type": "text"
+								},
+								{
+									"key": "waktu",
+									"value": "2022-12-12",
+									"type": "text"
+								},
+								{
+									"key": "nominal",
+									"value": "30000",
+									"type": "text"
+								},
+								{
+									"key": "kategoriPemasukanId",
+									"value": "feccfd85-9625-4536-a73d-ce4f02d3de77",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{workspace}}/pemasukan/update",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{workspace}}",
+								"pemasukan",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-key",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}",
+					"host": [
+						"{{URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-key",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "a",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-key",
+						"value": "1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "a",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Login",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-key",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/logged-in",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"logged-in"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "workspace",
+			"value": "46de428b-3636-4575-9a07-c8a39817d351",
+			"type": "string"
+		}
+	]
+}

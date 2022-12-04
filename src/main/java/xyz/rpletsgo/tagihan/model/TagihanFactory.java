@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Table
 @NoArgsConstructor
 public class TagihanFactory extends FinancialEventFactory implements ITagihanFactory {
+    @Override
     public void set(String nama, String keterangan, long nominal){
         super.set(nama, keterangan, nominal);
     }
@@ -25,7 +26,7 @@ public class TagihanFactory extends FinancialEventFactory implements ITagihanFac
     @Override
     public Tagihan create(@Nullable LocalDateTime waktu) {
         Tagihan tagihan = new Tagihan();
-        sideEffect_initialize(tagihan, waktu);
+        initializeFinancialEvent(tagihan, waktu);
         return tagihan;
     }
 }

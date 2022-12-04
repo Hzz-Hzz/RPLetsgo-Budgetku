@@ -5,6 +5,6 @@ import xyz.rpletsgo.common.exceptions.AutomaticallyHandledException;
 
 public class UnauthorizedAccessException extends AutomaticallyHandledException {
     public UnauthorizedAccessException(String message) {
-        super(message, HttpStatus.UNAUTHORIZED);
+        super(message, HttpStatus.FORBIDDEN);
     }
 }

@@ -37,11 +37,6 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Column
     long nominal;
     
-    public FinancialEventFactory(String nama, String keterangan, long nominal){
-        this.nama = nama;
-        this.keterangan = keterangan;
-        this.nominal = nominal;
-    }
     
     protected void set(String nama, String keterangan, long nominal){
         this.nama = nama;
@@ -55,17 +50,17 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Transient
     ILocalDateTimeFactory localDateTimeFactory = new LocalDateTimeFactory();
     
-    protected void sideEffect_initialize(
-            FinancialEvent sideEffect_financialEvent,
+    protected void initializeFinancialEvent(
+            FinancialEvent financialEvent,
             @Nullable LocalDateTime waktu
     ){
-        sideEffect_financialEvent.setKeterangan(getKeterangan());
-        sideEffect_financialEvent.setNama(getNama());
-        sideEffect_financialEvent.setNominal(getNominal());
+        financialEvent.setKeterangan(getKeterangan());
+        financialEvent.setNama(getNama());
+        financialEvent.setNominal(getNominal());
         
         if (waktu == null)
-            sideEffect_financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
+            financialEvent.setWaktu(getLocalDateTimeFactory().createLocalDateTime());
         else
-            sideEffect_financialEvent.setWaktu(waktu);
+            financialEvent.setWaktu(waktu);
     }
 }

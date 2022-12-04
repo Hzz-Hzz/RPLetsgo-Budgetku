@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.rpletsgo.auth.service.PenggunaService;
 
 @Controller
+@Generated
 @RequestMapping("/")
 public class PenggunaController {
     @Autowired
     PenggunaService penggunaService;
     
     
-    @Generated
     @ResponseBody
     @GetMapping()
     public String mainPage() {
@@ -26,14 +26,12 @@ public class PenggunaController {
     }
     
     
-    @Generated
     @GetMapping("/login")
     public String getLogin() {
         return "/pengguna/login";
     }
     
     
-    @Generated
     @ResponseBody
     @PostMapping("/login")
     public String postLogin(String username,
@@ -47,13 +45,11 @@ public class PenggunaController {
     }
     
     
-    @Generated
     @GetMapping("/register")
     public String getRegister() {
         return "/pengguna/register";
     }
     
-    @Generated
     @ResponseBody
     @PostMapping("/register")
     public String postRegister(
