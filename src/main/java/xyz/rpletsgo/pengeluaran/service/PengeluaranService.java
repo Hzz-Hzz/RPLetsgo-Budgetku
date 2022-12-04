@@ -73,6 +73,7 @@ public class PengeluaranService {
         );
 
         pengeluaran.valueUpdate(nama, keterangan, waktu, nominal);
+        spendingAllowanceRepository.save(pengeluaran.getSumberDana());
 
         workspace.deleteFinancialEventOrThrow(pengeluaranId);
         workspace.addFinancialEvent(pengeluaran);
