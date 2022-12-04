@@ -30,7 +30,7 @@ class ITPengeluaranTest {
         pengeluaran = new Pengeluaran();
         pengeluaran.setTagihanYangDibayar(tagihan1);
         pengeluaran.setSumberDana(spendingAllowance1);
-        pengeluaran.setSumberDanaTagihanNominal(besarPengeluaran);
+        pengeluaran.setNominal(besarPengeluaran);
         
         assertEquals(initialNominal - besarPengeluaran, tagihan1.getNominal());
         assertEquals(initialNominal - besarPengeluaran, spendingAllowance1.getNominal());
@@ -41,55 +41,12 @@ class ITPengeluaranTest {
     
     
     @Test
-    void setSumberDanaTagihanNominal_correctlyNoChange(){
-        pengeluaran.setSumberDanaTagihanNominal(besarPengeluaran);
+    void setSumberDanaTagihanNominal_correctlyGiveOutput(){
+        pengeluaran.setNominal(besarPengeluaran);
     
-        assertEquals(initialNominal, tagihan1.getNominal());
-        assertEquals(initialNominal, spendingAllowance1.getNominal());
+        assertEquals(initialNominal - besarPengeluaran, tagihan1.getNominal());
+        assertEquals(initialNominal - besarPengeluaran, spendingAllowance1.getNominal());
         assertEquals(initialNominal, tagihan2.getNominal());
         assertEquals(initialNominal, spendingAllowance2.getNominal());
     }
-    
-//    @Test
-//    void setSumberDanaTagihanNominal_correctlyReassign(){
-//        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance2, tagihan2, besarPengeluaran);
-//
-//        assertEquals(initialNominal, tagihan1.getNominal());
-//        assertEquals(initialNominal, spendingAllowance1.getNominal());
-//        assertEquals(initialNominal - besarPengeluaran, tagihan2.getNominal());
-//        assertEquals(initialNominal - besarPengeluaran, spendingAllowance2.getNominal());
-//    }
-//
-//    @Test
-//    void setSumberDanaTagihanNominal_handleIfPreviouslyNull(){
-//        pengeluaran.setSumberDanaTagihanNominal(null, null, besarPengeluaran);
-//        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
-//
-//        assertEquals(initialNominal - besarPengeluaran, tagihan1.getNominal());
-//        assertEquals(initialNominal - besarPengeluaran, spendingAllowance1.getNominal());
-//        assertEquals(initialNominal, tagihan2.getNominal());
-//        assertEquals(initialNominal, spendingAllowance2.getNominal());
-//    }
-//    @Test
-//    void setSumberDanaTagihanNominal_shouldNotBeAffectedIfCalledMultipleTimes(){
-//        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
-//        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
-//        pengeluaran.setSumberDanaTagihanNominal(spendingAllowance1, tagihan1, besarPengeluaran);
-//
-//        assertEquals(initialNominal - besarPengeluaran, tagihan1.getNominal());
-//        assertEquals(initialNominal - besarPengeluaran, spendingAllowance1.getNominal());
-//        assertEquals(initialNominal, tagihan2.getNominal());
-//        assertEquals(initialNominal, spendingAllowance2.getNominal());
-//    }
-//
-//    @Test
-//    void setNominal(){
-//        long newBesaranPengeluaran = 3000;
-//        pengeluaran.setNominal(newBesaranPengeluaran);
-//
-//        assertEquals(initialNominal - newBesaranPengeluaran, tagihan1.getNominal());
-//        assertEquals(initialNominal - newBesaranPengeluaran, spendingAllowance1.getNominal());
-//        assertEquals(initialNominal, tagihan2.getNominal());
-//        assertEquals(initialNominal, spendingAllowance2.getNominal());
-//    }
 }

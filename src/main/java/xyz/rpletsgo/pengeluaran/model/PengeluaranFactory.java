@@ -47,9 +47,14 @@ public class PengeluaranFactory extends FinancialEventFactory implements IPengel
     @Override
     public Pengeluaran create(@Nullable LocalDateTime waktu) {
         Pengeluaran pengeluaran = new Pengeluaran();
-        sideEffect_initialize(pengeluaran, waktu);
+    
+        pengeluaran.setSumberDana(getSumberDana());
+        pengeluaran.setTagihanYangDibayar(getTagihanYangDibayar());
         
-        pengeluaran.setSumberDanaTagihanNominal(getNominal());
+        pengeluaran.setNominal(getNominal());
+        
+        initializeFinancialEvent(pengeluaran, waktu);
+        
         return pengeluaran;
     }
 }
