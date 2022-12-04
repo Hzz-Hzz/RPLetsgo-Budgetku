@@ -24,11 +24,6 @@ public class Pengeluaran extends FinancialEvent {
         this.tagihanYangDibayar = tagihanYangDibayar;
     }
 
-    @Override
-    public void setNominal(long nominal) {
-        setSumberDanaTagihanNominal(nominal);
-    }
-
     @Setter
     @Getter
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
@@ -43,7 +38,8 @@ public class Pengeluaran extends FinancialEvent {
     @ManyToOne()
     Tagihan tagihanYangDibayar;
 
-    public void setSumberDanaTagihanNominal(long nominal) {
+    @Override
+    public void setNominal(long nominal) {
         long nominalDiff = this.nominal - nominal;
 
         this.sumberDana.increaseNominal(nominalDiff);
@@ -61,7 +57,7 @@ public class Pengeluaran extends FinancialEvent {
         setNama(nama);
         setKeterangan(keteragan);
         setWaktu(waktu);
-        setSumberDanaTagihanNominal(nominal);
+        setNominal(nominal);
     }
 
 }

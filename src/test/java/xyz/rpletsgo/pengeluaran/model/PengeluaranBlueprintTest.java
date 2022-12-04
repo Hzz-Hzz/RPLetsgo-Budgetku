@@ -43,12 +43,12 @@ class PengeluaranFactoryTest {
     @Test
     void create_nonNullTagihan() {
         Tagihan tagihan = mock(Tagihan.class);
-        verifyCreateWorkingCorrectly(tagihan);
+        verifyCreateIsCorrect(tagihan);
     }
     
     @Test
     void create_nullTagihan() {
-        verifyCreateWorkingCorrectly(null);
+        verifyCreateIsCorrect(null);
     }
     
     @Test
@@ -65,7 +65,7 @@ class PengeluaranFactoryTest {
         assertSame(waktu, pengeluaran.getWaktu());
     }
     
-    static void verifyCreateWorkingCorrectly(Tagihan tagihan){
+    static void verifyCreateIsCorrect(Tagihan tagihan){
         IPengeluaranFactory factory = initializeFactory(tagihan);
         factory.setLocalDateTimeFactory(dateTimeFactory);
         Pengeluaran pengeluaran = factory.create();
