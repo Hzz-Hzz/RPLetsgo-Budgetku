@@ -1,15 +1,18 @@
 $(document).ready(() => {
-    console.log("ready");
+    const shadowBoxes = $(".shadowed-box");
+    for (let shadowBox of shadowBoxes) {
+        shadowBox = $(shadowBox);
+        assignShadowBoxHandler(shadowBox);
+    }
+});
 
-
-    const shadowBox = $(".shadowed-box");
+function assignShadowBoxHandler(shadowBox){
     const nameBox = shadowBox.find(".name-box");
     const nameField = nameBox.find(".name");
-    const saveBtn = shadowBox.find(".save-icon")
-    console.log(nameField);
+    const saveBtn = shadowBox.find(".save-icon");
+    const deleteBtn = shadowBox.find(".delete-icon");
 
-    function onNameBoxClick(_e) {
-        console.log("click editBtn");
+    function onNameBoxClick(_e, nameBox) {
         if (!nameBox.hasClass("editing")){
             nameBox.addClass("editing");
             onShadowBoxEdit(shadowBox, nameField);
@@ -17,61 +20,88 @@ $(document).ready(() => {
             nameBox.unbind("click");
         }
     }
-    function onSaveBtnClick(_e) {
-        console.log("click saveBtn");
+    function onSaveBtnClick(_e, nameBox=null) {
+        if (nameBox == null)
+            nameBox = $(this);
+
         if (nameBox.hasClass("editing")){
             nameBox.removeClass("editing");
             onShadowBoxSave(shadowBox, nameField);
 
             setTimeout(() => {
-                nameBox.click(onNameBoxClick);
+                nameBox.click((e) => onNameBoxClick(e, nameBox));
             }, 100);
         }
     }
-    nameBox.click(onNameBoxClick);
+
+    nameBox.click((e) => {
+        onNameBoxClick(e, nameBox)
+    });
     nameBox.keydown(function (e){
         if (e.which === 13) {  // enter key
-            console.log("enter");
-            onSaveBtnClick(null);
-            e.preventDefault()
+            onSaveBtnClick(null, nameBox);
+            e.preventDefault();
         }
     });
-    saveBtn.click(onSaveBtnClick);
-});
+    deleteBtn.click((e) => onShadowBoxDeleteWithConfirmation(shadowBox, nameField));
+    saveBtn.click((e) => onSaveBtnClick(e, nameBox));
+}
+
 
 function onShadowBoxEdit(shadowBox, nameField){
-    console.log(nameField);
     nameField.attr("contenteditable", 'true');
     nameField.focus();
     nameField.selectText();
 }
 
 function onShadowBoxSave(shadowBox, nameField){
-    console.log(nameField);
     nameField.attr("contenteditable", 'false');
+
+    const workspaceId = nameField.attr("data-workspace-id");
+    const spendingAllowanceId = nameField.attr("data-allowance-id");
+    const newAllowanceName = removeUnnecessaryWhitespaces(nameField.text());
+    nameField.text(newAllowanceName);
+
+    $.post(`/${workspaceId}/spending-allowance/update`, {
+        spendingAllowanceId: spendingAllowanceId,
+        nama: newAllowanceName,
+    });
 }
 
 
+function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
+    const nama = removeUnnecessaryWhitespaces(nameField.text());
 
-jQuery.fn.selectText = function(){
-    this.find('input').each(function() {
-        if($(this).prev().length == 0 || !$(this).prev().hasClass('p_copy')) {
-            $('<p class="p_copy" style="position: absolute; z-index: -1;"></p>').insertBefore($(this));
-        }
-        $(this).prev().html($(this).val());
+    var hideModalFunc;
+    hideModalFunc = showModal({
+        title: "Delete Spending Allowance",
+        body: `Apakah Anda yakin ingin menghapus budget "${nama}"?`,
+        okBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-danger");
+            btn.text("Delete");
+        },
+        cancelBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-secondary");
+            btn.text("Cancel");
+        },
+        onOk: ()=>{
+            onShadowBoxDelete(shadowBox, nameField);
+            hideModalFunc();
+        },
+        onCancel: ()=>{console.log("cancel");},
     });
-    var doc = document;
-    var element = this[0];
-    console.log(this, element);
-    if (doc.body.createTextRange) {
-        var range = document.body.createTextRange();
-        range.moveToElementText(element);
-        range.select();
-    } else if (window.getSelection) {
-        var selection = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(element);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
-};
+}
+
+function onShadowBoxDelete(shadowBox, nameField){
+    const workspaceId = nameField.attr("data-workspace-id");
+    const spendingAllowanceId = nameField.attr("data-allowance-id");
+
+    console.log("post");
+    $.post(`/${workspaceId}/spending-allowance/delete`, {
+        spendingAllowanceId: spendingAllowanceId,
+    });
+}
+
+
