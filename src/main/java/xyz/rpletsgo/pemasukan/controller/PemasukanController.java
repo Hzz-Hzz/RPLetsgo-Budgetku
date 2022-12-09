@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("/{workspaceId}/pemasukan")
+@RequestMapping(value={"/{workspaceId}/pemasukan", "/{workspaceId}/Pemasukan"})
 public class PemasukanController {
     final String success = "success";
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
