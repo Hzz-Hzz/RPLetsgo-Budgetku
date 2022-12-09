@@ -10,14 +10,45 @@
 <body style="padding: 10px;">
 <div class="main-container">
 
-
-
     <div class="shadowed-box" th:each="financialEvent: ${financialEvents}">
+
+        <div class="modal fade" th:id="|editModal${financialEvent.getId()}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="#"  th:action="@{/__${workspaceId}__/transaction-list}" th:object="${dto}" method="post">
+                            <input type="text" hidden name="id" th:value="${financialEvent.getId()}">
+                            <input type="text" hidden name="type" th:value="${financialEvent.getClass().getSimpleName()}">
+                            <label for="nama">Nama</label>
+                            <input id="nama" name="nama" type="text" class="form-control" th:value="${financialEvent.getNama()}">
+                            <label for="keterangan">Keterangan</label>
+                            <input id="keterangan" name="keterangan" type="text" class="form-control" th:value="${financialEvent.getKeterangan()}">
+                            <label for="waktu">Waktu</label>
+                            <input id="waktu" name="waktu" type="date" class="form-control" th:value="${financialEvent.getWaktu()}">
+                            <label for="nominal">Nominal</label>
+                            <input id="nominal" name="nominal" type="number" class="form-control" th:value="${financialEvent.getNominal()}">
+                            <div th:if="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
+                                <label for="kategoriId">Kategori ID</label>
+                                <input id="kategoriId" name="kategoriId" type="text" class="form-control">
+<!--                                th:value="${((Pemasukan)financialEvent).getKategori().getId()} -->
+                            </div>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-editFinancialEvent">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="inner-shadowed-box">
             <div class="name-box">
                 <b class="name" th:text="${financialEvent.getNama()}">Name</b>
-                <i class="edit-icon fa-regular fa-pen-to-square"></i>
-                <i class="save-icon fa-regular fa-floppy-disk"></i>
+<!--                <i class="edit-icon fa-regular fa-pen-to-square"></i>-->
+            </div>
+            <div class="edit-div">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="|#editModal${financialEvent.getId()}|">Edit</button>
             </div>
             <div class="type-div" th:text="${financialEvent.getClass().getSimpleName()}">
                 type
@@ -26,7 +57,6 @@
                 nominal
             </div>
         </div>
-
         <div class="inner-red-box">
             <i class="fa-regular fa-trash-can"></i>
         </div>
