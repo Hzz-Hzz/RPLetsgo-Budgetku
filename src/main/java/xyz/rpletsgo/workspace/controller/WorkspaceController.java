@@ -2,6 +2,7 @@ package xyz.rpletsgo.workspace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xyz.rpletsgo.workspace.core.IWorkspace;
 import xyz.rpletsgo.workspace.model.Workspace;
@@ -35,9 +36,12 @@ public class WorkspaceController {
     }
 
     @GetMapping("/workspace/get")
-    @ResponseBody
-    public List<Workspace> getWorkspace () {
-        return workspaceService.getWorkspaces();
+    public String getWorkspace (
+            Model model
+    ) {
+        model.addAttribute("workspaces",
+                workspaceService.getWorkspaces());
+        return "workspace/workspace-list.html";
     }
 
     @PostMapping("/{workspaceId}/workspace/delete")

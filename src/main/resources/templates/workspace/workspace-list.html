@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:include="properties/html-dependencies.html :: workspace" />
+    <!--    <script src="/js/common/transaction-list.js"></script>-->
+
+    <meta charset="UTF-8">
+    <title>Workspaces</title>
+</head>
+<body style="padding: 10px;">
+<div class="main-container">
+
+    <div class="shadowed-box" th:each="workspace: ${workspaces}">
+        <div class="inner-shadowed-box">
+            <div class="name-box">
+                <b class="name" th:text="${workspace.getNama()}">Name</b>
+                <i class="edit-icon fa-regular fa-pen-to-square"></i>
+                <i class="save-icon fa-regular fa-floppy-disk"></i>
+            </div>
+        </div>
+
+        <div class="inner-red-box">
+            <i class="fa-regular fa-trash-can"></i>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
