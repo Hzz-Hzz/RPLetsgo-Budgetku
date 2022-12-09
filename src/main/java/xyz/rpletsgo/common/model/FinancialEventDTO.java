@@ -8,9 +8,10 @@ import java.util.Map;
 @Data
 public class FinancialEventDTO {
     String id;
+    String type;
     String nama;
     String keterangan;
-    LocalDateTime waktu;
+    String waktu;
     long nominal;
-    Map<String, String> data;
+    String kategoriId; // buat pemasukan
 }
