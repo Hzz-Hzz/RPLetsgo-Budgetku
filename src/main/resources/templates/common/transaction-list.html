@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:include="properties/html-dependencies.html :: financialEvent" />
+<!--    <script src="/js/common/transaction-list.js"></script>-->
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="padding: 10px;">
+<div class="main-container">
+
+
+
+    <div class="shadowed-box" th:each="financialEvent: ${financialEvents}">
+        <div class="inner-shadowed-box">
+            <div class="name-box">
+                <b class="name" th:text="${financialEvent.getNama()}">Name</b>
+                <i class="edit-icon fa-regular fa-pen-to-square"></i>
+                <i class="save-icon fa-regular fa-floppy-disk"></i>
+            </div>
+            <div class="type-div" th:text="${financialEvent.getClass().getSimpleName()}">
+                type
+            </div>
+            <div class="nominal-div" th:text="${financialEvent.getNominal()}">
+                nominal
+            </div>
+        </div>
+
+        <div class="inner-red-box">
+            <i class="fa-regular fa-trash-can"></i>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

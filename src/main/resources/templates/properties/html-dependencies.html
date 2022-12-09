@@ -9,6 +9,15 @@ Untuk menyimpan semua dependency pada front-end (misalnya bootstrap, tailwind, j
     <link href="/css/colors.css" rel="stylesheet">
 </th:block>
 
+<th:block th:fragment="financialEvent">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <link th:href="@{/fonts/quicksand/style-bold.css}" rel="stylesheet" />
+    <link th:href="@{/fonts/quicksand/style-regular.css}" rel="stylesheet" />
+    <link th:href="@{/css/budgeting/theme.css}" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/8aea063d6d.js" crossorigin="anonymous"></script>
+</th:block>
 
 <th:block th:fragment="budgeting">
     <th:block th:include="properties/html-dependencies.html :: default" />
