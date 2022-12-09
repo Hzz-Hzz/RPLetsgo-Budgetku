@@ -38,7 +38,8 @@ function showModal({
     const titleEl = modal.find(".modal-title");
     const bodyEl = modal.find(".modal-body");
     const okBtn = modal.find(".ok-btn");
-    const cancelBtn = modal.find(".close-btn");
+    const cancelBtn = modal.find(".cancel-btn");
+    const closeBtn = modal.find(".close-btn");
 
     titleEl.text(title);
     bodyEl.text(body);
@@ -50,6 +51,14 @@ function showModal({
     okBtn.unbind("click");
     okBtn.click(function (_e){
         onOk();
+    });
+    cancelBtn.unbind("click");
+    cancelBtn.click(function (_e){
+        onCancel();
+    });
+    closeBtn.unbind("click");
+    closeBtn.click(function (_e){
+        onCancel();
     });
     cancelBtn.unbind("click");
     cancelBtn.click(function (_e){

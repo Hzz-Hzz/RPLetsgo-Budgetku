@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
-<body style="padding: 10px;">
+<body style="padding: 10px; min-height: 95vh;">
   <div class="main-container">
 
 
@@ -35,7 +35,8 @@
     </th:block>
   </div>
 
-  <th:block th:include="common/bootstrap-modal.html :: default"></th:block>
+  <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+  <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 
 </body>
 </html>

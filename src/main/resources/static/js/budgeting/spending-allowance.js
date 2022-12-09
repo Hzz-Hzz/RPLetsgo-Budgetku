@@ -90,7 +90,10 @@ function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
             onShadowBoxDelete(shadowBox, nameField);
             hideModalFunc();
         },
-        onCancel: ()=>{console.log("cancel");},
+        onCancel: ()=>{
+            console.log("cancel");
+            hideModalFunc();
+        },
     });
 }
 
