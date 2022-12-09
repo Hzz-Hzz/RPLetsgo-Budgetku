@@ -65,6 +65,26 @@ function onShadowBoxSave(shadowBox, nameField){
     $.post(`/${workspaceId}/spending-allowance/update`, {
         spendingAllowanceId: spendingAllowanceId,
         nama: newAllowanceName,
+    }).done(function () {
+        showToast({
+            titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-info")},
+            body: "Perubahan berhasil disimpan"
+        });
+    }).fail(function (error, cause) {
+        if (error.responseJSON == null  && error.status===0){
+            showFailedToast("Rename Failed", "You're offline");
+            return;
+        }
+
+        const {message} = error.responseJSON;
+        showFailedToast("Rename Failed", message);
+    });
+}
+
+function showFailedToast(title, message){
+    showToast({
+        titleConfigurer: (el) => {el.text(title); el.addClass("text-danger")},
+        body: message
     });
 }
 
@@ -106,11 +126,18 @@ function onShadowBoxDelete(shadowBox, nameField){
     $.post(`/${workspaceId}/spending-allowance/delete`, {
         spendingAllowanceId: spendingAllowanceId,
     }).done(function () {
-        reloadAndShowToast({
+        addPendingToast({
             titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-info")},
             body: `Budget "${nama}" berhasil dihapus`
         });
-        setTimeout(() => location.reload(), 500);
+        location.reload();
+    }).fail(function (error){
+        console.log(error.responseJSON);
+        const {message} = error.responseJSON;
+        showToast({
+            titleConfigurer: (el) => {el.text("Deletion Failed"); el.addClass("text-danger")},
+            body: message
+        });
     });
 }
 
