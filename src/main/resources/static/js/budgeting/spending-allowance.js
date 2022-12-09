@@ -100,10 +100,17 @@ function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
 function onShadowBoxDelete(shadowBox, nameField){
     const workspaceId = nameField.attr("data-workspace-id");
     const spendingAllowanceId = nameField.attr("data-allowance-id");
+    const nama = removeUnnecessaryWhitespaces(nameField.text());
 
     console.log("post");
     $.post(`/${workspaceId}/spending-allowance/delete`, {
         spendingAllowanceId: spendingAllowanceId,
+    }).done(function () {
+        reloadAndShowToast({
+            titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-info")},
+            body: `Budget "${nama}" berhasil dihapus`
+        });
+        setTimeout(() => location.reload(), 500);
     });
 }
 
