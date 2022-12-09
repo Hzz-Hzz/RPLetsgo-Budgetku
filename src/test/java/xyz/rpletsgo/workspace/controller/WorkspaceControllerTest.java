@@ -45,12 +45,6 @@ class WorkspaceControllerTest {
     }
     
     @Test
-    void getWorkspaceMultiple() {
-        workspaceController.getWorkspace();
-        verify(workspaceService, times(1)).getWorkspaces();
-    }
-    
-    @Test
     void deleteWorkspace() {
         workspaceController.deleteWorkspace(workspaceId);
         verify(workspaceService, times(1)).deleteWorkspace(workspaceId);

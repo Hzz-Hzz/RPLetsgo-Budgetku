@@ -20,6 +20,7 @@ public class TransactionListController {
             @PathVariable String workspaceId,
             Model model
     ) {
+        model.addAttribute("workspaceId", workspaceId);
         model.addAttribute("financialEvents",
                 commonService.getWorkspaceFinancialEvents(workspaceId));
         return "common/transaction-list";
