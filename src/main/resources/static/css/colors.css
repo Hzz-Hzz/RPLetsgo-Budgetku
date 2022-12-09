@@ -1,0 +1,15 @@
+:root {
+    --main-blue: #4f69ed;
+
+    --main-hover: #e1fcfa;
+
+    --main-income: #57bbb3;
+    --main-expense: #d3615e;
+
+    --main-red: #e73a36;
+
+    --main-dark: #344254;
+    --main-grey: #c0c1c7;
+    --main-light-grey: #d8d8e2;
+    --main-white: #f4f6f5;
+}
