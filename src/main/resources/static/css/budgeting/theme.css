@@ -1,0 +1,118 @@
+
+
+body{
+    background-color: var(--main-blue);
+}
+
+.main-container{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.shadowed-box{
+    width: 80%;
+    height: 55px;
+    margin: 5px;
+
+    --border-radius: 12px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+
+    --background-color: var(--main-white);
+    --clip-path: inset(-5px -5px -5px -5px);
+    --delete-button-width: 45px;
+}
+.shadowed-box:hover{
+    --clip-path: inset(-5px var(--delete-button-width) -5px -5px);
+    --background-color: var(--main-hover);
+}
+
+
+.inner-shadowed-box{
+    grid-area: 1/1/1/1;
+
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: var(--background-color);
+
+    font-size: 18px;
+    color: var(--main-dark);
+
+    align-items: center;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto 150px var(--delete-button-width);
+
+    transition: clip-path 300ms, background-color 300ms;
+    clip-path: var(--clip-path);
+}
+
+.inner-red-box{
+    grid-area: 1/1/1/1;
+
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    background-color: var(--main-red);
+
+    display: grid;
+    grid-template-columns: auto var(--delete-button-width);
+    justify-items: center;
+    align-items: center;
+
+    padding: 1px;
+
+    color: var(--main-white);
+}
+.inner-red-box i{
+    grid-column: 2;
+    cursor: pointer;
+}
+
+.shadowed-box .name-box{
+    cursor: pointer;
+    min-width: 50px;
+    width: fit-content;
+
+}
+
+.shadowed-box .edit-icon, .shadowed-box .save-icon{
+    margin: 0 0 0 10px;
+}
+
+
+.name-box .edit-icon{
+    display: inline;
+}
+.name-box .save-icon{
+    display: none;
+}
+.name-box.editing .edit-icon{
+    display: none;
+}
+.name-box.editing .save-icon{
+    display: inline;
+}
+
+
+.shadowed-box .nominal-div{
+    font-family: "Quicksand Bold", serif;
+    display: flex;
+    justify-content: right;
+}
+
+.shadowed-box .delete-icon-div{
+    color: var(--main-red);
+    height: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.shadowed-box .delete-icon-div i{
+    cursor: pointer;
+}

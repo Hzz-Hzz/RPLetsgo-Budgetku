@@ -53,10 +53,4 @@ public class PenggunaService {
     
     @Autowired
     WorkspaceRepository workspaceRepository;
-    
-    public void authorizeWorkspaceAccessOrThrow(String username, String workspaceId){
-        var pengguna = penggunaRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException(""));
-        pengguna.getWorkspaceIfAuthorizedOrThrow(workspaceId);
-    }
 }

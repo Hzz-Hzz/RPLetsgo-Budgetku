@@ -56,4 +56,10 @@ public class SpendingAllowanceController {
         spendingAllowanceService.deleteSpendingAllowanceFromWorkspace(workspaceId, spendingAllowanceId);
         return success;
     }
+    
+    @GetMapping("/list")
+    public String getSpendingAllowancesList(){
+        return "budgeting/spending-allowance-list.html";
+    }
+    
 }

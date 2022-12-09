@@ -37,11 +37,6 @@ public abstract class FinancialEventFactory implements IFinancialEventFactory {
     @Column
     long nominal;
     
-    protected FinancialEventFactory(String nama, String keterangan, long nominal){
-        this.nama = nama;
-        this.keterangan = keterangan;
-        this.nominal = nominal;
-    }
     
     protected void set(String nama, String keterangan, long nominal){
         this.nama = nama;

@@ -1,0 +1,21 @@
+<!--
+Untuk menyimpan semua dependency pada front-end (misalnya bootstrap, tailwind, jquery, dsb)
+-->
+
+<th:block th:fragment="default">
+    <script th:src="@{/common/tailwind/tailwind.js}"></script>
+    <script th:src="@{/common/jquery-3.6.0.min.js}"></script>
+
+    <link href="/css/colors.css" rel="stylesheet">
+</th:block>
+
+
+<th:block th:fragment="budgeting">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <link th:href="@{/fonts/quicksand/style-bold.css}" rel="stylesheet" />
+    <link th:href="@{/fonts/quicksand/style-regular.css}" rel="stylesheet" />
+    <link th:href="@{/css/budgeting/theme.css}" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/8aea063d6d.js" crossorigin="anonymous"></script>
+</th:block>
