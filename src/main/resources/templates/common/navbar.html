@@ -8,18 +8,18 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent" th:fragment="navbar">
     <script src="/js/common/navbar-logout.js"></script>
     <a class="navbar-brand">BudgetKu</a>
 
     <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="/workspace/get">My workspaces<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/workspace/list">My workspaces<span class="sr-only">(current)</span></a>
         </li>
     </ul>
 
     <ul class="navbar-nav ms-auto">
-        <button type="button" class="btn btn-outline-primary" onclick="onLogOut();">log out</button>
+        <button type="button" class="btn btn-outline-danger" onclick="onLogOut();">log out</button>
     </ul>
 
     <th:block th:include="common/bootstrap-components.html :: modal"></th:block>

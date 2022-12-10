@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
     <th:block th:include="properties/html-dependencies.html :: financialEvent" />
     <script src="/js/common/transaction-list.js"></script>
+    <script src="/js/common/transaction-form.js"></script>
 
     <meta charset="UTF-8">
     <title>Title</title>
@@ -41,7 +45,7 @@
                                     <option th:each="kategoriPemasukan:${kategoriPemasukans}" th:value="${kategoriPemasukan.getId()}" th:text="${kategoriPemasukan.getNama()}"></option>
                                 </select>
 <!--                                th:value="${((Pemasukan)financialEvent).getKategori().getId()} -->
-                            </div>
+                                </div>
                             <div th:unless="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
                                 <input type="text" hidden name="kategoriId" value="">
                             </div>
@@ -84,8 +88,15 @@
     </div>
 
 
-    <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
-    <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
+    <div id="flex-create-new" class="shadowed-box create-new" onclick="onShadowBoxCreateNew()">
+        <div class="circle">
+            <i class="fas fa-plus"></i>
+        </div>
+    </div>
 </div>
+
+<th:block th:include="common/transaction-form.html :: modal-form"></th:block>
+<th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+<th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 </body>
 </html>

@@ -33,6 +33,7 @@ public class TransactionListController {
 
     @Autowired
     private final TagihanService tagihanService;
+
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(method = RequestMethod.GET, path = "")

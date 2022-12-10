@@ -16,7 +16,7 @@ function onLogOut(){
             btn.text("Cancel");
         },
         onOk: ()=>{
-            $.get(`/logout`).done(async function () {
+            $.post(`/logout`).done(async function () {
                 window.location = '/login';
 
             }).fail(alsoHandleGeneralError(
