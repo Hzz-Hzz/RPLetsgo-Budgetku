@@ -30,13 +30,12 @@ public class WorkspaceController {
     }
 
     @PostMapping("/update")
-    @ResponseBody
     public String updateWorkspace (
             @RequestParam String nama,
             @RequestParam String workspaceId
     ){
         workspaceService.updateWorkspace(workspaceId, nama);
-        return "success";
+        return "redirect:/workspace/list";
     }
 
     @GetMapping("/update")
@@ -45,7 +44,7 @@ public class WorkspaceController {
             @RequestParam String workspaceId
     ){
         workspaceService.updateWorkspace(workspaceId, nama);
-        return "workspace/workspace-list.html";
+        return "redirect:/workspace/list";
     }
 
     @GetMapping("/get/{workspaceId}")
@@ -58,8 +57,8 @@ public class WorkspaceController {
     public String getWorkspace (
             Model model
     ) {
-        model.addAttribute("workspaces",
-                workspaceService.getWorkspaces());
+        var workspaceList = workspaceService.getWorkspaces();
+        model.addAttribute("workspaces", workspaceList);
         return "workspace/workspace-list.html";
     }
 

@@ -34,13 +34,11 @@ public class Pengguna implements IPengguna {
     
     @Getter
     @Setter
-    @Cascade({CascadeType.ALL})
     @ManyToMany(fetch = FetchType.EAGER)
     List<Workspace> joinedWorkspaces = new ArrayList<>();
     
     @Getter
     @Setter
-    @Cascade({CascadeType.ALL})
     @OneToMany(fetch = FetchType.EAGER)
     List<Workspace> createdWorkspaces = new ArrayList<>();
     

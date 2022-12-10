@@ -43,18 +43,18 @@ public class WorkspaceService {
         alokasiSpendingAllowanceRepository.saveAllAndFlush(workspace.getAlokasiSpendingAllowances());
         kategoriPemasukanRepository.saveAllAndFlush(workspace.getKategoriPemasukan());
         
-        workspaceRepository.save(workspace);
+        workspaceRepository.saveAndFlush(workspace);
     
         var pengguna = loggedInPengguna.getCurrentPengguna();
         pengguna.addToCreatedWorkspaces(workspace);
-        penggunaRepository.save(pengguna);
+        penggunaRepository.saveAndFlush(pengguna);
         return workspace;
     }
 
     public void updateWorkspace(String workspaceId, String nama){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         workspace.setNama(nama);
-        workspaceRepository.save(workspace);
+        workspaceRepository.saveAndFlush(workspace);
     }
 
     public IWorkspace getWorkspace(String workspaceId){
