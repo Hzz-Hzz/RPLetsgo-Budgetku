@@ -40,7 +40,6 @@ public class WorkspaceController {
 
     @GetMapping("/workspace/get")
     public String getWorkspace (
-
             Model model
     ) {
         model.addAttribute("workspaces",
