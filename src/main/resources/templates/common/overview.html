@@ -24,18 +24,17 @@
         <b>Total Tagihan: </b>
         <b class="tagihan" th:text="${tagihan}">Tagihan</b>
     </div>
-
-    <div class="d-flex justify-content-center">
-        <a th:href="@{/__${workspaceId}__/transaction-list}">
-            <button type="button">Lihat Transaksi</button>
+    <br>
+    <br>
+    <div class="">
+        <a th:href="@{/__${workspaceId}__/transaction-list}" class="btn btn-secondary btn-sm" role="button" aria-expanded="false" >
+            Lihat Transaksi
         </a>
-        <br>
-        <a th:href="@{/__${workspaceId}__/kategori-pemasukan}">
-            <button type="button">Daftar Kategori Pemasukan</button>
+        <a th:href="@{/__${workspaceId}__/kategori-pemasukan}" class="btn btn-secondary btn-sm" role="button" aria-expanded="false" >
+            Daftar Kategori Pemasukan
         </a>
-        <br>
-        <a th:href="@{/__${workspaceId}__/spending-allowance/list}">
-            <button type="button">Daftar Spending Allowance</button>
+        <a th:href="@{/__${workspaceId}__/spending-allowance/list}" class="btn btn-secondary btn-sm" role="button" aria-expanded="false" >
+            Daftar Spending Allowance
         </a>
     </div>
 </div>
