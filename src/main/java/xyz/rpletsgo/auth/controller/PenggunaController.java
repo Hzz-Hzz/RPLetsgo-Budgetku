@@ -24,19 +24,19 @@ public class PenggunaController {
         return "redirect:/workspace/get";
     }
 
-    
+
     @GetMapping("/login")
     public String getLogin() {
         return "/pengguna/login";
     }
-    
-    
+
+
     @ResponseBody
     @PostMapping("/login")
     public String postLogin(String username,
                             String password,
                             HttpServletResponse response) {
-    
+
         var sessionToken = penggunaService.loginPengguna(username, password);
         var cookie = new Cookie("session", sessionToken);
         cookie.setMaxAge(3600);
@@ -58,19 +58,19 @@ public class PenggunaController {
         }
         return "Logged out!";
     }
-    
-    
+
+
     @GetMapping("/register")
     public String getRegister() {
         return "/pengguna/register";
     }
-    
+
     @ResponseBody
     @PostMapping("/register")
     public String postRegister(
-        String username,
-        String email,
-        String password
+            String username,
+            String email,
+            String password
     ) {
         penggunaService.registerPengguna(username, email, password);
         return "Success!";
