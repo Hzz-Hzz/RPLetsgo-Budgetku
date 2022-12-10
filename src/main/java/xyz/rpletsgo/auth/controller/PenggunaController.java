@@ -17,6 +17,14 @@ import xyz.rpletsgo.auth.service.PenggunaService;
 public class PenggunaController {
     @Autowired
     PenggunaService penggunaService;
+
+
+    @ResponseBody
+    @GetMapping()
+    public String mainPage() {
+        return "Hello RPLetsgo!";
+    }
+
     
     @GetMapping("/login")
     public String getLogin() {

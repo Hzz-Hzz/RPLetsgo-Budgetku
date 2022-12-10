@@ -36,6 +36,7 @@ public class PengeluaranService {
     FinancialEventRepository financialEventRepository;
 
     public List<FinancialEvent> getPengeluaransByWorkspace(String workspaceId) {
+        
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         return workspace.getPengeluarans();
     }

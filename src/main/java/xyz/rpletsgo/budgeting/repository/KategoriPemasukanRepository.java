@@ -1,7 +1,7 @@
 package xyz.rpletsgo.budgeting.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 
 import java.util.Optional;
 

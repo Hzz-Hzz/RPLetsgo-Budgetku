@@ -1,6 +1,7 @@
 package xyz.rpletsgo.pemasukan.model;
 
 import org.junit.jupiter.api.Test;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 
 import java.time.LocalDateTime;
 

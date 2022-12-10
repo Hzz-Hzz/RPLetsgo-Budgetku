@@ -1,19 +1,23 @@
 .title-container{
 
-    background: #780206; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #780206, #061161); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #780206, #061161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+    /*background: #780206; !* fallback for old browsers *!*/
+
+
+    /*background: linear-gradient(to right, #780206, #061161); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+
+    /*-webkit-background-clip: text;*/
+    /*-moz-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+    /*-moz-text-fill-color: transparent;*/
 }
 .title{
     font-family: "Quicksand Bold", serif;
     font-weight: 900;
     margin: 10px;
-    color: var(--bs-red);
+    color: #0e2439;
     font-size: 4rem;
+
+    text-shadow: 1px 1px 2px white;
 }
 
 

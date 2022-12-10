@@ -52,6 +52,14 @@ $(document).ready(function () {
     const flexCreateButton = $("#flex-create-new");
     const fixedCreateButton = $("#fixed-create-new");
 
+    flexCreateButton.click(function () {
+        onShadowBoxCreateNew();
+    });
+    // fixedCreateButton.click(function () {
+    //     onShadowBoxCreateNew();
+    // });
+
+
     if (flexCreateButton.length === 0 || fixedCreateButton.length === 0) {
         console.log("no create button");
         return;
@@ -59,22 +67,14 @@ $(document).ready(function () {
 
     function onScroll(animationTime=300){
         const isInScreen = isWholeElementInScreen(flexCreateButton, 0);
-        console.log(isInScreen);
         if (isInScreen){
             fixedCreateButton.slideUp(animationTime);
         }else{
-            fixedCreateButton.slideDown(animationTime);
+            // fixedCreateButton.slideDown(animationTime);
         }
     }
 
     onScroll(0);
     fixedCreateButton.removeClass("hidden");
     $(window).scroll(onScroll);
-
-    flexCreateButton.click(function () {
-        onShadowBoxCreateNew();
-    });
-    fixedCreateButton.click(function () {
-        onShadowBoxCreateNew();
-    });
 })

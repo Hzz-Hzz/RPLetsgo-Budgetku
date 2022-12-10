@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.model.Pengguna;
 import xyz.rpletsgo.auth.repository.PenggunaRepository;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.common.core.AutomaticFinancialEvent;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.model.Workspace;
 
 import java.util.List;

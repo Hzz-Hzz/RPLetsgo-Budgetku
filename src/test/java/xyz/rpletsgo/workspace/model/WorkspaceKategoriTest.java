@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanException;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
 import xyz.rpletsgo.budgeting.model.AlokasiSpendingAllowance;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 
 import java.util.List;
 

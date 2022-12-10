@@ -2,6 +2,7 @@ package xyz.rpletsgo.pemasukan.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.common.core.ILocalDateTimeFactory;
 import xyz.rpletsgo.pemasukan.core.IPemasukanFactory;
 
