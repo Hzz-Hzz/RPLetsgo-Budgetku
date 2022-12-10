@@ -18,7 +18,9 @@ function addPendingToast(
     ]));
 }
 
+
 function showPendingToasts(){
+    console.log("SHOW TOST");
     let pendingToasts = localStorage.getItem("pending-toasts");
     if (pendingToasts == null)
         return;
@@ -35,11 +37,23 @@ function showPendingToasts(){
             });
         }
 
-        setTimeout(() => onToastHide(toast), 3000);
+        setTimeout(() =>{
+            onToastHide(toast);
+        }, 3000);
+        setTimeout(() => {
+            $(".toast").remove()
+        }, 5000);
     }
     localStorage.removeItem("pending-toasts");
 }
-$(document).ready(showPendingToasts);
+var pendingToastHasBeenShown = false;
+$(document).ready(() => {
+    if (pendingToastHasBeenShown)
+        return;
+    pendingToastHasBeenShown = true;
+
+    showPendingToasts();
+});
 
 
 function showToast(
