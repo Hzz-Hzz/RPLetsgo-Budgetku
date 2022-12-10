@@ -25,10 +25,14 @@ function onShadowBoxSave(shadowBox, nameField){
             titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-info")},
             body: "Perubahan berhasil disimpan"
         });
-    }).fail(alsoHandleGeneralError("Rename Failed", function (error) {
-        const {message} = error.responseJSON;
-        showFailedToast("Rename Failed", message);
-    }));
+    }).fail(
+        alsoHandleGeneralError(function (error) {
+            const {message} = error.responseJSON;
+            showFailedToast("Rename Failed", message);
+        }, (msg) => {
+            showFailedToast("Rename Failed", msg);
+        })
+    );
 }
 
 function showFailedToast(title, message){
@@ -81,14 +85,18 @@ function onShadowBoxDelete(shadowBox, nameField){
             body: `Budget "${nama}" berhasil dihapus`
         });
         location.reload();
-    }).fail(alsoHandleGeneralError("Deletion Failed", function (error){
-        console.log(error.responseJSON);
-        const {message} = error.responseJSON;
-        showToast({
-            titleConfigurer: (el) => {el.text("Deletion Failed"); el.addClass("text-danger")},
-            body: message
+    }).fail(
+        alsoHandleGeneralError(function (error){
+            console.log(error.responseJSON);
+            const {message} = error.responseJSON;
+            showToast({
+                titleConfigurer: (el) => {el.text("Delete Failed"); el.addClass("text-danger")},
+                body: message
+            });
+        }, (msg) => {
+            showFailedToast("Delete Failed", msg);
         })
-    }));
+    );
 }
 
 

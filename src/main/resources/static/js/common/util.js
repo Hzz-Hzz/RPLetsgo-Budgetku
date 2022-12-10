@@ -22,16 +22,17 @@ function removeUnnecessaryWhitespaces(string){
 
 // untuk dipakai ketika $.post().fail(() => {})
 // return true apabila terhandle. return false jika tidak terhandle
-function alsoHandleGeneralError(title, additionalErrorHandler){
-    function errorHandler(err, ...args) {
+function alsoHandleGeneralError(additionalErrorHandler, generalErrorHandler){
+    function errorHandler(error, ...args) {
         if (error.responseJSON != null) {
-            additionalErrorHandler(err, ...args);
+            additionalErrorHandler(error, ...args);
+            return;
         }
 
         if (error.status === 0){
-            showFailedToast(title, "You're offline");
+            generalErrorHandler("You're offline");
         }else {
-            showFailedToast(title, "Failed ");
+            generalErrorHandler("Failed");
             throw new Error("Unhandled error");
         }
     }

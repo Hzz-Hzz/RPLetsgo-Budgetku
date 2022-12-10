@@ -9,19 +9,6 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
     </script>
-
-    <style>
-        .gradient-custom {
-            /* fallback for old browsers */
-            background: #6a11cb;
-
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
-        }
-    </style>
 </head>
 <body>
 
@@ -88,30 +75,32 @@
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 window.location.href = '../';
 
-            }).fail(function (response) {
-                // console.log("fail", response["responseJSON"]['message']);
-                // console.log("fail", response);
-                //
-                // console.log($("#show_result"))
-                // console.log($("#show_result").classList);
-                try{
-                    $("#show_result").removeClass("alert-success").addClass('alert-danger')
-                } catch (err) {
-                }
+            }).fail(alsoHandleGeneralError(
+                (err) => handleError(err),
+                (err) => showError(err)
+            ))
+        }
 
-                if (response["responseJSON"]['message'] == 'Wrong password' || response["responseJSON"]['message'] == `Username ${usernameData} not found.`) {
-                    // console.log("wross pass");
-                    $('#show_result').text("Username and password doesn't match");
-                } else {
-                    // console.log(`unidentified error Username ${usernameData} not found.`)
-                    // console.log("unidentified error", response["responseJSON"]['message']);
-                    $('#show_result').text("Unidentified error, try again later");
-                }
-                $('#show_result').show()
-                $("#submit_button").prop('disabled', false);
-            })
-
+        function handleError(response) {
+            const usernameNotFound = response["responseJSON"]['exceptionName'] === 'UsernameNotFoundException';
+            const invalidCredential = response["responseJSON"]['exceptionName'] === `InvalidCredentialException`;
+            if (usernameNotFound || invalidCredential) {
+                showError(response["responseJSON"]['message']);
+            } else {
+                showError("Unidentified error, try again later");
             }
+        }
+
+        function showError(msg){
+            try{
+                $("#show_result").removeClass("alert-success").addClass('alert-danger')
+            } catch (err) {
+            }
+
+            $('#show_result').text(msg);
+            $('#show_result').show()
+            $("#submit_button").prop('disabled', false);
+        }
 </script>
 
 </body>

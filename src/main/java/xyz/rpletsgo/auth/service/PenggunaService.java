@@ -36,7 +36,7 @@ public class PenggunaService {
     public String loginPengguna(String username, String password){
         var pengguna = getPenggunaOrThrow(username);
         if (!pengguna.getPassword().equals(password))
-            throw new InvalidCredentialException("Wrong password");
+            throw new InvalidCredentialException("Username and password doesn't match");
         return sessionRepository.createSession(pengguna);
     }
     
