@@ -1,10 +1,12 @@
 package xyz.rpletsgo.budgeting.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
+import xyz.rpletsgo.common.exceptions.GeneralException;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class SpendingAllowanceService {
     
     
     public SpendingAllowance create(String workspaceId, String spendingAllowanceName){
+        if (spendingAllowanceName.length() == 0)
+            throw new GeneralException("Name cannot be empty", HttpStatus.BAD_REQUEST);
+        
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         var spendingAllowance = new SpendingAllowance(spendingAllowanceName, 0);
         workspace.addSpendingAllowance(spendingAllowance);

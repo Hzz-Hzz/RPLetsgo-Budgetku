@@ -37,8 +37,8 @@ public class AlokasiSpendingAllowance {
     }
     
     public void setBesarAlokasi(double value){
-        if (value < 0 || value > 1){
-            throw new GeneralException("Besar alokasi spending allowance harus antara 0 dan 1", HttpStatus.BAD_REQUEST);
+        if (value < 0.98 || value > 1){
+            throw new GeneralException("Besar alokasi spending allowance harus antara 0.98 dan 1", HttpStatus.BAD_REQUEST);
         }
         this.besarAlokasi = value;
     }

@@ -94,6 +94,7 @@ function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
             btn.text("Cancel");
         },
         onOk: ()=>{
+            console.log("ok");
             onShadowBoxDelete(shadowBox, nameField);
             hideModalFunc();
         },
@@ -120,7 +121,6 @@ function onShadowBoxDelete(shadowBox, nameField){
         location.reload();
     }).fail(
         alsoHandleGeneralError(function (error){
-            console.log(error.responseJSON);
             const {message} = error.responseJSON;
             showToast({
                 titleConfigurer: (el) => {el.text("Delete Failed"); el.addClass("text-danger")},

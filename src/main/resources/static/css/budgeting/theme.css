@@ -14,12 +14,35 @@
     font-family: "Quicksand Bold", serif;
     font-weight: 900;
     margin: 10px;
-    color: #0e2439;
+    color: var(--main-dark-blue);
     font-size: 4rem;
 
     text-shadow: 1px 1px 2px white;
 }
+.title.smaller-title{
 
+    font-size: 3rem;
+}
+
+
+.black-div{
+    background-color: var(--main-dark-blue);
+    border-radius: 20px;
+
+    width: 30rem;
+    min-height: 200px;
+
+    color: white;
+    padding: 15px;
+}
+
+.centerize{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
 
 
 

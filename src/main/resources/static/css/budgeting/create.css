@@ -1,11 +1,3 @@
-.centerize{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
 .full-screen{
     height: 98vh;
 }
@@ -21,3 +13,4 @@
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+

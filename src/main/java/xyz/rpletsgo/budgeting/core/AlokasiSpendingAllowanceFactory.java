@@ -35,8 +35,8 @@ public class AlokasiSpendingAllowanceFactory implements IAlokasiSpendingAllowanc
             );
         }
     
-        if (0 > totalAlokasi || totalAlokasi > 1.0){
-            throw new GeneralException("totalAlokasi harus di antara 0 dan 100", HttpStatus.BAD_REQUEST);
+        if (0.98 > totalAlokasi || totalAlokasi > 1.0){
+            throw new GeneralException("totalAlokasi harus di antara 0.98 dan 1", HttpStatus.BAD_REQUEST);
         }
     
         return alokasiSpendingAllowances;

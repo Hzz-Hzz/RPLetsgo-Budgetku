@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+  <th:block th:include="properties/html-dependencies.html :: budgeting" />
+  <script src="/js/budgeting/kategori-pemasukan-create.js"></script>
+  <link href="/css/budgeting/kategori-pemasukan-create.css" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <title>Kategori Pemasukan</title>
+</head>
+<body style="min-height: 95vh;" class="gradient-custom">
+  <div class="main-container">
+    <div class="title-container">
+
+
+        <h1 class="title smaller-title"
+            th:unless="${isKategoriDefined}">Create Kategori Pemasukan</h1>
+        <h1 class="title smaller-title"
+            th:if="${isKategoriDefined}">
+          Edit
+          <th:block th:text="${kategoriName}"></th:block>
+        </h1>
+
+    </div>
+    <br>
+  </div>
+
+
+<div class="centerize">
+
+
+    <div class="black-div">
+      <form method="post" id="form-element">
+        <input name="workspaceId" type="hidden" th:value="${kategoriId}">
+        <input name="kategoriPemasukanId" id="kategoriPemasukanId"
+               type="hidden" th:value="${kategoriId}">
+
+        <div class="controls">
+          <div class="row">
+            <div   class="col">Nama kategori:</div>
+            <input class="col " name="nama" th:value="${kategoriName}">
+          </div>
+        </div>
+
+
+        <div style="height: 25px;">
+        </div>
+
+      </form>
+
+
+      <div class="row">
+        <button type="button" class="col btn-add-budget" onclick="onAddNewSpendingAllowanceClick()">add budget</button>
+        <button class="col btn-primary btn-submit" onclick="onSubmitClick()">submit</button>
+      </div>
+    </div>
+</div>
+
+  <template id="alokasi-biasa">
+    <div class="row-custom">
+      <select name="spendingAllowanceId[]" class="col spending-all-id">
+      </select>
+      <input name="besarAlokasi[]" class="col besar-alokasi">
+
+      <div class="col centerize btn-delete" style="cursor: pointer;">
+        <i class="fa-regular fa-trash-can"></i>
+      </div>
+    </div>
+  </template>
+
+
+  <template id="daftar-alokasi">
+    <th:block th:text="${alokasiAllowancesJson}"></th:block>
+  </template>
+
+  <template id="daftar-spending-allowance">
+    <th:block th:text="${spendingAllowancesJson}"></th:block>
+  </template>
+
+
+
+  <th:block th:include="budgeting/spending-allowance-create.html :: default"></th:block>
+  <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+  <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
+</body>
+</html>

@@ -96,10 +96,18 @@ function showModal(
     rebindOnClick(okBtn, cancelBtn, closeBtn, onOk, onCancel);
 
     modal.modal("show");
-    return () => {
+
+    const closeModal = () => {
         modal.modal("hide");
         modal.remove();
     };
+
+    modal.on('hidden.bs.modal', function (){
+        closeModal();
+        onCancel();
+    })
+
+    return closeModal;
 }
 function isString(variable){
     return typeof variable === 'string' || variable instanceof String;
