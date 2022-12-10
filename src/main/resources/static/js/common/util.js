@@ -32,7 +32,7 @@ function alsoHandleGeneralError(additionalErrorHandler, generalErrorHandler){
         if (error.status === 0){
             generalErrorHandler("You're offline");
         }else {
-            generalErrorHandler("Failed");
+            generalErrorHandler("Unidentified error, try again later");
             throw new Error("Unhandled error");
         }
     }
@@ -52,21 +52,29 @@ function isWholeElementInScreen(elm, additionalMarginThreshold=0, evalType="visi
 }
 
 
-function showModal({
-   title, body,
-   okBtnConfigurer = (btn) => {
-       removeAllBootstrapColoringClass(btn);
-       btn.addClass("primary-btn");
-   },
-   cancelBtnConfigurer = (btn) => {
-       removeAllBootstrapColoringClass(btn);
-       btn.addClass("secondary-btn");
-   },
-   onOk, onCancel,
-   modalId = "myModal"
-}){
-    const modal = $(`#${modalId}`);
-    console.log(modal);
+function showModal(
+    {
+        title,
+        body,  // body may be a string or a function
+        modalConfigurer = (modal) => {},
+        okBtnConfigurer = (btn) => {
+           removeAllBootstrapColoringClass(btn);
+           btn.addClass("primary-btn");
+        },
+        cancelBtnConfigurer = (btn) => {
+           removeAllBootstrapColoringClass(btn);
+           btn.addClass("secondary-btn");
+        },
+        onOk, onCancel,
+        verticallyCentered = false,
+        templateElement = null
+    }
+){
+    if (templateElement == null) {
+        templateElement = $("#default-modal-template")
+    }
+    const modal = $(templateElement.html().trim());
+    modalConfigurer(modal);
 
     const titleEl = modal.find(".modal-title");
     const bodyEl = modal.find(".modal-body");
@@ -75,16 +83,28 @@ function showModal({
     const closeBtn = modal.find(".close-btn");
 
     titleEl.text(title);
-    bodyEl.text(body);
-    okBtnConfigurer(okBtn);
+    if (isString(body))
+        bodyEl.text(body);
+    else
+        body(bodyEl);
+
+    if (verticallyCentered)
+        modal.find(".modal-dialog").addClass("modal-dialog-centered");
 
     okBtnConfigurer(okBtn);
     cancelBtnConfigurer(cancelBtn);
     rebindOnClick(okBtn, cancelBtn, closeBtn, onOk, onCancel);
 
     modal.modal("show");
-    return () => modal.modal("hide");
+    return () => {
+        modal.modal("hide");
+        modal.remove();
+    };
 }
+function isString(variable){
+    return typeof variable === 'string' || variable instanceof String;
+}
+
 
 function rebindOnClick(okBtn, cancelBtn, closeBtn, onOk, onCancel){
     okBtn.unbind("click");

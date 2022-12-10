@@ -1,5 +1,35 @@
 function onShadowBoxCreateNew(){
-    window.location.href = "create";
+    const creationForm = $("#creation-form-template");
+
+    const innerHtml = creationForm.html();
+
+    var hideModalFunc;
+    hideModalFunc = showModal({
+        title: "Create New Spending Allowance",
+        verticallyCentered: false,
+        body: (el) => {
+            el.html(innerHtml);
+        },
+        modalConfigurer: (modal) => {
+            modal.find(".modal-dialog").addClass("modal-xl");
+        },
+        okBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-primary");
+            btn.text("Submit");
+        },
+        cancelBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-secondary");
+            btn.text("Cancel");
+        },
+        onOk: ()=>{
+            $("#creation-form").submit();
+        },
+        onCancel: ()=>{
+            hideModalFunc();
+        },
+    });
 }
 
 
@@ -22,7 +52,7 @@ function onShadowBoxSave(shadowBox, nameField){
         nama: newAllowanceName,
     }).done(function () {
         showToast({
-            titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-info")},
+            titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-primary")},
             body: "Perubahan berhasil disimpan"
         });
     }).fail(
@@ -81,7 +111,7 @@ function onShadowBoxDelete(shadowBox, nameField){
         spendingAllowanceId: spendingAllowanceId,
     }).done(function () {
         addPendingToast({
-            titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-info")},
+            titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-primary")},
             body: `Budget "${nama}" berhasil dihapus`
         });
         location.reload();

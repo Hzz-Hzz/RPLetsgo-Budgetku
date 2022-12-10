@@ -2,7 +2,7 @@
     --main-blue: #62d2ff;
     --previous-blue: #4f69ed;
 
-    --main-hover: #e1fcfa;
+    --main-hover: var(--bs-dark);
 
     --main-income: #57bbb3;
     --main-expense: #d3615e;

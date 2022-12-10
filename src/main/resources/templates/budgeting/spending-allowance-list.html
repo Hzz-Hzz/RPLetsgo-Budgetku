@@ -5,11 +5,13 @@
   <script src="/js/budgeting/spending-allowance.js"></script>
 
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Budgets</title>
 </head>
-<body style="min-height: 95vh;">
+<body style="min-height: 95vh;" class="gradient-custom">
   <div class="main-container">
-    <h1 style='font-family: "Quicksand Bold", serif'>Budgets</h1>
+    <div class="title-container">
+      <h1 class="title">Budgets</h1>
+    </div>
 
     <th:block th:each="spendingAllowance: ${spendingAllowances}">
       <div class="shadowed-box">
@@ -50,6 +52,7 @@
   </div>
 
 
+  <th:block th:include="budgeting/spending-allowance-create.html :: default"></th:block>
   <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
   <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 

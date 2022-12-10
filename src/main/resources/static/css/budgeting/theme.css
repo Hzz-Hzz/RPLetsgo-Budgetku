@@ -1,9 +1,27 @@
+.title-container{
 
-
-body{
-    --body-bg-color: var(--main-blue);
-    background-color: var(--body-bg-color);
+    background: #780206; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #780206, #061161); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #780206, #061161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
 }
+.title{
+    font-family: "Quicksand Bold", serif;
+    font-weight: 900;
+    margin: 10px;
+    color: var(--bs-red);
+    font-size: 4rem;
+}
+
+
+
+
+
+
+
 
 .main-container{
     display: flex;
@@ -24,7 +42,7 @@ body{
     grid-template-columns: 100%;
     grid-template-rows: 100%;
 
-    --background-color: var(--main-white);
+    --background-color: var(--bs-gray-dark);
     --clip-path: inset(-5px -5px -5px -5px);
     --delete-button-width: 45px;
 }
@@ -44,7 +62,7 @@ body{
     background-color: var(--background-color);
 
     font-size: 18px;
-    color: var(--main-dark);
+    color: var(--main-grey);
 
     align-items: center;
     padding: 10px;

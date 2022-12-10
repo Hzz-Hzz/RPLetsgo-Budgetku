@@ -19,12 +19,12 @@ public class SpendingAllowanceController {
     
     
     @PostMapping("/create")
-    @ResponseBody
-    public SpendingAllowance createSpendingAllowance(
+    public String createSpendingAllowance(
         @PathVariable String workspaceId,
         @RequestParam String nama
     ){
-        return spendingAllowanceService.create(workspaceId, nama);
+        spendingAllowanceService.create(workspaceId, nama);
+        return "redirect:/"+workspaceId+"/spending-allowance/list";
     }
     
     @PostMapping("/update")
