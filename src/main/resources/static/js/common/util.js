@@ -19,6 +19,9 @@ function removeUnnecessaryWhitespaces(string){
 }
 
 
+
+
+
 function showModal({
    title, body,
    okBtnConfigurer = (btn) => {
@@ -47,7 +50,13 @@ function showModal({
 
     okBtnConfigurer(okBtn);
     cancelBtnConfigurer(cancelBtn);
+    rebindOnClick(okBtn, cancelBtn, closeBtn, onOk, onCancel);
 
+    modal.modal("show");
+    return () => modal.modal("hide");
+}
+
+function rebindOnClick(okBtn, cancelBtn, closeBtn, onOk, onCancel){
     okBtn.unbind("click");
     okBtn.click(function (_e){
         onOk();
@@ -60,13 +69,6 @@ function showModal({
     closeBtn.click(function (_e){
         onCancel();
     });
-    cancelBtn.unbind("click");
-    cancelBtn.click(function (_e){
-        onCancel();
-    });
-
-    modal.modal("show");
-    return () => modal.modal("hide");
 }
 
 

@@ -5,6 +5,7 @@ Untuk menyimpan semua dependency pada front-end (misalnya bootstrap, tailwind, j
 <th:block th:fragment="default">
     <script th:src="@{/common/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/common/util.js}"></script>
+    <script th:src="@{/js/common/util-toast.js}"></script>
 
     <link th:href="@{/common/bootstrap/bootstrap.min.css}" rel="stylesheet" />
     <script th:src="@{/common/bootstrap/bootstrap.min.js}"></script>
@@ -27,4 +28,16 @@ Untuk menyimpan semua dependency pada front-end (misalnya bootstrap, tailwind, j
     <th:block th:include="properties/html-dependencies.html :: default" />
 
     <link th:href="@{/css/budgeting/theme.css}" rel="stylesheet" />
+</th:block>
+
+<th:block th:fragment="workspace">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <link th:href="@{/css/workspace/cards.css}" rel="stylesheet" />
+</th:block>
+
+<th:block th:fragment="overview">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <!--<link th:href="@{/css/overview/theme.css}" rel="stylesheet" />-->
 </th:block>

@@ -23,10 +23,12 @@ public class WorkspaceController {
     }
 
     @PostMapping("/{workspaceId}/workspace/update")
-    @ResponseBody
-    public String updateWorkspace (@PathVariable(name = "workspaceId") String workspaceId, @RequestParam String nama){
-        workspaceService.updateWorkspace(workspaceId, nama);
-        return "Workspace updated";
+    public String updateWorkspace (
+            @PathVariable(name = "workspaceId") String workspaceId,
+            Workspace newWorkspace
+    ){
+        workspaceService.updateWorkspace(workspaceId, newWorkspace.getNama());
+        return "workspace/workspace-list.html";
     }
 
     @GetMapping("/{workspaceId}/workspace/get")
@@ -37,6 +39,7 @@ public class WorkspaceController {
 
     @GetMapping("/workspace/get")
     public String getWorkspace (
+
             Model model
     ) {
         model.addAttribute("workspaces",
