@@ -30,6 +30,7 @@ public class WorkspaceController {
     }
 
     @PostMapping("/update")
+    @ResponseBody
     public String updateWorkspace (
             @RequestParam String nama,
             @RequestParam String workspaceId
