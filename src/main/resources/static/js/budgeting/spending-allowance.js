@@ -1,3 +1,6 @@
+$(document).ready(() => initializeShadowBoxHandler());
+
+
 function onShadowBoxCreateNew(){
     const creationForm = $("#creation-form-template");
 
@@ -5,7 +8,7 @@ function onShadowBoxCreateNew(){
 
     var hideModalFunc;
     hideModalFunc = showModal({
-        title: "Create New Spending Allowance",
+        title: "Create New Budget",
         verticallyCentered: false,
         body: (el) => {
             el.html(innerHtml);
@@ -78,7 +81,7 @@ function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
 
     var hideModalFunc;
     hideModalFunc = showModal({
-        title: "Delete Spending Allowance",
+        title: "Delete Budget",
         body: `Apakah Anda yakin ingin menghapus budget "${nama}"?`,
         okBtnConfigurer: (btn) => {
             removeAllBootstrapColoringClass(btn);

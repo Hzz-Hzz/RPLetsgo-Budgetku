@@ -1,0 +1,27 @@
+.shadowed-box.kategori-pemasukan{
+    min-height: var(--shadowed-box-height);
+    height: auto;
+}
+
+.shadowed-box.kategori-pemasukan .inner-shadowed-box{
+    display: grid;
+    /*grid-template-columns: 100%;*/
+
+    grid-template-rows: calc(var(--shadowed-box-height) - 2*var(--inner-shadowed-box-padding));
+}
+.shadowed-box.kategori-pemasukan .name-box{
+    grid-column-start: span 2;
+}
+
+.shadowed-box.kategori-pemasukan .inner-shadowed-box .all-alokasi{
+    grid-row-start: 2;
+    grid-column-start: span 2;
+    padding-left: 20px;
+
+    display: grid;
+    grid-template-columns: auto 50px;
+}
+
+.shadowed-box.kategori-pemasukan .all-alokasi span.alokasi{
+    text-align: right;
+}
