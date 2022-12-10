@@ -52,14 +52,20 @@ public class CommonService {
         return totalTagihan;
     }
 
+    private long getSaldo(long pemasukan, long pengeluaran) {
+        return pemasukan - pengeluaran;
+    }
+
     public Map<String, String> getTotalFinancial(String workspaceId){
         Map<String, String> financialTotalSummary = new HashMap<>();
-        String pengeluaran = Long.toString(getTotalPengeluaran(workspaceId));
-        String pemasukan = Long.toString(getTotalPemasukan(workspaceId));
-        String tagihan = Long.toString(getTotalTagihan(workspaceId));
-        financialTotalSummary.put("pengeluaran", pengeluaran);
-        financialTotalSummary.put("pemasukan", pemasukan);
-        financialTotalSummary.put("tagihan", tagihan);
+        long pengeluaran = getTotalPengeluaran(workspaceId);
+        long pemasukan = getTotalPemasukan(workspaceId);
+        long tagihan = getTotalTagihan(workspaceId);
+        long saldo = getSaldo(pemasukan, pengeluaran);
+        financialTotalSummary.put("pengeluaran", Long.toString(pengeluaran));
+        financialTotalSummary.put("pemasukan", Long.toString(pemasukan));
+        financialTotalSummary.put("tagihan", Long.toString(tagihan));
+        financialTotalSummary.put("saldo", Long.toString(saldo));
         return financialTotalSummary;
     }
 }
