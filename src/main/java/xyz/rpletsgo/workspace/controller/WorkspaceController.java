@@ -22,7 +22,7 @@ public class WorkspaceController {
         return workspaceService.createWorkspace(nama);
     }
 
-    @PostMapping("/workspace/update")
+    @PostMapping("/{workspaceId}/workspace/update")
     @ResponseBody
     public String updateWorkspace (
             @RequestParam String nama,
@@ -38,7 +38,7 @@ public class WorkspaceController {
         return workspaceService.getWorkspace(workspaceId);
     }
 
-    @GetMapping("/workspace/get")
+    @GetMapping("/")
     public String getWorkspace (
 
             Model model
