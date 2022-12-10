@@ -38,7 +38,7 @@ public class WorkspaceController {
         return workspaceService.getWorkspace(workspaceId);
     }
 
-    @GetMapping("/")
+    @GetMapping("/workspace/get")
     public String getWorkspace (
 
             Model model
