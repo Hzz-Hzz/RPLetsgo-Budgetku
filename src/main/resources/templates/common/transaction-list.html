@@ -29,8 +29,14 @@
                             <input id="nominal" name="nominal" type="number" class="form-control" th:value="${financialEvent.getNominal()}">
                             <div th:if="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
                                 <label for="kategoriId">Kategori ID</label>
-                                <input id="kategoriId" name="kategoriId" type="text" class="form-control">
+                                <select id="kategoriId" name="kategoriId" class="form-select">
+                                    <option value="" selected hidden>Pilih kategori pemasukan...</option>
+                                    <option th:each="kategoriPemasukan:${kategoriPemasukans}" th:value="${kategoriPemasukan.getId()}" th:text="${kategoriPemasukan.getNama()}"></option>
+                                </select>
 <!--                                th:value="${((Pemasukan)financialEvent).getKategori().getId()} -->
+                            </div>
+                            <div th:unless="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
+                                <input type="text" hidden name="kategoriId" value="">
                             </div>
                             <button class="btn btn-outline-secondary" type="submit" id="button-editFinancialEvent">Submit</button>
                         </form>
