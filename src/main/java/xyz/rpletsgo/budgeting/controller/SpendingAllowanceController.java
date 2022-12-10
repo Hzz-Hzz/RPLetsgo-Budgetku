@@ -2,7 +2,6 @@ package xyz.rpletsgo.budgeting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import xyz.rpletsgo.budgeting.model.SpendingAllowance;
 import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
@@ -56,19 +55,5 @@ public class SpendingAllowanceController {
     ){
         spendingAllowanceService.deleteSpendingAllowanceFromWorkspace(workspaceId, spendingAllowanceId);
         return success;
-    }
-    
-    @GetMapping("/list")
-    public String getSpendingAllowancesList(@PathVariable String workspaceId, Model model){
-        var spendingAllowances = spendingAllowanceService.getSpendingAllowancesByWorkspace(workspaceId);
-        model.addAttribute("workspaceId", workspaceId);
-        model.addAttribute("spendingAllowances", spendingAllowances);
-        return "budgeting/spending-allowance-list.html";
-    }
-    
-    @GetMapping("/create")
-    public String getSpendingAllowancesList(@PathVariable String workspaceId){
-        spendingAllowanceService.authorizeWorkspace(workspaceId);
-        return "budgeting/spending-allowance-create.html";
     }
 }

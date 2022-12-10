@@ -19,13 +19,6 @@ public class PenggunaController {
     PenggunaService penggunaService;
     
     
-    @ResponseBody
-    @GetMapping()
-    public String mainPage() {
-        return "Hello RPLetsgo!";
-    }
-    
-    
     @GetMapping("/login")
     public String getLogin() {
         return "/pengguna/login";

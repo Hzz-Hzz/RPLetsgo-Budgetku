@@ -8,8 +8,6 @@ import xyz.rpletsgo.workspace.core.IWorkspace;
 import xyz.rpletsgo.workspace.model.Workspace;
 import xyz.rpletsgo.workspace.service.WorkspaceService;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/")
 public class WorkspaceController {
@@ -40,7 +38,6 @@ public class WorkspaceController {
 
     @GetMapping("/")
     public String getWorkspace (
-
             Model model
     ) {
         model.addAttribute("workspaces",
