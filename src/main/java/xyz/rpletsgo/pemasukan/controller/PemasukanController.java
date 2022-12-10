@@ -57,11 +57,11 @@ public class PemasukanController {
         return pemasukanService.update(workspaceId, pemasukanId, nama, keterangan, waktuLocalDateTime, nominal, kategoriPemasukanId);
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/delete/{pemasukanId}")
     @ResponseBody
     public String deletePemasukan(
             @PathVariable String workspaceId,
-            @RequestParam String pemasukanId
+            @PathVariable String pemasukanId
     ) {
         pemasukanService.delete(workspaceId, pemasukanId);
         return success;

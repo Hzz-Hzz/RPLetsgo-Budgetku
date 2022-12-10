@@ -74,7 +74,7 @@ public class PengeluaranController {
         return success;
     }
 
-    @DeleteMapping("/delete/{pengeluaranId}")
+    @PostMapping("/delete/{pengeluaranId}")
     @ResponseBody
     public String deletePengeluaran(
             @PathVariable String workspaceId,

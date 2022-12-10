@@ -47,9 +47,10 @@
                  th:data-financial-event-id="${financialEvent.getId()}"
                  onclick="onToggleEditFinancialEvent(this);">
                 <b class="name" th:text="${financialEvent.getNama()}">Name</b>
-
-                <i class="edit-icon fa-regular fa-pen-to-square"></i>
-                <i class="save-icon fa-regular fa-floppy-disk"></i>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="|#editModal${financialEvent.getId()}|">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+<!--                <i class="save-icon fa-regular fa-floppy-disk"></i>-->
             </div>
 
             <div class="type-div" th:text="${financialEvent.getClass().getSimpleName()}">
@@ -61,8 +62,10 @@
         </div>
         <div class="inner-red-box">
             <i class="fa-regular fa-trash-can"
+               th:data-workspace-id="${workspaceId}"
                th:data-financial-event-id="${financialEvent.getId()}"
                th:data-financial-event-name="${financialEvent.getNama()}"
+               th:data-financial-event-type="${financialEvent.getClass().getSimpleName()}"
                onclick="onRemoveFinancialEvent(this);"></i>
         </div>
     </div>
