@@ -23,7 +23,6 @@ public class WorkspaceController {
     }
 
     @PostMapping("/{workspaceId}/workspace/update")
-    @ResponseBody
     public String updateWorkspace (
             @RequestParam String nama,
             @RequestParam String workspaceId
@@ -47,8 +46,7 @@ public class WorkspaceController {
         return "workspace/workspace-list.html";
     }
 
-    @PostMapping("/workspace/delete")
-    @ResponseBody
+    @PostMapping("/{workspaceId}/workspace/delete")
     public String deleteWorkspace (
             @RequestParam String workspaceId
     ){
