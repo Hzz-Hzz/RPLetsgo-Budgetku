@@ -1,6 +1,7 @@
 package xyz.rpletsgo.auth.controller;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,24 @@ public class PenggunaController {
     
         var sessionToken = penggunaService.loginPengguna(username, password);
         var cookie = new Cookie("session", sessionToken);
+        cookie.setMaxAge(3600);
         response.addCookie(cookie);
         return "Logged in!";
+    }
+
+    @ResponseBody
+    @PostMapping("/logout")
+    public String postLogout(
+            HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        for(int i = 0; i< cookies.length ; ++i){
+            if(cookies[i].getName().equals("session")){
+                cookies[i].setMaxAge(0);
+                response.addCookie(cookies[i]);
+                break;
+            }
+        }
+        return "Logged out!";
     }
     
     
