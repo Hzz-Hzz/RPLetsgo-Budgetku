@@ -21,7 +21,7 @@ function onRemoveFinancialEvent(el){
             btn.text("Cancel");
         },
         onOk: ()=>{
-            deleteFinancialEvent(workspaceId, financialEventId, financialEventName, financialEventType);  // TODO @Pradipta.davi
+            deleteFinancialEvent(workspaceId, financialEventId, financialEventName, financialEventType);  // Done @Pradipta.davi
             hideModalFunc();
         },
         onCancel: ()=>{
