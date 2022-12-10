@@ -1,6 +1,6 @@
 package xyz.rpletsgo.budgeting.core;
 
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 
 public interface IKategoriPemasukanFactory {
     KategoriPemasukan create(

@@ -7,10 +7,10 @@ import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
 import xyz.rpletsgo.budgeting.core.KategoriPemasukanFactory;
 import xyz.rpletsgo.budgeting.exceptions.KategoriPemasukanNotFoundException;
+import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
-import xyz.rpletsgo.pemasukan.model.KategoriPemasukan;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
 import java.util.Arrays;
