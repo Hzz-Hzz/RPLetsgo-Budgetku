@@ -2,6 +2,7 @@ package xyz.rpletsgo.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.auth.exceptions.InvalidCredentialException;
 import xyz.rpletsgo.auth.exceptions.UsernameAlreadyExistsException;
 import xyz.rpletsgo.auth.exceptions.UsernameNotFoundException;
@@ -13,18 +14,17 @@ import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 @Service
 public class PenggunaService {
     @Autowired
+    CurrentLoggedInPengguna loggedInPengguna;
+    
+    @Autowired
     PenggunaRepository penggunaRepository;
     
     @Autowired
     SessionRepository sessionRepository;
     
-    
-    
-    
     public Pengguna getPengguna(String username){
         return penggunaRepository.findByUsername(username).orElse(null);
     }
-    
     
     public Pengguna getPenggunaOrThrow(String username){
         var pengguna = getPengguna(username);
@@ -49,6 +49,9 @@ public class PenggunaService {
         penggunaRepository.save(pengguna);
     }
     
+    public boolean isLoggedIn(){
+        return loggedInPengguna.isLoggedIn();
+    }
     
     
     @Autowired

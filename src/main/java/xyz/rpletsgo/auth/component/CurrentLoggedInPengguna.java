@@ -19,8 +19,12 @@ public class CurrentLoggedInPengguna {
     @Autowired
     WorkspaceRepository workspaceRepository;
     
+    public boolean isLoggedIn(){
+        return currentPengguna != null;
+    }
+    
     public Pengguna getCurrentPengguna() {
-        if (currentPengguna == null)
+        if (!isLoggedIn())
             throw new InvalidCredentialException("Not logged in");
         return currentPengguna;
     }
