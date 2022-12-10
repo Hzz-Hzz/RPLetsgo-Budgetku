@@ -60,16 +60,16 @@ function onSubmitClick(){
         });
         window.location.href = "list";
 
-    }).fail(alsoHandleGeneralError(function(err) {
+    }).fail(alsoHandleGeneralError(function(error) {
         const {message} = error.responseJSON;
 
         showToast({
-            titleConfigurer: (el) => {el.text(title); el.addClass("text-danger")},
+            titleConfigurer: (el) => {el.text("Error"); el.addClass("text-danger")},
             body: message
         });
     }, (msg) => {
         showToast({
-            titleConfigurer: (el) => {el.text(title); el.addClass("text-danger")},
+            titleConfigurer: (el) => {el.text("Error"); el.addClass("text-danger")},
             body: msg
         });
     }));

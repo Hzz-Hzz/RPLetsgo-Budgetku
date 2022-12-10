@@ -16,6 +16,13 @@ function showFailedToast(title, message){
     });
 }
 
+function editKategori(el){
+    el = $(el);
+    const kategoriId = el.attr("data-kategori-id");
+
+    window.location.href = "./create-edit?kategoriId=" + kategoriId;
+}
+
 
 
 function onShadowBoxCreateNew(){
