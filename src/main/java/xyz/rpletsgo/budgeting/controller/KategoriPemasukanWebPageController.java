@@ -1,6 +1,7 @@
 package xyz.rpletsgo.budgeting.controller;
 
 import com.google.gson.Gson;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
+@Generated
 @RequestMapping("/{workspaceId}/kategori-pemasukan")
 public class KategoriPemasukanWebPageController {
     @Autowired

@@ -1,5 +1,6 @@
 package xyz.rpletsgo.budgeting.controller;
 
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
 
 @Controller
+@Generated
 @RequestMapping("/{workspaceId}/spending-allowance")
 public class SpendingAllowanceWebPageController {
     String success = "success";
