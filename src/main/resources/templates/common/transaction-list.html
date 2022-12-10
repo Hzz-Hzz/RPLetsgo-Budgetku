@@ -7,17 +7,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body style="padding: 10px;">
+<body style="padding: 10px;" class="gradient-custom">
 <div th:replace="common/navbar :: navbar"></div>
 <div class="main-container">
-
+    <div class="title-container">
+        <h1 class="title">Transactions</h1>
+    </div>
     <div class="shadowed-box" th:each="financialEvent: ${financialEvents}">
 
         <div class="modal fade" th:id="|editModal${financialEvent.getId()}|" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        <form action="#"  th:action="@{/__${workspaceId}__/transaction-list}" th:object="${dto}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:text="${'Edit ' + financialEvent.getNama()}">Edit Transaction</h5>
+                        <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="#"  th:action="@{/__${workspaceId}__/transaction-list}" th:object="${dto}" method="post">
+                         <div class="modal-body">
                             <input type="text" hidden name="id" th:value="${financialEvent.getId()}">
                             <input type="text" hidden name="type" th:value="${financialEvent.getClass().getSimpleName()}">
                             <label for="nama">Nama</label>
@@ -25,7 +31,7 @@
                             <label for="keterangan">Keterangan</label>
                             <input id="keterangan" name="keterangan" type="text" class="form-control" th:value="${financialEvent.getKeterangan()}">
                             <label for="waktu">Waktu</label>
-                            <input id="waktu" name="waktu" type="date" class="form-control" th:value="${financialEvent.getWaktu()}">
+                            <input id="waktu" name="waktu" type="date" class="form-control" th:value="${#strings.arraySplit(financialEvent.getWaktu(), 'T')[0]}">
                             <label for="nominal">Nominal</label>
                             <input id="nominal" name="nominal" type="number" class="form-control" th:value="${financialEvent.getNominal()}">
                             <div th:if="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
@@ -39,12 +45,12 @@
                             <div th:unless="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
                                 <input type="text" hidden name="kategoriId" value="">
                             </div>
-                            <button class="btn btn-outline-secondary" type="submit" id="button-editFinancialEvent">Submit</button>
-                        </form>
-                    </div>
+                         </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-outline-secondary" type="submit" id="button-editFinancialEvent">Submit</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
