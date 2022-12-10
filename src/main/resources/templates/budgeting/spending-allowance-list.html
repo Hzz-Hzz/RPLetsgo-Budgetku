@@ -13,7 +13,10 @@
       <h1 class="title">Budgets</h1>
     </div>
 
+
+
     <th:block th:each="spendingAllowance: ${spendingAllowances}">
+
       <div class="shadowed-box">
         <div class="inner-shadowed-box">
           <div class="name-box">
@@ -36,20 +39,23 @@
       </div>
     </th:block>
 
+
+
     <div id="flex-create-new" class="shadowed-box create-new">
       <div class="circle">
         <i class="fas fa-plus"></i>
       </div>
     </div>
+
   </div>
 
-  <div class="position-fixed fixed-create-new-container">
+<!--  <div class="position-fixed fixed-create-new-container">
     <div id="fixed-create-new" class="shadowed-box create-new hidden">
       <div class="circle">
         <i class="fas fa-plus"></i>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
   <th:block th:include="budgeting/spending-allowance-create.html :: default"></th:block>
