@@ -13,6 +13,7 @@ import xyz.rpletsgo.common.service.CommonService;
 import xyz.rpletsgo.pemasukan.model.Pemasukan;
 import xyz.rpletsgo.pemasukan.service.PemasukanService;
 import xyz.rpletsgo.pengeluaran.service.PengeluaranService;
+import xyz.rpletsgo.tagihan.service.TagihanService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +26,7 @@ public class TransactionListController {
     private final CommonService commonService;
     private final PemasukanService pemasukanService;
     private final PengeluaranService pengeluaranService;
+    private final TagihanService tagihanService;
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(method = RequestMethod.GET, path = "")
@@ -60,8 +62,24 @@ public class TransactionListController {
                 );
                 break;
             case "Pengeluaran":
+                pengeluaranService.update(
+                        workspaceId,
+                        dto.getId(),
+                        dto.getNama(),
+                        dto.getKeterangan(),
+                        waktuLocalDateTime,
+                        dto.getNominal()
+                );
                 break;
             case "Tagihan":
+                tagihanService.update(
+                        workspaceId,
+                        dto.getId(),
+                        dto.getNama(),
+                        dto.getKeterangan(),
+                        waktuLocalDateTime,
+                        dto.getNominal()
+                );
                 break;
         }
         return "redirect:/"+workspaceId+"/transaction-list";

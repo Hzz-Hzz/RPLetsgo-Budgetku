@@ -35,6 +35,9 @@
                                 </select>
 <!--                                th:value="${((Pemasukan)financialEvent).getKategori().getId()} -->
                             </div>
+                            <div th:unless="${financialEvent.getClass().getSimpleName() == 'Pemasukan'}">
+                                <input type="text" hidden name="kategoriId" value="">
+                            </div>
                             <button class="btn btn-outline-secondary" type="submit" id="button-editFinancialEvent">Submit</button>
                         </form>
                     </div>
