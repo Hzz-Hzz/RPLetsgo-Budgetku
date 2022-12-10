@@ -39,6 +39,15 @@ public class WorkspaceController {
         return "success";
     }
 
+    @GetMapping("/update")
+    public String updateWorkspaceAfter (
+            @RequestParam String nama,
+            @RequestParam String workspaceId
+    ){
+        workspaceService.updateWorkspace(workspaceId, nama);
+        return "workspace/workspace-list.html";
+    }
+
     @GetMapping("/get/{workspaceId}")
     @ResponseBody
     public IWorkspace getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){

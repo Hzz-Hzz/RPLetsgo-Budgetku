@@ -22,10 +22,16 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/{workspaceId}/transaction-list")
 @RequiredArgsConstructor
 public class TransactionListController {
-
+    @Autowired
     private final CommonService commonService;
+
+    @Autowired
     private final PemasukanService pemasukanService;
+
+    @Autowired
     private final PengeluaranService pengeluaranService;
+
+    @Autowired
     private final TagihanService tagihanService;
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
