@@ -73,7 +73,7 @@
             <div class="type-div" th:text="${financialEvent.getClass().getSimpleName()}">
                 type
             </div>
-            <div class="nominal-div" th:text="${financialEvent.getNominal()}">
+            <div class="nominal-div" th:text="${'Rp. ' + financialEvent.getNominal()}">
                 nominal
             </div>
         </div>
