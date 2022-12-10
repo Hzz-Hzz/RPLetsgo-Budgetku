@@ -43,13 +43,15 @@
         </div>
 
         <div class="inner-shadowed-box">
-            <div class="name-box">
+            <div class="name-box"
+                 th:data-financial-event-id="${financialEvent.getId()}"
+                 onclick="onToggleEditFinancialEvent(this);">
                 <b class="name" th:text="${financialEvent.getNama()}">Name</b>
-<!--                <i class="edit-icon fa-regular fa-pen-to-square"></i>-->
+
+                <i class="edit-icon fa-regular fa-pen-to-square"></i>
+                <i class="save-icon fa-regular fa-floppy-disk"></i>
             </div>
-            <div class="edit-div">
-                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="|#editModal${financialEvent.getId()}|">Edit</button>
-            </div>
+
             <div class="type-div" th:text="${financialEvent.getClass().getSimpleName()}">
                 type
             </div>

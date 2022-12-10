@@ -27,3 +27,24 @@ function onRemoveFinancialEvent(el){
         },
     });
 }
+
+function onToggleEditFinancialEvent(el) {
+    el = $(el);
+
+    el.toggleClass("editing")
+    const financialEventId = el.attr("data-financial-event-id");
+    const isEditing = el.hasClass("editing");
+    if (isEditing)
+        onEditFinancialEvent(financialEventId);
+    else
+        onSaveFinancialEvent(financialEventId);
+}
+
+
+function onEditFinancialEvent(financialEventId){
+
+}
+
+function onSaveFinancialEvent(financialEventId){
+
+}
