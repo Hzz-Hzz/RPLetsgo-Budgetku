@@ -1,5 +1,6 @@
 package xyz.rpletsgo.common.controller;
 
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import xyz.rpletsgo.common.service.CommonService;
 import java.util.Map;
 
 @Controller
+@Generated
 @RequestMapping("/{workspaceId}/overview")
 public class OverviewController {
     @Autowired

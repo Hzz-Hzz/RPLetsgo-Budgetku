@@ -1,5 +1,6 @@
 package xyz.rpletsgo.common.controller;
 
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import xyz.rpletsgo.common.model.FinancialEventDTO;
 import xyz.rpletsgo.common.service.CommonService;
-import xyz.rpletsgo.pemasukan.model.Pemasukan;
 import xyz.rpletsgo.pemasukan.service.PemasukanService;
 import xyz.rpletsgo.pengeluaran.service.PengeluaranService;
 import xyz.rpletsgo.tagihan.service.TagihanService;
@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Controller
+@Generated
 @RequestMapping("/{workspaceId}/transaction-list")
 @RequiredArgsConstructor
 public class TransactionListController {
