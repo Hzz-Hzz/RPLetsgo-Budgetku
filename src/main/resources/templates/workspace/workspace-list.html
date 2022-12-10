@@ -7,37 +7,38 @@
     <title>Workspaces</title>
 </head>
 <body style="padding: 10px; min-height: 95vh;"  class="gradient-custom">
+    <div th:replace="common/navbar :: navbar"></div>
     <div class="main-container">
         <div class="title-container">
             <h1 class="title">Daftar Workspace</h1>
         </div>
         <th:block th:each="workspace: ${workspaces}">
-                <div class="shadowed-box">
-                    <div class="inner-shadowed-box">
-                        <div class="name-box">
-                            <b class="name"
-                               th:text="${workspace.getNama()}"
-                               th:data-workspace-id="${workspace.getId()}"
-                            ></b>
-                            <i class="edit-icon fa-regular fa-pen-to-square"></i>
-                            <i class="save-icon fa-regular fa-floppy-disk"></i>
-                        </div>
-                        <div class="get-div">
-                            <a th:href="@{/__${workspace.getId()}__/overview}" class="btn btn-secondary btn-sm" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                Go to the workspace
-                            </a>
-                        </div>
+            <div class="shadowed-box">
+                <div class="inner-shadowed-box">
+                    <div class="name-box">
+                        <b class="name"
+                           th:text="${workspace.getNama()}"
+                           th:data-workspace-id="${workspace.getId()}"
+                        ></b>
+                        <i class="edit-icon fa-regular fa-pen-to-square"></i>
+                        <i class="save-icon fa-regular fa-floppy-disk"></i>
                     </div>
-                    <div class="inner-red-box">
-                        <i class="delete-icon fa-regular fa-trash-can"></i>
+                    <div class="get-div">
+                        <a th:href="@{/__${workspace.getId()}__/overview}" class="btn btn-secondary btn-sm" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Go to the workspace
+                        </a>
                     </div>
                 </div>
+                <div class="inner-red-box">
+                    <i class="delete-icon fa-regular fa-trash-can"></i>
+                </div>
+            </div>
         </th:block>
-    </div>
 
-    <div id="flex-create-new" class="shadowed-box create-new">
-        <div class="circle">
-            <i class="fas fa-plus"></i>
+        <div id="flex-create-new" class="shadowed-box create-new">
+            <div class="circle">
+                <i class="fas fa-plus"></i>
+            </div>
         </div>
     </div>
 

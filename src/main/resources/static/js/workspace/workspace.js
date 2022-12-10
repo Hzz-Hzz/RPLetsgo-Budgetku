@@ -1,3 +1,5 @@
+$(document).ready(() => initializeShadowBoxHandler());
+
 function onShadowBoxCreateNew(){
     const creationForm = $("#creation-form-template");
 
@@ -46,7 +48,7 @@ function onShadowBoxSave(shadowBox, nameField){
     const newWorkspaceName = removeUnnecessaryWhitespaces(nameField.text());
     nameField.text(newWorkspaceName);
 
-    $.post(`/${currentWorkspaceId}/workspace/update`, {
+    $.post(`/workspace/update`, {
         workspaceId: currentWorkspaceId,
         nama: newWorkspaceName,
     }).done(function () {
@@ -105,7 +107,7 @@ function onShadowBoxDelete(shadowBox, nameField){
     const nama = removeUnnecessaryWhitespaces(nameField.text());
 
     console.log("post");
-    $.post(`/${currentWorkspaceId}/workspace/delete`, {
+    $.post(`/workspace/delete`, {
         workspaceId: currentWorkspaceId,
     }).done(function () {
         addPendingToast({
