@@ -130,15 +130,15 @@ class AlokasiSpendingAllowanceFactoryTest {
                      () -> factory.create(spendingAllowances, besarAlokasi));
     }
     @Test
-    void create_itShouldThrowsIfTotalAlokasiBetweenZeroAndOne() {
+    void create_itShouldThrowsIfTotalAlokasiAroundOne() {
         var factory = new AlokasiSpendingAllowanceFactory();
         var spendingAllowances = List.of(spendingAllowance1, spendingAllowance2);
-        var besarAlokasi = List.of(0.3, 0.4);
+        var besarAlokasi = List.of(0.5, 0.49);
         
         var res = factory.create(spendingAllowances, besarAlokasi);
         
-        assertEquals(0.3, res.get(0).getBesarAlokasi());
-        assertEquals(0.4, res.get(1).getBesarAlokasi());
+        assertEquals(0.5, res.get(0).getBesarAlokasi());
+        assertEquals(0.49, res.get(1).getBesarAlokasi());
         assertEquals(spendingAllowance1, res.get(0).getSpendingAllowance());
         assertEquals(spendingAllowance2, res.get(1).getSpendingAllowance());
     }

@@ -84,18 +84,6 @@ class WorkspaceServiceTest {
     }
     
     
-    @Test
-    void createWorkspace() {
-        var workspace = workspaceService.createWorkspace(workspaceName);
-        
-        verify(alokasiSpendingAllowanceRepository, times(1)).saveAllAndFlush(List.of(alokasi));
-        verify(spendingAllowanceRepository, times(1)).saveAllAndFlush(List.of(spendingAllowance));
-        verify(kategoriPemasukanRepository, times(1)).saveAllAndFlush(List.of(kategoriPemasukan));
-        
-        verify(workspaceRepository, times(1)).save(workspace);
-        verify(pengguna, times(1)).addToCreatedWorkspaces(workspace);
-        verify(penggunaRepository, times(1)).save(pengguna);
-    }
     
     @Test
     void updateWorkspace() {
