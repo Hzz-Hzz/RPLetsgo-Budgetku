@@ -11,18 +11,26 @@ import xyz.rpletsgo.workspace.service.WorkspaceService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/workspace")
 public class WorkspaceController {
     @Autowired
     WorkspaceService workspaceService;
 
-    @PostMapping("/workspace/create")
-    @ResponseBody
-    public Workspace createWorkspace (@RequestParam String nama){
-        return workspaceService.createWorkspace(nama);
+    @PostMapping("/create")
+    public String createWorkspace (
+            @RequestParam String nama
+    ){
+        workspaceService.createWorkspace(nama);
+        return "redirect:/workspace/list";
     }
 
-    @PostMapping("/{workspaceId}/workspace/update")
+    @GetMapping("/create")
+    public String getWorkspaceListAfterCreate(){
+        return "workspace/workspace-create.html";
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
     public String updateWorkspace (
             @RequestParam String nama,
             @RequestParam String workspaceId
@@ -31,13 +39,22 @@ public class WorkspaceController {
         return "success";
     }
 
-    @GetMapping("/{workspaceId}/workspace/get")
+    @GetMapping("/update")
+    public String updateWorkspaceAfter (
+            @RequestParam String nama,
+            @RequestParam String workspaceId
+    ){
+        workspaceService.updateWorkspace(workspaceId, nama);
+        return "workspace/workspace-list.html";
+    }
+
+    @GetMapping("/get/{workspaceId}")
     @ResponseBody
     public IWorkspace getWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
         return workspaceService.getWorkspace(workspaceId);
     }
 
-    @GetMapping("/workspace/get")
+    @GetMapping("/list")
     public String getWorkspace (
             Model model
     ) {
@@ -46,7 +63,7 @@ public class WorkspaceController {
         return "workspace/workspace-list.html";
     }
 
-    @PostMapping("/{workspaceId}/workspace/delete")
+    @PostMapping("/delete")
     public String deleteWorkspace (
             @RequestParam String workspaceId
     ){

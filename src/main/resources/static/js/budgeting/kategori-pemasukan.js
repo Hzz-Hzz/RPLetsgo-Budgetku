@@ -18,6 +18,10 @@ function showFailedToast(title, message){
 
 
 
+function onShadowBoxCreateNew(){
+    window.location.href = "./create-edit";
+}
+
 function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
     const nama = removeUnnecessaryWhitespaces(nameField.text());
 

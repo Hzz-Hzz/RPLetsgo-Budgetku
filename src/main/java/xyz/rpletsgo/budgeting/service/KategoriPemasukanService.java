@@ -2,6 +2,7 @@ package xyz.rpletsgo.budgeting.service;
 
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import xyz.rpletsgo.auth.component.CurrentLoggedInPengguna;
 import xyz.rpletsgo.budgeting.core.AlokasiSpendingAllowanceFactory;
@@ -11,6 +12,7 @@ import xyz.rpletsgo.budgeting.model.KategoriPemasukan;
 import xyz.rpletsgo.budgeting.repository.AlokasiSpendingAllowanceRepository;
 import xyz.rpletsgo.budgeting.repository.KategoriPemasukanRepository;
 import xyz.rpletsgo.budgeting.repository.SpendingAllowanceRepository;
+import xyz.rpletsgo.common.exceptions.GeneralException;
 import xyz.rpletsgo.workspace.repository.WorkspaceRepository;
 
 import java.util.Arrays;
@@ -41,6 +43,9 @@ public class KategoriPemasukanService {
         Double[] besarAlokasi,
         String[] spendingAllowanceId
     ){
+        if (namaKategoriPemasukan.length() == 0)
+            throw new GeneralException("Name cannot be empty", HttpStatus.BAD_REQUEST);
+        
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         var spendingAllowance = workspace.getSpendingAllowanceOrThrow(
             List.of(spendingAllowanceId));
@@ -98,6 +103,11 @@ public class KategoriPemasukanService {
     ){
         var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
         return workspace.getKategoriPemasukan();
+    }
+    
+    public KategoriPemasukan getKategoriPemasukan(String workspaceId, String kategoriPemasukanId){
+        var workspace = loggedInPengguna.authorizeWorkspace(workspaceId);
+        return workspace.getKategoriPemasukanOrThrow(kategoriPemasukanId);
     }
     
     

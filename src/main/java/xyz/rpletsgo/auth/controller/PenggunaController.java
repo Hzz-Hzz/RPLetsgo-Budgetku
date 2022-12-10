@@ -21,7 +21,7 @@ public class PenggunaController {
 
     @GetMapping()
     public String mainPage() {
-        return "redirect:/workspace/get";
+        return "redirect:/workspace/list";
     }
 
 

@@ -56,13 +56,19 @@ function assignShadowBoxHandler(shadowBox, allowNameBoxAsSaveBtn=false){
 }
 
 
+var hasBeenRun = false;
 $(document).ready(function () {
+    if (hasBeenRun)
+        return;
+    hasBeenRun = true;
+
     const flexCreateButton = $("#flex-create-new");
     const fixedCreateButton = $("#fixed-create-new");
 
     flexCreateButton.click(function () {
         onShadowBoxCreateNew();
     });
+
     // fixedCreateButton.click(function () {
     //     onShadowBoxCreateNew();
     // });

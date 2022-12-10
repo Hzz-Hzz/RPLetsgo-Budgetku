@@ -1,0 +1,37 @@
+input, select
+{
+    background: rgba(255, 255, 255, 0.01);
+    outline: none;
+
+    border-radius: 5px;
+    border: none;
+    /*border: 1px solid white;*/
+    color: white;
+}
+
+option{
+    background-color: var(--main-dark-blue);
+    border: 0;
+    outline: none;
+}
+
+.btn-add-budget,.btn-submit{
+
+    border-radius: 5px;
+    border: none;
+    /*border: 1px solid white;*/
+    color: white;
+}
+.btn-add-budget{
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+.row-custom {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto auto;
+}
+.row-custom .besar-alokasi{
+    text-align: right;
+    padding-right: 20px;
+}
