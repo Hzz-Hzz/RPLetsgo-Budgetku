@@ -12,6 +12,7 @@ import xyz.rpletsgo.common.model.FinancialEventDTO;
 import xyz.rpletsgo.common.service.CommonService;
 import xyz.rpletsgo.pemasukan.model.Pemasukan;
 import xyz.rpletsgo.pemasukan.service.PemasukanService;
+import xyz.rpletsgo.pengeluaran.service.PengeluaranService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ public class TransactionListController {
 
     private final CommonService commonService;
     private final PemasukanService pemasukanService;
+    private final PengeluaranService pengeluaranService;
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(method = RequestMethod.GET, path = "")
@@ -31,6 +33,8 @@ public class TransactionListController {
             Model model
     ) {
         model.addAttribute("workspaceId", workspaceId);
+        model.addAttribute("kategoriPemasukans",
+                commonService.getWorkspaceKategoriPemasukan(workspaceId));
         model.addAttribute("financialEvents",
                 commonService.getWorkspaceFinancialEvents(workspaceId));
         model.addAttribute("dto", new FinancialEventDTO());
@@ -60,6 +64,6 @@ public class TransactionListController {
             case "Tagihan":
                 break;
         }
-        return "common/transaction-list";
+        return "redirect:/"+workspaceId+"/transaction-list";
     }
 }
