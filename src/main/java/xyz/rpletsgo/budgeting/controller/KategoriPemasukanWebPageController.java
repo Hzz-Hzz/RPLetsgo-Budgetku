@@ -6,19 +6,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import xyz.rpletsgo.budgeting.service.SpendingAllowanceService;
+import xyz.rpletsgo.budgeting.service.KategoriPemasukanService;
 
 @Controller
 @RequestMapping("/{workspaceId}/kategori-pemasukan")
 public class KategoriPemasukanWebPageController {
     @Autowired
-    SpendingAllowanceService spendingAllowanceService;
+    KategoriPemasukanService kategoriPemasukanService;
     
     @GetMapping("/list")
     public String getKategoriPemasukanList(@PathVariable String workspaceId, Model model){
-        var spendingAllowances = spendingAllowanceService.getSpendingAllowancesByWorkspace(workspaceId);
+        var kategoriPemasukans = kategoriPemasukanService.getKategoriPemasukanByWorkspace(workspaceId);
         model.addAttribute("workspaceId", workspaceId);
-        model.addAttribute("spendingAllowances", spendingAllowances);
+        model.addAttribute("kategoriPemasukans", kategoriPemasukans);
         return "budgeting/kategori-pemasukan-list.html";
     }
 }

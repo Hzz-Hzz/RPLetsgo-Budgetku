@@ -32,6 +32,10 @@ public class AlokasiSpendingAllowance {
     @Column(name="besarAlokasi")
     double besarAlokasi;
     
+    public int getBesarPersentaseAlokasi(){
+        return (int) Math.floor(besarAlokasi * 100);
+    }
+    
     public void setBesarAlokasi(double value){
         if (value < 0 || value > 1){
             throw new GeneralException("Besar alokasi spending allowance harus antara 0 dan 1", HttpStatus.BAD_REQUEST);

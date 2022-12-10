@@ -6,8 +6,11 @@
     <meta charset="UTF-8">
     <title>Workspaces</title>
 </head>
-<body style="padding: 10px; min-height: 95vh;">
+<body style="padding: 10px; min-height: 95vh;"  class="gradient-custom">
     <div class="main-container">
+        <div class="title-container">
+            <h1 class="title">Daftar Workspace</h1>
+        </div>
         <th:block th:each="workspace: ${workspaces}">
                 <div class="shadowed-box">
                     <div class="inner-shadowed-box">
@@ -32,8 +35,15 @@
         </th:block>
     </div>
 
-<th:block th:include="common/bootstrap-components.html :: modal"></th:block>
-<th:block th:include="common/bootstrap-components.html :: toast"></th:block>
+    <div id="flex-create-new" class="shadowed-box create-new">
+        <div class="circle">
+            <i class="fas fa-plus"></i>
+        </div>
+    </div>
+
+    <th:block th:include="workspace/workspace-create.html :: default"></th:block>
+    <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+    <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 
 </body>
 </html>

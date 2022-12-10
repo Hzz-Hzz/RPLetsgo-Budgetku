@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
   <th:block th:include="properties/html-dependencies.html :: budgeting" />
-  <script src="/js/budgeting/spending-allowance.js"></script>
+  <link href="/css/budgeting/kategori-pemasukan.css" rel="stylesheet">
+  <script src="/js/budgeting/kategori-pemasukan.js"></script>
 
   <meta charset="UTF-8">
-  <title>Budgets</title>
+  <title>Kategori Pemasukan</title>
 </head>
 <body style="min-height: 95vh;" class="gradient-custom">
   <div class="main-container">
     <div class="title-container">
-      <h1 class="title">Budgets</h1>
+      <h1 class="title">Kategori Pemasukan</h1>
     </div>
 
 
 
-    <th:block th:each="spendingAllowance: ${spendingAllowances}">
+    <th:block th:each="kategoriPemasukan: ${kategoriPemasukans}">
 
-      <div class="shadowed-box">
+      <div class="shadowed-box kategori-pemasukan">
         <div class="inner-shadowed-box">
           <div class="name-box">
             <b class="name"
-               th:text="${spendingAllowance.getNama()}"
+               th:text="${kategoriPemasukan.getNama()}"
                th:data-workspace-id="${workspaceId}"
-               th:data-allowance-id="${spendingAllowance.getId()}"
+               th:data-kategori-id="${kategoriPemasukan.getId()}"
             ></b>
-            <i class="edit-icon fa-regular fa-pen-to-square"></i>
-            <i class="save-icon fa-regular fa-floppy-disk"></i>
+
+
+            <i class="edit-icon fa-solid fa-caret-down"></i>
+            <i class="save-icon fa-solid fa-caret-up"></i>
           </div>
-          <div class="nominal-div">
-            Rp. <th:block th:text="${spendingAllowance.getNominal()}"></th:block>
-          </div>
+
+            <div class="all-alokasi" style="display:none;">
+                <th:block th:each="alokasi: ${kategoriPemasukan.getAlokasiSpendingAllowances()}">
+                    <span th:text="${alokasi.getSpendingAllowance().getNama()}" clsas="spending-allowance"></span>
+                    <span>
+                      <span th:text="${alokasi.getBesarPersentaseAlokasi()}" class="alokasi"></span>%
+                    </span>
+                </th:block>
+            </div>
         </div>
 
         <div class="inner-red-box">

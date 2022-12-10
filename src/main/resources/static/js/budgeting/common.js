@@ -1,12 +1,16 @@
-$(document).ready(() => {
+/**
+ * @param allowNameBoxAsSaveBtn bila false, maka user harus click tombol save (ataupun tekan enter) untuk save.
+ *                              Bila true, maka user boleh click teks yang sedang diedit untuk men-save.
+ */
+function initializeShadowBoxHandler(allowNameBoxAsSaveBtn = false){
     const shadowBoxes = $(".shadowed-box");
     for (let shadowBox of shadowBoxes) {
         shadowBox = $(shadowBox);
-        assignShadowBoxHandler(shadowBox);
+        assignShadowBoxHandler(shadowBox, allowNameBoxAsSaveBtn);
     }
-});
+}
 
-function assignShadowBoxHandler(shadowBox){
+function assignShadowBoxHandler(shadowBox, allowNameBoxAsSaveBtn=false){
     const nameBox = shadowBox.find(".name-box");
     const nameField = nameBox.find(".name");
     const saveBtn = shadowBox.find(".save-icon");
@@ -18,6 +22,8 @@ function assignShadowBoxHandler(shadowBox){
             onShadowBoxEdit(shadowBox, nameField);
 
             nameBox.unbind("click");
+            if (allowNameBoxAsSaveBtn)
+                nameBox.click((e) => onSaveBtnClick(e, nameBox));
         }
     }
     function onSaveBtnClick(_e, nameBox=null) {
@@ -29,8 +35,9 @@ function assignShadowBoxHandler(shadowBox){
             onShadowBoxSave(shadowBox, nameField);
 
             setTimeout(() => {
+                nameBox.unbind("click");
                 nameBox.click((e) => onNameBoxClick(e, nameBox));
-            }, 100);
+            }, 50);
         }
     }
 
@@ -44,7 +51,8 @@ function assignShadowBoxHandler(shadowBox){
         }
     });
     deleteBtn.click((e) => onShadowBoxDeleteWithConfirmation(shadowBox, nameField));
-    saveBtn.click((e) => onSaveBtnClick(e, nameBox));
+    if (!allowNameBoxAsSaveBtn)
+        saveBtn.click((e) => onSaveBtnClick(e, nameBox));
 }
 
 

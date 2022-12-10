@@ -1,50 +1,35 @@
-$(document).ready(() => {
-    const shadowBoxes = $(".shadowed-box");
-    for (let shadowBox of shadowBoxes) {
-        shadowBox = $(shadowBox);
-        assignShadowBoxHandler(shadowBox);
-    }
-});
+function onShadowBoxCreateNew(){
+    const creationForm = $("#creation-form-template");
 
-function assignShadowBoxHandler(shadowBox){
-    const nameBox = shadowBox.find(".name-box");
-    const nameField = nameBox.find(".name");
-    const saveBtn = shadowBox.find(".save-icon");
-    const deleteBtn = shadowBox.find(".delete-icon");
+    const innerHtml = creationForm.html();
 
-    function onNameBoxClick(_e, nameBox) {
-        if (!nameBox.hasClass("editing")){
-            nameBox.addClass("editing");
-            onShadowBoxEdit(shadowBox, nameField);
-
-            nameBox.unbind("click");
-        }
-    }
-    function onSaveBtnClick(_e, nameBox=null) {
-        if (nameBox == null)
-            nameBox = $(this);
-
-        if (nameBox.hasClass("editing")){
-            nameBox.removeClass("editing");
-            onShadowBoxSave(shadowBox, nameField);
-
-            setTimeout(() => {
-                nameBox.click((e) => onNameBoxClick(e, nameBox));
-            }, 100);
-        }
-    }
-
-    nameBox.click((e) => {
-        onNameBoxClick(e, nameBox)
+    var hideModalFunc;
+    hideModalFunc = showModal({
+        title: "Create New Workspace",
+        verticallyCentered: false,
+        body: (el) => {
+            el.html(innerHtml);
+        },
+        modalConfigurer: (modal) => {
+            modal.find(".modal-dialog").addClass("modal-xl");
+        },
+        okBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-primary");
+            btn.text("Submit");
+        },
+        cancelBtnConfigurer: (btn) => {
+            removeAllBootstrapColoringClass(btn);
+            btn.addClass("btn-secondary");
+            btn.text("Cancel");
+        },
+        onOk: ()=>{
+            $("#creation-form").submit();
+        },
+        onCancel: ()=>{
+            hideModalFunc();
+        },
     });
-    nameBox.keydown(function (e){
-        if (e.which === 13) {  // enter key
-            onSaveBtnClick(null, nameBox);
-            e.preventDefault();
-        }
-    });
-    deleteBtn.click((e) => onShadowBoxDeleteWithConfirmation(shadowBox, nameField));
-    saveBtn.click((e) => onSaveBtnClick(e, nameBox));
 }
 
 
@@ -57,27 +42,26 @@ function onShadowBoxEdit(shadowBox, nameField){
 function onShadowBoxSave(shadowBox, nameField){
     nameField.attr("contenteditable", 'false');
 
-    const workspaceId = nameField.attr("data-workspace-id");
+    const currentWorkspaceId = nameField.attr("data-workspace-id");
     const newWorkspaceName = removeUnnecessaryWhitespaces(nameField.text());
     nameField.text(newWorkspaceName);
 
-    $.post(`/workspace/update`, {
+    $.post(`/${currentWorkspaceId}/workspace/update`, {
+        workspaceId: currentWorkspaceId,
         nama: newWorkspaceName,
-        workspaceId: workspaceId,
     }).done(function () {
         showToast({
-            titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-info")},
+            titleConfigurer: (el) => {el.text("Renamed Successfully"); el.addClass("text-primary")},
             body: "Perubahan berhasil disimpan"
         });
-    }).fail(function (error, cause) {
-        if (error.responseJSON == null  && error.status===0){
-            showFailedToast("Rename Failed", "You're offline");
-            return;
-        }
-
-        const {message} = error.responseJSON;
-        showFailedToast("Rename Failed", message);
-    });
+    }).fail(
+        alsoHandleGeneralError(function (error) {
+            const {message} = error.responseJSON;
+            showFailedToast("Rename Failed", message);
+        }, (msg) => {
+            showFailedToast("Rename Failed", msg);
+        })
+    );
 }
 
 function showFailedToast(title, message){
@@ -117,26 +101,31 @@ function onShadowBoxDeleteWithConfirmation(shadowBox, nameField){
 }
 
 function onShadowBoxDelete(shadowBox, nameField){
-    const workspaceId = nameField.attr("data-workspace-id");
+    const currentWorkspaceId = nameField.attr("data-workspace-id");
     const nama = removeUnnecessaryWhitespaces(nameField.text());
 
     console.log("post");
-    $.post(`/workspace/delete`, {
-        workspaceId: workspaceId,
+    $.post(`/${currentWorkspaceId}/workspace/delete`, {
+        workspaceId: currentWorkspaceId,
     }).done(function () {
         addPendingToast({
-            titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-info")},
+            titleConfigurer: (el) => {el.text("Budget Deleted"); el.addClass("text-primary")},
             body: `Workspace "${nama}" berhasil dihapus`
         });
         location.reload();
-    }).fail(function (error){
-        console.log(error.responseJSON);
-        const {message} = error.responseJSON;
-        showToast({
-            titleConfigurer: (el) => {el.text("Deletion Failed"); el.addClass("text-danger")},
-            body: message
-        });
-    });
+    }).fail(
+        alsoHandleGeneralError(function (error){
+            console.log(error.responseJSON);
+            const {message} = error.responseJSON;
+            showToast({
+                titleConfigurer: (el) => {el.text("Delete Failed"); el.addClass("text-danger")},
+                body: message
+            });
+        }, (msg) => {
+            showFailedToast("Delete Failed", msg);
+        })
+    );
 }
+
 
 
