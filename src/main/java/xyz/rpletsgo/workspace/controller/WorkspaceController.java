@@ -22,13 +22,14 @@ public class WorkspaceController {
         return workspaceService.createWorkspace(nama);
     }
 
-    @PostMapping("/{workspaceId}/workspace/update")
+    @PostMapping("/workspace/update")
+    @ResponseBody
     public String updateWorkspace (
-            @PathVariable(name = "workspaceId") String workspaceId,
-            Workspace newWorkspace
+            @RequestParam String nama,
+            @RequestParam String workspaceId
     ){
-        workspaceService.updateWorkspace(workspaceId, newWorkspace.getNama());
-        return "workspace/workspace-list.html";
+        workspaceService.updateWorkspace(workspaceId, nama);
+        return "success";
     }
 
     @GetMapping("/{workspaceId}/workspace/get")
@@ -47,9 +48,11 @@ public class WorkspaceController {
         return "workspace/workspace-list.html";
     }
 
-    @PostMapping("/{workspaceId}/workspace/delete")
+    @PostMapping("/workspace/delete")
     @ResponseBody
-    public String deleteWorkspace (@PathVariable(name = "workspaceId") String workspaceId){
+    public String deleteWorkspace (
+            @RequestParam String workspaceId
+    ){
         workspaceService.deleteWorkspace(workspaceId);
         return "Workspace deleted";
     }
