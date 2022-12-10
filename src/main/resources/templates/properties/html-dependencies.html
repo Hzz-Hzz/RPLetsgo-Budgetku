@@ -30,3 +30,15 @@ Untuk menyimpan semua dependency pada front-end (misalnya bootstrap, tailwind, j
     <script src="/js/budgeting/common.js"></script>
     <link th:href="@{/css/budgeting/theme.css}" rel="stylesheet" />
 </th:block>
+
+<th:block th:fragment="workspace">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <link th:href="@{/css/workspace/cards.css}" rel="stylesheet" />
+</th:block>
+
+<th:block th:fragment="overview">
+    <th:block th:include="properties/html-dependencies.html :: default" />
+
+    <!--<link th:href="@{/css/overview/theme.css}" rel="stylesheet" />-->
+</th:block>

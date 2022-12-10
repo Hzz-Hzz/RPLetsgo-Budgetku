@@ -32,11 +32,11 @@ class WorkspaceControllerTest {
         verify(workspaceService, times(1)).createWorkspace(workspaceName);
     }
     
-    @Test
-    void updateWorkspace() {
-        workspaceController.updateWorkspace(workspaceId, workspaceName);
-        verify(workspaceService, times(1)).updateWorkspace(workspaceId, workspaceName);
-    }
+//    @Test
+//    void updateWorkspace() {
+//        workspaceController.updateWorkspace(workspaceId, workspaceName);
+//        verify(workspaceService, times(1)).updateWorkspace(workspaceId, workspaceName);
+//    }
     
     @Test
     void getWorkspaceSingle() {
