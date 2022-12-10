@@ -3,7 +3,6 @@
 <head>
   <th:block th:include="properties/html-dependencies.html :: budgeting" />
   <script src="/js/budgeting/spending-allowance.js"></script>
-
   <meta charset="UTF-8">
   <title>Budgets</title>
 </head>
@@ -12,11 +11,7 @@
     <div class="title-container">
       <h1 class="title">Budgets</h1>
     </div>
-
-
-
     <th:block th:each="spendingAllowance: ${spendingAllowances}">
-
       <div class="shadowed-box">
         <div class="inner-shadowed-box">
           <div class="name-box">
