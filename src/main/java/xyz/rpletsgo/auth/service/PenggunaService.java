@@ -52,8 +52,4 @@ public class PenggunaService {
     public boolean isLoggedIn(){
         return loggedInPengguna.isLoggedIn();
     }
-    
-    
-    @Autowired
-    WorkspaceRepository workspaceRepository;
 }
