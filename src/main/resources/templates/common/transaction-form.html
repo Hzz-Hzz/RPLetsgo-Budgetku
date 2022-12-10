@@ -1,0 +1,193 @@
+<!-- Pills navs -->
+<th:block th:fragment="modal-form">
+    <template id="modal-template">
+        <th:block th:include="common/transaction-form.html :: input-form" />
+    </template>
+</th:block>
+
+<th:block th:fragment="input-form">
+    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-pemasukan" data-bs-toggle="pill" data-bs-target="#pills-pemasukan" role="tab"
+               aria-controls="pills-pemasukan" aria-selected="true">Pemasukan</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab-pengeluaran" data-bs-toggle="pill" data-bs-target="#pills-pengeluaran" role="tab"
+               aria-controls="pills-pengeluaran" aria-selected="false">Pengeluaran</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab-tagihan" data-bs-toggle="pill"  data-bs-target="#pills-tagihan" role="tab"
+               aria-controls="pills-tagihan" aria-selected="false">Tagihan</a>
+        </li>
+    </ul>
+    <section class="vh-100 gradient-custom">
+
+    <!-- Pills navs -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="pills-pemasukan" role="tabpanel" aria-labelledby="tab-pemasukan">
+            <th:block th:include="common/transaction-form.html :: pemasukan-form" />
+        </div>
+        <div class="tab-pane fade" id="pills-pengeluaran" role="tabpanel" aria-labelledby="tab-pengeluaran">
+            <th:block th:include="common/transaction-form.html :: pengeluaran-form" />
+        </div>
+        <div class="tab-pane fade" id="pills-tagihan" role="tabpanel" aria-labelledby="tab-tagihan">
+            <th:block th:include="common/transaction-form.html :: tagihan-form" />
+        </div>
+    </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="pemasukan-form">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-dark" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-2 text-uppercase text-white">Pemasukan</h2>
+                            <p class="text-white-50 mb-5">Menambahkan pemasukan</p>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="namaPemasukan" placeholder="nama">
+                                <label for="namaPemasukan">Nama</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <textarea class="form-control" id="keteranganPemasukan" placeholder="keterangan" rows="10"></textarea>
+                                <label for="keteranganPemasukan">Keterangan</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input id="waktuPemasukan" type="date" class="form-control" placeholder="01-01-2002">
+                                <label for="waktuPemasukan">Waktu</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control" id="nominalPemasukan" placeholder="0">
+                                <label for="nominalPemasukan">Nominal</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <select id="kategoriPemasukan" name="kategoriId" class="form-select">
+                                    <option value="" selected hidden>Pilih kategori pemasukan...</option>
+                                </select>
+                                <label for="kategoriPemasukan">Kategori Pemasukan</label>
+                            </div>
+
+
+                            <div style="display: none;"  class="alert alert-success" role="alert" id="pemasukanAlert">
+                                A simple primary alert—check it out!
+                            </div>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit" id="pemasukanSubmit" onclick="submitMasukan()">Tambah</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="pengeluaran-form">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-dark" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-2 text-uppercase text-white">Pengeluaran</h2>
+                            <p class="text-white-50 mb-5">Menambahkan pengeluaran</p>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="namaPengeluaran" placeholder="nama">
+                                <label for="namaPengeluaran">Nama</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <textarea class="form-control" id="keteranganPengeluaran" placeholder="keterangan" rows="10"></textarea>
+                                <label for="keteranganPengeluaran">Keterangan</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input id="waktuPengeluaran" type="date" class="form-control" placeholder="01-01-2002">
+                                <label for="waktuPengeluaran">Waktu</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control" id="nominalPengeluaran" placeholder="0">
+                                <label for="nominalPengeluaran">Nominal</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <select id="spendingPengeluaran" class="form-select">
+                                    <option value="" selected hidden>Pilih sumber dana...</option>
+                                </select>
+                                <label for="spendingPengeluaran">Sumber dana</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <select id="tagihanPengeluaran" class="form-select">
+                                    <option value="" selected>Tidak membayar</option>
+                                </select>
+                                <label for="tagihanPengeluaran">Bayar tagihan</label>
+                            </div>
+
+
+                            <div style="display: none;"  class="alert alert-success" role="alert" id="pengeluaranAlert">
+                                A simple primary alert—check it out!
+                            </div>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit" id="pengeluaranSubmit" onclick="submitPengeluaran()">Tambah</button>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="tagihan-form">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-dark" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mb-md-5 mt-md-4 pb-5">
+
+                            <h2 class="fw-bold mb-2 text-uppercase text-white">Tagihan</h2>
+                            <p class="text-white-50 mb-5">Menambahkan tagihan</p>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="namaTagihan" placeholder="nama">
+                                <label for="namaTagihan">Nama</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <textarea class="form-control" id="keteranganTagihan" placeholder="keterangan" rows="10"></textarea>
+                                <label for="keteranganTagihan">Keterangan</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input id="waktuTagihan" type="date" class="form-control" placeholder="01-01-2002">
+                                <label for="waktuTagihan">Waktu</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control" id="nominalTagihan" placeholder="0">
+                                <label for="nominalTagihan">Nominal</label>
+                            </div>
+
+
+                            <div style="display: none;"  class="alert alert-success" role="alert" id="tagihanAlert">
+                                A simple primary alert—check it out!
+                            </div>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit" id="tagihanSubmit" onclick="submitTagihan()">Tambah</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
