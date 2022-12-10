@@ -22,9 +22,9 @@ public class OverviewController {
             Model model
     ){
         Map<String, String> totalFinancialSummary = commonService.getTotalFinancial(workspaceId);
-        model.addAttribute("totalPemasukan", totalFinancialSummary.get("pemasukan"));
-        model.addAttribute("totalPengeluaran", totalFinancialSummary.get("pengeluaran"));
-        model.addAttribute("totalTagihan", totalFinancialSummary.get("tagihan"));
+        model.addAttribute("pemasukan", totalFinancialSummary.get("pemasukan"));
+        model.addAttribute("pengeluaran", totalFinancialSummary.get("pengeluaran"));
+        model.addAttribute("tagihan", totalFinancialSummary.get("tagihan"));
         model.addAttribute("saldo", totalFinancialSummary.get("saldo"));
         model.addAttribute("workspaceId", workspaceId);
         return "common/overview";

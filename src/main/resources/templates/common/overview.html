@@ -17,26 +17,27 @@
         <h1>Bulan Ini</h1>
         <b>Total Pemasukan: </b>
         <b class="pemasukan" th:text="${pemasukan}">Pemasukan</b>
+        <br>
         <b>Total Pengeluaran: </b>
         <b class="pengeluaran" th:text="${pengeluaran}">Pengeluaran</b>
+        <br>
         <b>Total Tagihan: </b>
         <b class="tagihan" th:text="${tagihan}">Tagihan</b>
     </div>
+
     <div class="d-flex justify-content-center">
-        <form id = "button-lihatTransaksi" th:action = "@{/__${workspaceId}__/transaction-list}"  method="post">
-                <input type="button" value="Lihat Transaksi" class="btn" />
-        </form>
-        <form id = "button-daftarKategoriPemasukan" th:action = "@{/__${workspaceId}__/kategori-pemasukan}"  method="post">
-            <input type="button" value="Daftar Kategori Pemasukan" class="btn" />
-        </form>
-        <form id = "button-daftarSpendingAllowances" th:action = "@{/__${workspaceId}__/spending-allowance}"  method="post">
-            <input type="button" value="Daftar Spending Allowances" class="btn" />
-        </form>
+        <a th:href="@{/__${workspaceId}__/transaction-list}">
+            <button type="button">Lihat Transaksi</button>
+        </a>
+        <br>
+        <a th:href="@{/__${workspaceId}__/kategori-pemasukan}">
+            <button type="button">Daftar Kategori Pemasukan</button>
+        </a>
+        <br>
+        <a th:href="@{/__${workspaceId}__/spending-allowance/list}">
+            <button type="button">Daftar Spending Allowance</button>
+        </a>
     </div>
-
-
-
-
 </div>
 </body>
 </html>
