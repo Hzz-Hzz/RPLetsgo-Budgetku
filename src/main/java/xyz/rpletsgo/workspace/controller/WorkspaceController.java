@@ -21,15 +21,15 @@ public class WorkspaceController {
             @RequestParam String nama
     ){
         workspaceService.createWorkspace(nama);
-        return "redirect:/list";
+        return "redirect:/workspace/list";
     }
 
-    @GetMapping("workspace/create")
+    @GetMapping("/create")
     public String getWorkspaceListAfterCreate(){
         return "workspace/workspace-create.html";
     }
 
-    @PostMapping("/update/{workspaceId}")
+    @PostMapping("/update")
     public String updateWorkspace (
             @RequestParam String nama,
             @RequestParam String workspaceId
@@ -53,7 +53,7 @@ public class WorkspaceController {
         return "workspace/workspace-list.html";
     }
 
-    @PostMapping("/delete/{workspaceId}")
+    @PostMapping("/delete")
     public String deleteWorkspace (
             @RequestParam String workspaceId
     ){
