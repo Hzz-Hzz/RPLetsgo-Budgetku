@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 public class Pemasukan extends FinancialEvent {
     @Getter
     @Setter
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @ManyToOne(cascade={CascadeType.REMOVE})
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne()
     KategoriPemasukan kategori;
 
     public Pemasukan() {
