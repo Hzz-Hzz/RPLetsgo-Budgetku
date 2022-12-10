@@ -20,6 +20,35 @@ function removeUnnecessaryWhitespaces(string){
 
 
 
+// untuk dipakai ketika $.post().fail(() => {})
+// return true apabila terhandle. return false jika tidak terhandle
+function alsoHandleGeneralError(title, additionalErrorHandler){
+    function errorHandler(err, ...args) {
+        if (error.responseJSON != null) {
+            additionalErrorHandler(err, ...args);
+        }
+
+        if (error.status === 0){
+            showFailedToast(title, "You're offline");
+        }else {
+            showFailedToast(title, "Failed ");
+            throw new Error("Unhandled error");
+        }
+    }
+    return errorHandler;
+}
+
+
+function isWholeElementInScreen(elm, additionalMarginThreshold=0, evalType="visible" ) {
+    var vpH = $(window).height(), // Viewport Height
+        st = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top,
+        elementHeight = $(elm).height();
+
+    if (evalType === "visible")
+        return ((y + elementHeight + additionalMarginThreshold < (vpH + st)) && (y-additionalMarginThreshold > (st)));
+    if (evalType === "above") return ((y+elementHeight + additionalMarginThreshold < (vpH + st)));
+}
 
 
 function showModal({

@@ -65,4 +65,10 @@ public class SpendingAllowanceController {
         model.addAttribute("spendingAllowances", spendingAllowances);
         return "budgeting/spending-allowance-list.html";
     }
+    
+    @GetMapping("/create")
+    public String getSpendingAllowancesList(@PathVariable String workspaceId){
+        spendingAllowanceService.authorizeWorkspace(workspaceId);
+        return "budgeting/spending-allowance-create.html";
+    }
 }

@@ -54,4 +54,8 @@ public class SpendingAllowanceService {
         workspace.removeSpendingAllowance(spendingAllowanceId);
         workspaceRepository.save(workspace);
     }
+    
+    public void authorizeWorkspace(String workspaceId){
+        loggedInPengguna.authorizeWorkspace(workspaceId);
+    }
 }
