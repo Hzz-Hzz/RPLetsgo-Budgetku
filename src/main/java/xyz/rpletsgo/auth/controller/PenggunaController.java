@@ -17,7 +17,12 @@ import xyz.rpletsgo.auth.service.PenggunaService;
 public class PenggunaController {
     @Autowired
     PenggunaService penggunaService;
-    
+
+    @GetMapping()
+    public String mainPage() {
+        return "redirect:/workspace/get";
+    }
+
     
     @GetMapping("/login")
     public String getLogin() {
