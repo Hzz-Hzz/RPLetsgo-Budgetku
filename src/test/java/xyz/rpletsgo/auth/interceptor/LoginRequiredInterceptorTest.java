@@ -104,7 +104,7 @@ class LoginRequiredInterceptorTest {
         );
         
         var whiteListUrls = List.of("/login-not-required");
-        loginRequiredInterceptor.setUrlExceptions(whiteListUrls);
+        loginRequiredInterceptor.setAbsoluteUrlExceptions(whiteListUrls);
         
         try {
             return loginRequiredInterceptor.preHandle(servletRequest, null, null);
@@ -122,7 +122,7 @@ class LoginRequiredInterceptorTest {
             "/a",
             "/b/c"
         );
-        loginRequiredInterceptor.setUrlExceptions(loginRequiredUrls);
+        loginRequiredInterceptor.setAbsoluteUrlExceptions(loginRequiredUrls);
         
         assertFalse(loginRequiredInterceptor.isAuthRequired("/a"));
         assertFalse(loginRequiredInterceptor.isAuthRequired("/b/c"));

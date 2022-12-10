@@ -25,7 +25,11 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     
     @Getter
     @Setter
-    List<String> urlExceptions = new ArrayList<>();
+    List<String> absoluteUrlExceptions = new ArrayList<>();
+    
+    @Getter
+    @Setter
+    List<String> urlPrefixExceptions = new ArrayList<>();
     
     @Autowired
     CurrentLoggedInPengguna loggedInPengguna;
@@ -33,10 +37,15 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     @Generated
     @PostConstruct
     void defineAuthRequiredUrls(){
-        urlExceptions.add("/");
-        urlExceptions.add("/login");
-        urlExceptions.add("/register");
-        urlExceptions.add("");
+        absoluteUrlExceptions.add("/");
+        absoluteUrlExceptions.add("/login");
+        absoluteUrlExceptions.add("/register");
+        
+        // statics
+        urlPrefixExceptions.add("/common");
+        urlPrefixExceptions.add("/css");
+        urlPrefixExceptions.add("/fonts");
+        urlPrefixExceptions.add("/js");
     }
     
     @Override
@@ -59,8 +68,12 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
     }
     
     public boolean isAuthRequired(String uri){
-        for (String authRequiredUrl: urlExceptions) {
+        for (String authRequiredUrl: absoluteUrlExceptions) {
             if (uri.equals(authRequiredUrl))
+                return false;
+        }
+        for (String authRequiredUrl: urlPrefixExceptions) {
+            if (uri.startsWith(authRequiredUrl))
                 return false;
         }
         return true;
