@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <th:block th:include="properties/html-dependencies.html :: financialEvent" />
-<!--    <script src="/js/common/transaction-list.js"></script>-->
+    <script src="/js/common/transaction-list.js"></script>
 
     <meta charset="UTF-8">
     <title>Title</title>
@@ -58,11 +58,16 @@
             </div>
         </div>
         <div class="inner-red-box">
-            <i class="fa-regular fa-trash-can"></i>
+            <i class="fa-regular fa-trash-can"
+               th:data-financial-event-id="${financialEvent.getId()}"
+               th:data-financial-event-name="${financialEvent.getNama()}"
+               onclick="onRemoveFinancialEvent(this);"></i>
         </div>
     </div>
 
 
+    <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+    <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 </div>
 </body>
 </html>
