@@ -3,20 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <th:block th:include="properties/html-dependencies.html :: default" />
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+
+    <style>
+        .gradient-custom {
+            /* fallback for old browsers */
+            background: #6a11cb;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+        }
+    </style>
 </head>
 <body>
-    <form method="post" action="/register">
-        Username: <br>
-        <input type="text" name="username"> <br>
 
-        Email: <br>
-        <input type="email" name="email"> <br>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-dark" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
 
-        Password: <br>
-        <input type="password" name="password"> <br>
+                        <div class="mb-md-5 mt-md-4 pb-5">
 
-        <input type="submit">
-    </form>
+                            <h2 class="fw-bold mb-2 text-uppercase text-white">Register</h2>
+                            <p class="text-white-50 mb-5">Make your own account</p>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="username_input" placeholder="username">
+                                <label for="username_input">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email_input" placeholder="name@example.com">
+                                <label for="email_input">Email address</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="password_input" placeholder="Password">
+                                <label for="password_input">Password</label>
+                            </div>
+
+                            <div style="display: none;"  class="alert alert-success" role="alert" id="show_result">
+                                A simple primary alert—check it out!
+                            </div>
+                            <button class="btn btn-outline-light btn-lg px-5" type="submit" id="submit_button" onclick="submitForm()">Register</button>
+
+                        </div>
+
+                        <div>
+                            <p class="text-white-50 mb-0">Already have an account? <a href="../login" class="text-white-50 fw-bold">Sign In</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function submitForm() {
+
+        $("#submit_button").prop('disabled', true);
+
+        var usernameData = $('#username_input').val()
+        var emailData = $('#email_input').val()
+        var passwordData = $('#password_input').val()
+        var dataPost = {username: `${usernameData}`, email: `${emailData}`, password: `${passwordData}`};
+
+        $.post("/register", dataPost).done(async function (response) {
+            // console.log("success", response);
+            // // $('#password_input').prop('hidden', false)
+            // console.log($("#show_result"))
+            // console.log($("#show_result").classList);
+
+            try{
+                $("#show_result").removeClass("alert-danger").addClass('alert-success')
+            } catch (err) {
+            }
+            $('#show_result').text('Register success');
+            $('#show_result').show()
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            window.location.href = '../login';
+
+        }).fail(function (response) {
+            console.log("fail", response["responseJSON"]['message']);
+            console.log("fail", response);
+            //
+            // console.log($("#show_result"))
+            // console.log($("#show_result").classList);
+            try{
+                $("#show_result").removeClass("alert-success").addClass('alert-danger')
+            } catch (err) {
+            }
+
+            $('#show_result').text(response["responseJSON"]['message']);
+
+            $('#show_result').show()
+            $("#submit_button").prop('disabled', false);
+        })
+
+    }
+</script>
 
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Register</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <form method="post" action="/register">-->
+<!--        Username: <br>-->
+<!--        <input type="text" name="username"> <br>-->
+
+<!--        Email: <br>-->
+<!--        <input type="email" name="email"> <br>-->
+
+<!--        Password: <br>-->
+<!--        <input type="password" name="password"> <br>-->
+
+<!--        <input type="submit">-->
+<!--    </form>-->
+
+<!--</body>-->
+<!--</html>-->
