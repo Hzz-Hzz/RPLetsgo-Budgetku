@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <th:block th:include="properties/html-dependencies.html :: default" />
-    <!--    <script src="/js/common/transaction-list.js"></script>-->
 
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,21 +9,21 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
-    <a class="navbar-brand" href="#">BudgetKu</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <script src="/js/common/navbar-logout.js"></script>
+    <a class="navbar-brand">BudgetKu</a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-        </ul>
-    </div>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/workspace/get">My workspaces<span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ms-auto">
+        <button type="button" class="btn btn-outline-primary" onclick="onLogOut();">log out</button>
+    </ul>
+
+    <th:block th:include="common/bootstrap-components.html :: modal"></th:block>
+    <th:block th:include="common/bootstrap-components.html :: toast"></th:block>
 </nav>
 </body>
 </html>
