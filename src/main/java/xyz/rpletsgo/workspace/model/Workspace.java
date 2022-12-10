@@ -139,7 +139,7 @@ public class Workspace implements IWorkspace {
     @Override
     public void removeKategoriPemasukan(String kategoriPemasukanId) {
         if (kategoriPemasukan.size() <= 1)
-            throw new KategoriPemasukanException("Workspace must have at least one spending allowance");
+            throw new KategoriPemasukanException("Workspace must have at least one kategori pemasukan");
         
         for (var kategori: kategoriPemasukan) {
             var areIdEqual = Objects.equals(kategori.getId(), kategoriPemasukanId);
